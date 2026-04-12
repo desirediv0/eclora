@@ -55,12 +55,11 @@ const contactDetails = [
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading]     = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate a brief delay for a premium feel
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
@@ -70,83 +69,90 @@ export default function ContactPage() {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: STYLES }} />
+      <style dangerouslySetInnerHTML={{ __html: `
+        ${STYLES}
+        /* Extra responsive helpers */
+        .cf  { font-family: var(--cf); }
+        .jost{ font-family: var(--jost); }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .contact-info-row:last-child { border-bottom: none !important; }
+        /* Make ef-row-2 single col on mobile */
+        @media(max-width:599px){
+          .ef-row-2 { grid-template-columns: 1fr !important; }
+          .ef-input,.ef-select,.ef-textarea { font-size: 16px !important; } /* prevent iOS zoom */
+        }
+        /* email link wraps on small screens */
+        .email-link { word-break: break-all; }
+      `}} />
 
-      <div style={{ fontFamily: "var(--jost)" }} className="pt-16 md:pt-20">
+      <div className="jost pt-16 md:pt-20" style={{ fontFamily: "var(--jost)" }}>
 
-        {/* ── HERO ─────────────────────────────────────────────── */}
-        <section style={{ background: "var(--olive-dark)", position: "relative", overflow: "hidden" }} className="py-24 px-6">
+        {/* ══ HERO ═════════════════════════════════════════════ */}
+        <section className="relative overflow-hidden py-16 sm:py-24 px-5 sm:px-8" style={{ background: "var(--olive-dark)" }}>
           <Grain />
-          <div style={{
-            position: "absolute", right: "-1vw", bottom: "-8%",
-            fontFamily: "var(--cf)", fontSize: "clamp(100px,14vw,220px)",
-            color: "#fff", opacity: 0.025, lineHeight: 1, fontWeight: 300,
-            pointerEvents: "none", userSelect: "none", fontStyle: "italic",
-          }}>Connect</div>
+          {/* Watermark — desktop only */}
+          <div className="cf hidden sm:block absolute right-[-1vw] bottom-[-8%] select-none pointer-events-none z-0"
+            style={{ fontSize: "clamp(100px,14vw,220px)", color: "#fff", opacity: 0.025, lineHeight: 1, fontWeight: 300, fontStyle: "italic" }}
+          >Connect</div>
 
-          <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
-            <div style={{ marginBottom: "2.5rem" }}>
-              <span style={{ fontFamily: "var(--jost)", fontSize: "0.68rem", letterSpacing: "0.18em", color: "rgba(255,255,255,0.35)", textTransform: "uppercase" }}>
-                <Link href="/" style={{ color: "rgba(255,255,255,0.35)", textDecoration: "none" }}
-                  onMouseEnter={e => e.currentTarget.style.color = "var(--gold)"}
-                  onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.35)"}
-                >Home</Link>
-                <span style={{ color: "rgba(255,255,255,0.2)", margin: "0 0.5rem" }}>/</span>
-                <span style={{ color: "var(--gold)" }}>Contact</span>
-              </span>
+          <div className="max-w-6xl mx-auto relative z-10">
+            {/* Breadcrumb */}
+            <div className="jost uppercase tracking-[0.18em] text-[0.62rem] mb-7 sm:mb-10" style={{ color: "rgba(255,255,255,0.35)" }}>
+              <Link href="/" className="hover:text-[var(--gold)] transition-colors" style={{ color: "rgba(255,255,255,0.35)" }}>Home</Link>
+              <span className="mx-2" style={{ color: "rgba(255,255,255,0.2)" }}>/</span>
+              <span style={{ color: "var(--gold)" }}>Contact</span>
             </div>
 
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}>
-              <div style={{ width: "40px", height: "1px", background: "var(--gold)", marginBottom: "2rem" }} />
-              <h1 style={{ fontFamily: "var(--cf)", fontWeight: 300, fontSize: "clamp(2.8rem,7vw,5rem)", color: "#fff", lineHeight: 1.05 }}>
+              <div className="w-10 h-px mb-6 sm:mb-8" style={{ background: "var(--gold)" }} />
+              <h1 className="cf text-white" style={{ fontSize: "clamp(2.6rem,9vw,5rem)", fontWeight: 300, lineHeight: 1.05 }}>
                 Get In<br />
                 <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Touch</em>
               </h1>
-              <p style={{ color: "rgba(255,255,255,0.4)", marginTop: "1.5rem", fontSize: "0.92rem", lineHeight: 1.85, maxWidth: "400px" }}>
+              <p className="jost mt-4 sm:mt-5" style={{ color: "rgba(255,255,255,0.4)", fontSize: "clamp(0.82rem,2vw,0.92rem)", lineHeight: 1.85, maxWidth: "400px" }}>
                 We'd love to hear from you. Book a consultation, ask a question, or simply say hello.
               </p>
             </motion.div>
           </div>
         </section>
 
-        {/* ── MAIN SPLIT ───────────────────────────────────────── */}
-        <section style={{ background: "var(--parchment)" }} className="px-6 py-20">
-          <div style={{ maxWidth: "1280px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: "5rem", alignItems: "start" }}
-            className="grid-cols-1 lg:grid-cols-[1fr_1.6fr]"
-          >
+        {/* ══ MAIN CONTENT ═════════════════════════════════════ */}
+        <section className="px-5 sm:px-8 py-10 sm:py-16 lg:py-20" style={{ background: "var(--parchment)" }}>
+          {/* Stack on mobile, side-by-side on lg+ */}
+          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-8 sm:gap-12 lg:gap-16 items-start">
 
-            {/* ── LEFT — Contact info ─────────────────────────── */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div style={{ width: "40px", height: "1px", background: "var(--gold)", marginBottom: "2rem" }} />
-              <h2 style={{ fontFamily: "var(--cf)", fontSize: "clamp(1.6rem,2.5vw,2.2rem)", fontWeight: 300, color: "var(--olive)", marginBottom: "3rem" }}>
+            {/* ── LEFT — Contact info ──────────────────────── */}
+            <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.8 }}>
+              <div className="w-10 h-px mb-5 sm:mb-7" style={{ background: "var(--gold)" }} />
+              <h2 className="cf mb-6 sm:mb-10" style={{ fontSize: "clamp(1.5rem,3vw,2.2rem)", fontWeight: 300, color: "var(--olive)" }}>
                 Visit us
               </h2>
 
-              {/* Contact detail rows */}
-              <div style={{ border: "1px solid var(--border)", background: "#fff" }}>
+              {/* Contact cards */}
+              <div className="border border-[#E0D8CC] bg-white">
                 {contactDetails.map(({ icon: Icon, label, lines, link }) => (
-                  <div key={label} style={{ padding: "1.5rem", borderBottom: "1px solid var(--border)", display: "flex", gap: "1.25rem", alignItems: "flex-start" }}
-                    className="last:border-0"
+                  <div key={label}
+                    className="contact-info-row flex gap-3 sm:gap-4 items-start p-4 sm:p-5 border-b border-[#E0D8CC]"
                   >
-                    <div style={{ width: "36px", height: "36px", flexShrink: 0, border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--gold)", marginTop: "2px" }}>
-                      <Icon size={14} />
+                    {/* Icon box */}
+                    <div className="shrink-0 flex items-center justify-center border border-[#E0D8CC] mt-0.5"
+                      style={{ width: "32px", height: "32px", color: "var(--gold)" }}
+                    >
+                      <Icon size={13} />
                     </div>
-                    <div>
-                      <div style={{ fontFamily: "var(--jost)", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "0.4rem" }}>{label}</div>
+                    <div className="min-w-0">
+                      <div className="jost uppercase tracking-[0.2em] mb-1" style={{ fontSize: "0.56rem", color: "var(--gold)" }}>{label}</div>
                       {lines.map(l => (
-                        <div key={l} style={{ fontFamily: "var(--jost)", fontSize: "0.82rem", color: "var(--muted)", lineHeight: 1.7 }}>{l}</div>
+                        <div key={l} className="jost" style={{ fontSize: "0.8rem", color: "var(--muted)", lineHeight: 1.7 }}>{l}</div>
                       ))}
                       {link && (
                         <a
                           href={link.href}
                           target={link.external ? "_blank" : undefined}
                           rel={link.external ? "noopener noreferrer" : undefined}
-                          style={{ fontFamily: "var(--jost)", fontSize: "0.82rem", color: "var(--ink)", display: "inline-block", marginTop: "0.25rem", borderBottom: "1px solid var(--gold)", paddingBottom: "1px", textDecoration: "none", transition: "color 0.3s" }}
-                          onMouseEnter={e => e.currentTarget.style.color = "var(--gold)"}
-                          onMouseLeave={e => e.currentTarget.style.color = "var(--ink)"}
+                          className="email-link jost inline-block mt-0.5 hover:text-[var(--gold)] transition-colors"
+                          style={{ fontSize: "0.8rem", color: "var(--ink)", borderBottom: "1px solid var(--gold)", paddingBottom: "1px", textDecoration: "none" }}
                         >
                           {link.text}
                         </a>
@@ -156,18 +162,17 @@ export default function ContactPage() {
                 ))}
               </div>
 
-              {/* Social */}
-              <div style={{ marginTop: "2rem" }}>
-                <div style={{ fontFamily: "var(--jost)", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--muted)", marginBottom: "1rem" }}>Follow us</div>
-                <div style={{ display: "flex", gap: "0.5rem" }}>
+              {/* Social icons */}
+              <div className="mt-5 sm:mt-7">
+                <div className="jost uppercase tracking-[0.2em] mb-3" style={{ fontSize: "0.56rem", color: "var(--muted)" }}>Follow us</div>
+                <div className="flex gap-2">
                   {[
                     { label: "Instagram", Icon: InstagramIcon, href: "#" },
-                    { label: "Facebook", Icon: FacebookIcon, href: "#" },
+                    { label: "Facebook",  Icon: FacebookIcon,  href: "#" },
                   ].map(({ label, Icon, href }) => (
                     <a key={label} href={href} aria-label={label}
-                      style={{ width: "36px", height: "36px", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", textDecoration: "none", transition: "border-color 0.3s, color 0.3s" }}
-                      onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.color = "var(--gold)"; }}
-                      onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.color = "var(--muted)"; }}
+                      className="flex items-center justify-center border border-[#E0D8CC] hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors"
+                      style={{ width: "36px", height: "36px", color: "var(--muted)", textDecoration: "none" }}
                     >
                       <Icon />
                     </a>
@@ -176,11 +181,9 @@ export default function ContactPage() {
               </div>
             </motion.div>
 
-            {/* ── RIGHT — Form ────────────────────────────────── */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              style={{ background: "#fff", border: "1px solid var(--border)" }}
+            {/* ── RIGHT — Form ─────────────────────────────── */}
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8 }}
+              className="border border-[#E0D8CC] bg-white"
             >
               {submitted ? (
                 <SuccessPanel
@@ -190,27 +193,32 @@ export default function ContactPage() {
                   resetLabel="Send Another Message"
                 />
               ) : (
-                <form onSubmit={handleSubmit} style={{ padding: "2.5rem", display: "flex", flexDirection: "column", gap: "1.5rem", opacity: loading ? 0.6 : 1, transition: "opacity 0.3s" }}>
-                  <div style={{ borderBottom: "1px solid var(--border)", paddingBottom: "1.5rem", marginBottom: "0.5rem" }}>
-                    <div style={{ width: "32px", height: "1px", background: "var(--gold)", marginBottom: "1rem" }} />
-                    <h2 style={{ fontFamily: "var(--cf)", fontSize: "1.8rem", fontWeight: 300, color: "var(--ink)" }}>
+                <form onSubmit={handleSubmit}
+                  className="flex flex-col gap-4 sm:gap-5 p-5 sm:p-8"
+                  style={{ opacity: loading ? 0.6 : 1, transition: "opacity 0.3s" }}
+                >
+                  {/* Form header */}
+                  <div className="pb-4 sm:pb-5 border-b border-[#E0D8CC]">
+                    <div className="w-8 h-px mb-3" style={{ background: "var(--gold)" }} />
+                    <h2 className="cf" style={{ fontSize: "clamp(1.4rem,3vw,1.8rem)", fontWeight: 300, color: "var(--ink)" }}>
                       Send a message
                     </h2>
-                    <p style={{ fontFamily: "var(--jost)", fontSize: "0.78rem", color: "var(--muted)", marginTop: "0.35rem" }}>
+                    <p className="jost mt-1" style={{ fontSize: "0.76rem", color: "var(--muted)" }}>
                       We'll call you back within 24 hours
                     </p>
                   </div>
 
                   <Field label="Full Name *">
-                    <input type="text" required disabled={loading} className="ef-input" placeholder="Your full name" />
+                    <input type="text" required disabled={loading} className="ef-input" placeholder="Your full name" autoComplete="name" />
                   </Field>
 
+                  {/* 2 col on sm+, stacked on mobile */}
                   <div className="ef-row ef-row-2">
                     <Field label="Phone Number *">
-                      <input type="tel" required disabled={loading} className="ef-input" placeholder="+91 98765 43210" />
+                      <input type="tel" required disabled={loading} className="ef-input" placeholder="+91 98765 43210" autoComplete="tel" />
                     </Field>
                     <Field label="Email Address">
-                      <input type="email" disabled={loading} className="ef-input" placeholder="optional" />
+                      <input type="email" disabled={loading} className="ef-input" placeholder="optional" autoComplete="email" />
                     </Field>
                   </div>
 
@@ -239,11 +247,11 @@ export default function ContactPage() {
                   </div>
 
                   <Field label="Your Message">
-                    <textarea rows={4} disabled={loading} className="ef-textarea ef-input" placeholder="Tell us about your concerns..." />
+                    <textarea rows={4} disabled={loading} className="ef-textarea ef-input" placeholder="Tell us about your concerns — skin type, allergies, goals..." />
                   </Field>
 
-                  <button type="submit" disabled={loading} className="ef-btn" style={{ marginTop: "0.5rem" }}>
-                    {loading ? "Sending Message..." : "Send Message →"}
+                  <button type="submit" disabled={loading} className="ef-btn mt-1">
+                    {loading ? "Sending…" : "Send Message →"}
                   </button>
                 </form>
               )}
@@ -252,59 +260,50 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* ── MAP ──────────────────────────────────────────────── */}
-        <div style={{ width: "100%", height: "450px", background: "#f0f0f0", position: "relative", overflow: "hidden", borderTop: "1px solid var(--border)" }}>
+        {/* ══ MAP ══════════════════════════════════════════════ */}
+        <div className="w-full relative overflow-hidden border-t border-[#E0D8CC]" style={{ height: "clamp(220px,40vw,420px)" }}>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14016.918925!2d77.2155!3d28.5672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce26fb511f5bb%3A0x6b7a5843b0d24e1d!2sSouth+Extension+II%2C+New+Delhi%2C+Delhi!5e0!3m2!1sen!2sin!4v1712918400000!5m2!1sen!2sin"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14016.918925!2d77.2155!3d28.5672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce26fb511f5bb%3A0x6b7a5843b0d24e1d!2sSouth+Extension+II%2C+New+Delhi!5e0!3m2!1sen!2sin!4v1712918400000!5m2!1sen!2sin"
             width="100%"
             height="100%"
-            style={{ border: 0 }}
-            allowFullScreen=""
+            style={{ border: 0, display: "block" }}
+            allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
         </div>
 
-        {/* ── QUICK LINKS ──────────────────────────────────────── */}
-        <section style={{ background: "var(--olive)", borderTop: "1px solid rgba(255,255,255,0.06)", position: "relative", overflow: "hidden" }} className="py-16 px-6">
+        {/* ══ QUICK LINKS ══════════════════════════════════════ */}
+        <section className="relative overflow-hidden py-12 sm:py-16 px-5 sm:px-8 border-t" style={{ background: "var(--olive)", borderColor: "rgba(255,255,255,0.06)" }}>
           <Grain />
-          <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "2rem" }}>
-            <div>
-              <div style={{ width: "32px", height: "1px", background: "var(--gold)", marginBottom: "0.75rem" }} />
-              <h3 style={{ fontFamily: "var(--cf)", fontSize: "1.6rem", fontWeight: 300, color: "#fff" }}>
+          <div className="max-w-6xl mx-auto relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 sm:gap-8">
+            {/* Label */}
+            <div className="shrink-0">
+              <div className="w-8 h-px mb-2" style={{ background: "var(--gold)" }} />
+              <h3 className="cf text-white" style={{ fontSize: "clamp(1.2rem,3vw,1.6rem)", fontWeight: 300 }}>
                 Explore Éclora
               </h3>
             </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
+
+            {/* Links — wrap nicely on mobile */}
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               {[
-                { l: "All Services", p: "/services" },
-                { l: "Signature Facials", p: "/facials" },
-                { l: "About the Clinic", p: "/about" },
+                { l: "All Services",      p: "/services" },
+                { l: "Signature Facials", p: "/facials"  },
+                { l: "About the Clinic",  p: "/about"    },
               ].map(({ l, p }) => (
                 <Link key={p} href={p}
-                  style={{
-                    fontFamily: "var(--jost)", fontSize: "0.68rem", letterSpacing: "0.15em",
-                    textTransform: "uppercase", padding: "0.7rem 1.5rem",
-                    border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.6)",
-                    textDecoration: "none", transition: "all 0.3s",
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.color = "var(--gold)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)"; e.currentTarget.style.color = "rgba(255,255,255,0.6)"; }}
+                  className="jost uppercase text-[0.65rem] tracking-[0.14em] px-4 py-2.5 border transition-colors hover:border-[var(--gold)] hover:text-[var(--gold)]"
+                  style={{ border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.6)", textDecoration: "none" }}
                 >
                   {l}
                 </Link>
               ))}
               <Link href="/book"
-                style={{
-                  fontFamily: "var(--jost)", fontSize: "0.68rem", letterSpacing: "0.15em",
-                  textTransform: "uppercase", padding: "0.7rem 1.5rem",
-                  background: "var(--gold)", color: "var(--ink)", fontWeight: 600,
-                  textDecoration: "none", transition: "opacity 0.3s",
-                }}
-                onMouseEnter={e => e.currentTarget.style.opacity = "0.88"}
-                onMouseLeave={e => e.currentTarget.style.opacity = "1"}
+                className="jost uppercase text-[0.65rem] tracking-[0.14em] px-4 py-2.5 font-semibold hover:opacity-90 transition-opacity"
+                style={{ background: "var(--gold)", color: "var(--ink)", textDecoration: "none" }}
               >
-                Book Appointment
+                Book Now
               </Link>
             </div>
           </div>

@@ -2,58 +2,41 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
-/* ─── Font Injection ─────────────────────────────────────────────── */
 const FontLoader = () => {
   useEffect(() => {
     const link = document.createElement("link");
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap";
     link.rel = "stylesheet";
     document.head.appendChild(link);
   }, []);
   return null;
 };
 
-/* ─── Grain overlay (gives texture, kills "digital flat" look) ──── */
 const Grain = ({ opacity = 0.04 }) => (
-  <svg
-    className="pointer-events-none absolute inset-0 w-full h-full z-[1]"
-    style={{ opacity }}
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <filter id="grain">
-      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-      <feColorMatrix type="saturate" values="0" />
-    </filter>
+  <svg className="pointer-events-none absolute inset-0 w-full h-full z-[1]" style={{ opacity }} xmlns="http://www.w3.org/2000/svg">
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" /><feColorMatrix type="saturate" values="0" /></filter>
     <rect width="100%" height="100%" filter="url(#grain)" />
   </svg>
 );
 
-/* ─── Marquee strip ─────────────────────────────────────────────── */
 const Marquee = () => {
   const items = ["Laser Hair Reduction", "Chemical Peels", "HIFU Lifting", "QR678 Hair Therapy", "Carbon Laser Toning", "Microneedling", "Signature Glow Facials", "Botox & Fillers"];
   return (
-    <div className="eclora-marquee overflow-hidden border-y border-[#D4B896]/30 py-4 bg-[#F7F3EC] relative">
-      <div className="eclora-marquee-track flex gap-14 whitespace-nowrap animate-marquee">
+    <div className="overflow-hidden border-y border-[#D4B896]/30 py-3 bg-[#F7F3EC] relative">
+      <div className="flex gap-10 whitespace-nowrap animate-marquee-run">
         {[...items, ...items].map((item, i) => (
-          <span key={i} className="text-[#4A5240] text-xs tracking-[0.25em] uppercase font-[Jost,sans-serif] flex items-center gap-4">
-            {item}<span className="text-[#D4B896] text-lg">◆</span>
+          <span key={i} className="text-[#3E4535] text-[0.6rem] tracking-[0.22em] uppercase flex items-center gap-4" style={{ fontFamily: "var(--jost)" }}>
+            {item}<span className="text-[#C9A97A] text-base">◆</span>
           </span>
         ))}
       </div>
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-        .animate-marquee { animation: marquee 28s linear infinite; }
-      `}} />
+      <style dangerouslySetInnerHTML={{ __html: `@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}} .animate-marquee-run{animation:mq 28s linear infinite;}` }} />
     </div>
   );
 };
 
-/* ─── Data ──────────────────────────────────────────────────────── */
 const servicesTab = {
   "Face & Laser": [
     { id: 1, title: "Laser Hair Reduction", desc: "Long-lasting results using advanced diode & Nd:YAG systems" },
@@ -114,30 +97,33 @@ const expertise = [
   { n: "04", title: "Natural Results", d: "We enhance what is already yours — we never alter, we only refine." },
 ];
 
-/* ═══════════════════════════════════════════════════════════════════
-   PAGE COMPONENT
-═══════════════════════════════════════════════════════════════════ */
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState("Face & Laser");
   const [openIndex, setOpenIndex] = useState(null);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const heroRef = useRef(null);
   const { scrollY } = useScroll();
-  const heroY = useTransform(scrollY, [0, 600], [0, 120]);
+  const heroY = useTransform(scrollY, [0, 600], [0, 80]);
 
-  // Auto-rotate testimonials
   useEffect(() => {
     const t = setInterval(() => setActiveTestimonial(p => (p + 1) % testimonials.length), 5000);
     return () => clearInterval(t);
   }, []);
 
-  const stagger = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.1 } }
-  };
   const fadeUp = {
-    hidden: { opacity: 0, y: 32 },
+    hidden: { opacity: 0, y: 24 },
     show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+  };
+  const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
+
+  /* Service card border logic */
+  const svcBorder = (i, total, cols) => {
+    const isLastCol = (i + 1) % cols === 0;
+    const isLastRow = i >= total - (total % cols || cols);
+    return {
+      borderRight: isLastCol ? "none" : "1px solid #D9D0C4",
+      borderBottom: isLastRow ? "none" : "1px solid #D9D0C4",
+    };
   };
 
   return (
@@ -146,417 +132,358 @@ export default function HomePage() {
       <style dangerouslySetInnerHTML={{
         __html: `
         :root {
-          --olive: #3E4535;
-          --olive-dark: #262C1E;
-          --gold: #C9A97A;
-          --gold-light: #E8D5B8;
-          --cream: #F6F1E9;
-          --parchment: #FAF7F2;
-          --ink: #1C1C1A;
-          --muted: #7A7568;
-          --cf: 'Cormorant Garamond', Georgia, serif;
-          --jost: 'Jost', system-ui, sans-serif;
+          --olive:#3E4535; --olive-dark:#262C1E; --gold:#C9A97A;
+          --cream:#F6F1E9; --parchment:#FAF7F2; --ink:#1C1C1A; --muted:#7A7568;
+          --cf:'Cormorant Garamond',Georgia,serif; --jost:'Jost',system-ui,sans-serif;
         }
-        .cf { font-family: var(--cf); }
-        .jost { font-family: var(--jost); }
-        .eclora-rule { display:block; width:40px; height:1px; background:var(--gold); }
-        .eclora-tab-active { background:var(--olive); color:#fff; }
-        .eclora-tab { background:transparent; color:var(--olive); border:1px solid #D4CAB8; }
-        .scroll-hide::-webkit-scrollbar { display:none; }
-        .scroll-hide { -ms-overflow-style:none; scrollbar-width:none; }
+        .cf{font-family:var(--cf);}
+        .jost{font-family:var(--jost);}
+        .e-rule{display:block;width:40px;height:1px;background:var(--gold);}
+        .tab-on{background:var(--olive);color:#fff;border:1px solid var(--olive);}
+        .tab-off{background:transparent;color:var(--olive);border:1px solid #D4CAB8;}
+        .hide-scroll::-webkit-scrollbar{display:none;}
+        .hide-scroll{-ms-overflow-style:none;scrollbar-width:none;}
       `}} />
 
       <div className="w-full" style={{ fontFamily: "var(--jost)", background: "var(--parchment)" }}>
 
-        {/* ══ SECTION 1 — HERO ══════════════════════════════════════ */}
+        {/* ══ HERO ══════════════════════════════════════════════ */}
         <section
           ref={heroRef}
-          style={{ background: "var(--olive-dark)", minHeight: "100vh" }}
-          className="relative flex items-end pb-20 overflow-hidden pt-24"
+          className="relative flex flex-col justify-end overflow-hidden min-h-screen pt-20 pb-12 sm:pb-20"
+          style={{ background: "var(--olive-dark)" }}
         >
           <Grain opacity={0.06} />
-
-          {/* Large watermark "É" */}
-          <motion.div
-            style={{ y: heroY }}
-            className="cf absolute right-[-2vw] top-[8%] select-none pointer-events-none z-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.04 }}
-            transition={{ duration: 2 }}
-          >
-            <span style={{ fontSize: "clamp(280px,38vw,580px)", color: "#fff", lineHeight: 1, fontWeight: 300 }}>É</span>
+          <motion.div style={{ y: heroY }} className="cf absolute right-[-2vw] top-[6%] select-none pointer-events-none z-0" initial={{ opacity: 0 }} animate={{ opacity: 0.04 }} transition={{ duration: 2 }}>
+            <span className="text-white" style={{ fontSize: "clamp(160px,38vw,580px)", lineHeight: 1, fontWeight: 300 }}>É</span>
           </motion.div>
 
-          <div className="container mx-auto px-6 lg:px-16 relative z-10 w-full max-w-7xl">
-            <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-end">
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-16">
+            <motion.div variants={stagger} initial="hidden" animate="show">
 
-              {/* Left — editorial headline */}
-              <motion.div variants={stagger} initial="hidden" animate="show">
-                <motion.div variants={fadeUp} className="flex items-center gap-3 mb-5">
-                  <span className="eclora-rule" />
-                  <span style={{ color: "var(--gold)", letterSpacing: "0.2em", fontSize: "0.7rem" }} className="jost uppercase tracking-widest">Delhi's Premier Aesthetic Clinic</span>
-                </motion.div>
-
-                <motion.h1
-                  variants={fadeUp}
-                  className="cf text-white"
-                  style={{ fontSize: "clamp(3rem,7vw,6.5rem)", fontWeight: 300, lineHeight: 1.01, letterSpacing: "-0.01em" }}
-                >
-                  Reveal Your<br />
-                  Most <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Radiant</em><br />
-                  Self
-                </motion.h1>
-
-                <motion.p
-                  variants={fadeUp}
-                  style={{ color: "#B8B0A4", fontSize: "1rem", maxWidth: "420px", lineHeight: 1.8 }}
-                  className="mt-4 jost"
-                >
-                  Advanced laser treatments, luxury facials &amp; expert dermatology —
-                  meticulously personalised for your unique skin.
-                </motion.p>
-
-                <motion.div variants={fadeUp} className="flex gap-4 flex-wrap mt-6">
-                  <Link
-                    href="/book"
-                    style={{ background: "var(--gold)", color: "var(--ink)", fontWeight: 600, letterSpacing: "0.06em" }}
-                    className="jost uppercase text-xs px-8 py-4 hover:opacity-90 transition-opacity"
-                  >
-                    Book Consultation
-                  </Link>
-                  <Link
-                    href="/services"
-                    style={{ border: "1px solid rgba(255,255,255,0.25)", color: "#fff", letterSpacing: "0.06em" }}
-                    className="jost uppercase text-xs px-8 py-4 hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors"
-                  >
-                    Explore Treatments
-                  </Link>
-                </motion.div>
+              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-5 sm:mb-6">
+                <span className="e-rule" />
+                <span className="jost uppercase tracking-[0.2em]" style={{ color: "var(--gold)", fontSize: "0.62rem" }}>
+                  Delhi's Premier Aesthetic Clinic
+                </span>
               </motion.div>
 
-              {/* Right — stat column */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                className="hidden lg:flex flex-col gap-8 text-right pb-4"
-              >
-                {[["2000+", "Clients"], ["46+", "Treatments"], ["10+", "Years"], ["5 ★", "Rated"]].map(([n, l]) => (
-                  <div key={l}>
-                    <div className="cf text-white" style={{ fontSize: "2.8rem", fontWeight: 300, lineHeight: 1 }}>{n}</div>
-                    <div style={{ color: "var(--gold)", fontSize: "0.65rem", letterSpacing: "0.25em" }} className="jost uppercase mt-1">{l}</div>
-                  </div>
-                ))}
+              <motion.h1 variants={fadeUp} className="cf text-white" style={{ fontSize: "clamp(2.8rem,9vw,6.5rem)", fontWeight: 300, lineHeight: 1.03, letterSpacing: "-0.01em" }}>
+                Reveal Your<br />
+                Most <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Radiant</em><br />
+                Self
+              </motion.h1>
+
+              <motion.p variants={fadeUp} className="jost mt-4 sm:mt-5" style={{ color: "#B8B0A4", fontSize: "clamp(0.85rem,2.5vw,1rem)", maxWidth: "420px", lineHeight: 1.8 }}>
+                Advanced laser treatments, luxury facials &amp; expert dermatology —
+                meticulously personalised for your unique skin.
+              </motion.p>
+
+              <motion.div variants={fadeUp} className="flex gap-3 flex-wrap mt-6 sm:mt-8">
+                <Link href="/book" className="jost uppercase font-semibold hover:opacity-90 transition-opacity" style={{ background: "var(--gold)", color: "var(--ink)", letterSpacing: "0.1em", fontSize: "0.7rem", padding: "0.875rem 1.75rem", display: "inline-block" }}>
+                  Book Consultation
+                </Link>
+                <Link href="/services" className="jost uppercase hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors" style={{ border: "1px solid rgba(255,255,255,0.25)", color: "#fff", letterSpacing: "0.1em", fontSize: "0.7rem", padding: "0.875rem 1.75rem", display: "inline-block" }}>
+                  Explore Treatments
+                </Link>
               </motion.div>
-            </div>
+            </motion.div>
+
+            {/* ── Mobile stats (4 cols, shown below < lg) ── */}
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.8 }}
+              className="grid grid-cols-4 mt-10 sm:mt-12 border border-white/10 lg:hidden"
+            >
+              {[["2000+", "Clients"], ["46+", "Treatments"], ["10+", "Years"], ["5★", "Rated"]].map(([n, l], i) => (
+                <div key={l} className="text-center py-4 px-1" style={{ borderRight: i < 3 ? "1px solid rgba(255,255,255,0.08)" : "none" }}>
+                  <div className="cf text-white" style={{ fontSize: "clamp(1rem,4vw,1.5rem)", fontWeight: 300, lineHeight: 1 }}>{n}</div>
+                  <div className="jost uppercase mt-1" style={{ color: "var(--gold)", fontSize: "0.48rem", letterSpacing: "0.14em" }}>{l}</div>
+                </div>
+              ))}
+            </motion.div>
           </div>
+
+          {/* ── Desktop stats — absolute right, hidden on mobile ── */}
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6, duration: 1 }}
+            className="absolute right-8 lg:right-16 bottom-20 hidden lg:flex flex-col gap-8 text-right z-10"
+          >
+            {[["2000+", "Clients"], ["46+", "Treatments"], ["10+", "Years"], ["5 ★", "Rated"]].map(([n, l]) => (
+              <div key={l}>
+                <div className="cf text-white" style={{ fontSize: "2.8rem", fontWeight: 300, lineHeight: 1 }}>{n}</div>
+                <div className="jost uppercase mt-1" style={{ color: "var(--gold)", fontSize: "0.65rem", letterSpacing: "0.25em" }}>{l}</div>
+              </div>
+            ))}
+          </motion.div>
         </section>
 
-        {/* ══ MARQUEE ════════════════════════════════════════════════ */}
+        {/* ══ MARQUEE ══════════════════════════════════════════ */}
         <Marquee />
 
-        {/* ══ SECTION 2 — PHILOSOPHY ═══════════════════════════════ */}
-        <section style={{ background: "var(--parchment)" }} className="py-28 px-6 text-center relative overflow-hidden">
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            style={{ height: "1px", background: "var(--gold)", transformOrigin: "left", maxWidth: "60px", margin: "0 auto 3rem" }}
+        {/* ══ PHILOSOPHY ════════════════════════════════════════ */}
+        <section className="py-14 sm:py-24 px-5 sm:px-8 text-center relative overflow-hidden" style={{ background: "var(--parchment)" }}>
+          <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 1.2 }}
+            className="mx-auto mb-8"
+            style={{ height: "1px", background: "var(--gold)", transformOrigin: "left", maxWidth: "60px" }}
           />
-          <motion.blockquote
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="cf"
-            style={{ fontSize: "clamp(1.6rem,3.5vw,2.8rem)", fontWeight: 300, fontStyle: "italic", color: "var(--olive)", maxWidth: "760px", margin: "0 auto", lineHeight: 1.5 }}
+          <motion.blockquote initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}
+            className="cf mx-auto"
+            style={{ fontSize: "clamp(1.2rem,3.5vw,2.8rem)", fontWeight: 300, fontStyle: "italic", color: "var(--olive)", maxWidth: "760px", lineHeight: 1.5 }}
           >
             "We combine the science of dermatology with the art of personalised care — because your skin deserves nothing less than exceptional."
           </motion.blockquote>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.7 }}
-            style={{ marginTop: "2rem", color: "var(--gold)", fontSize: "0.7rem", letterSpacing: "0.25em" }}
-            className="jost uppercase"
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.4 }}
+            className="jost uppercase mt-5" style={{ color: "var(--gold)", fontSize: "0.62rem", letterSpacing: "0.22em" }}
           >
             — Éclora Aesthetics &amp; Laser Clinic, Delhi
           </motion.div>
         </section>
 
-        {/* ══ SECTION 3 — EXPERTISE ════════════════════════════════ */}
-        <section style={{ background: "var(--cream)", borderTop: "1px solid #E5DDD0" }} className="py-28 px-6">
+        {/* ══ EXPERTISE ═════════════════════════════════════════ */}
+        <section className="py-14 sm:py-24 px-5 sm:px-8 border-t border-[#E5DDD0]" style={{ background: "var(--cream)" }}>
           <div className="max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mb-16"
-            >
-              <span className="eclora-rule mb-5 block" />
-              <h2 className="cf" style={{ fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)", letterSpacing: "-0.01em" }}>
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10 sm:mb-16">
+              <span className="e-rule mb-5 block" />
+              <h2 className="cf" style={{ fontSize: "clamp(1.7rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)" }}>
                 Why patients choose Éclora
               </h2>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-0 border border-[#D9D0C4]">
-              {expertise.map((item, i) => (
-                <motion.div
-                  key={item.n}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.7 }}
-                  className="group flex gap-8 p-10 border-b border-r border-[#D9D0C4] hover:bg-white transition-colors duration-500 relative overflow-hidden"
-                  style={{ borderRight: i % 2 === 1 ? "none" : undefined, borderBottom: i >= 2 ? "none" : undefined }}
-                >
-                  <div className="cf shrink-0" style={{ fontSize: "0.75rem", color: "var(--gold)", letterSpacing: "0.1em", marginTop: "2px" }}>{item.n}</div>
-                  <div>
-                    <h3 className="cf" style={{ fontSize: "1.4rem", fontWeight: 400, color: "var(--ink)", marginBottom: "0.75rem" }}>{item.title}</h3>
-                    <p style={{ color: "var(--muted)", fontSize: "0.9rem", lineHeight: 1.75 }} className="jost">{item.d}</p>
-                  </div>
-                  {/* hover accent */}
-                  <div
-                    className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-500"
-                    style={{ background: "var(--gold)" }}
-                  />
-                </motion.div>
-              ))}
+            {/* Border grid — 1 col mobile, 2 col md+ */}
+            <div className="border border-[#D9D0C4]">
+              {expertise.map((item, i) => {
+                const isRight = i % 2 === 1;
+                const isBottom = i >= 2;
+                return (
+                  <motion.div key={item.n} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: (i % 2) * 0.1, duration: 0.7 }}
+                    className="group flex gap-6 sm:gap-8 p-6 sm:p-10 hover:bg-white transition-colors duration-500 relative overflow-hidden"
+                    style={{
+                      borderRight: isRight ? "none" : undefined,
+                      borderBottom: isBottom ? "none" : "1px solid #D9D0C4",
+                      /* On mobile, always full width so no right border */
+                    }}
+                  >
+                    {/* On desktop use 2-col via inline grid on parent */}
+                    <div className="cf shrink-0 text-[0.72rem] mt-0.5" style={{ color: "var(--gold)", letterSpacing: "0.1em" }}>{item.n}</div>
+                    <div>
+                      <h3 className="cf" style={{ fontSize: "clamp(1.05rem,2vw,1.4rem)", fontWeight: 400, color: "var(--ink)", marginBottom: "0.5rem" }}>{item.title}</h3>
+                      <p className="jost text-sm" style={{ color: "var(--muted)", lineHeight: 1.75 }}>{item.d}</p>
+                    </div>
+                    <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-500" style={{ background: "var(--gold)" }} />
+                  </motion.div>
+                );
+              })}
             </div>
+            {/* Actual 2-col on md+ via CSS override */}
+            <style dangerouslySetInnerHTML={{
+              __html: `
+              @media(min-width:768px){
+                .exp-wrap{display:grid;grid-template-columns:1fr 1fr;}
+                .exp-wrap > div:nth-child(2n-1){border-right:1px solid #D9D0C4;}
+                .exp-wrap > div:nth-child(n+3){border-bottom:none;}
+                .exp-wrap > div{border-bottom:1px solid #D9D0C4;}
+                .exp-wrap > div:nth-child(3),.exp-wrap > div:nth-child(4){border-bottom:none;}
+              }
+            `}} />
           </div>
         </section>
 
-        {/* ══ SECTION 4 — SERVICES ═════════════════════════════════ */}
-        <section style={{ background: "var(--parchment)", borderTop: "1px solid #E5DDD0" }} className="py-28 px-6">
+        {/* ══ SERVICES ══════════════════════════════════════════ */}
+        <section className="py-14 sm:py-24 px-5 sm:px-8 border-t border-[#E5DDD0]" style={{ background: "var(--parchment)" }}>
           <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
+            <div className="flex flex-col gap-5 mb-8 sm:mb-14 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <span className="eclora-rule mb-5 block" />
-                <h2 className="cf" style={{ fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)" }}>
-                  Our Treatments
-                </h2>
-                <p style={{ color: "var(--muted)", fontSize: "0.9rem", marginTop: "0.75rem" }} className="jost">46+ advanced procedures for face, skin &amp; hair</p>
+                <span className="e-rule mb-4 block" />
+                <h2 className="cf" style={{ fontSize: "clamp(1.7rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)" }}>Our Treatments</h2>
+                <p className="jost mt-2 text-sm" style={{ color: "var(--muted)" }}>46+ advanced procedures for face, skin &amp; hair</p>
               </div>
-              {/* Tabs */}
-              <div className="flex gap-2 flex-wrap">
+              {/* Tabs scroll on mobile */}
+              <div className="flex gap-2 overflow-x-auto hide-scroll pb-0.5 -mx-5 px-5 sm:mx-0 sm:px-0 sm:flex-wrap">
                 {["Face & Laser", "Hair Treatments", "Facials"].map(tab => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`jost text-xs uppercase tracking-widest px-6 py-3 transition-all duration-300 ${activeTab === tab ? "eclora-tab-active" : "eclora-tab"}`}
-                  >
-                    {tab}
-                  </button>
+                  <button key={tab} onClick={() => setActiveTab(tab)}
+                    className={`jost text-[0.62rem] uppercase tracking-widest px-4 sm:px-6 py-2.5 transition-all duration-300 shrink-0 ${activeTab === tab ? "tab-on" : "tab-off"}`}
+                  >{tab}</button>
                 ))}
               </div>
             </div>
 
             <AnimatePresence mode="popLayout">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.4 }}
-                className="grid md:grid-cols-2 lg:grid-cols-3 gap-0 border border-[#D9D0C4]"
+              <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}
+                className="border border-[#D9D0C4]"
               >
-                {servicesTab[activeTab].map((s, i) => (
-                  <div
-                    key={s.id}
-                    className="group p-8 border-b border-r border-[#D9D0C4] hover:bg-white transition-colors duration-400 relative cursor-pointer"
-                    style={{
-                      borderRight: (i + 1) % 3 === 0 ? "none" : undefined,
-                      borderBottom: i >= servicesTab[activeTab].length - (servicesTab[activeTab].length % 3 || 3) ? "none" : undefined
-                    }}
-                  >
-                    <div style={{ fontSize: "0.65rem", color: "var(--gold)", letterSpacing: "0.15em", marginBottom: "1rem" }} className="jost uppercase">{String(s.id).padStart(2, "0")}</div>
-                    <h3 className="cf" style={{ fontSize: "1.25rem", fontWeight: 400, color: "var(--ink)", marginBottom: "0.5rem" }}>{s.title}</h3>
-                    <p style={{ color: "var(--muted)", fontSize: "0.85rem", lineHeight: 1.7 }} className="jost">{s.desc}</p>
-                    <Link href="/services" style={{ color: "var(--gold)", fontSize: "0.75rem", letterSpacing: "0.12em" }} className="jost uppercase inline-block mt-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      Learn more →
-                    </Link>
-                    <div className="absolute bottom-0 left-0 h-[1px] w-0 group-hover:w-full transition-all duration-500" style={{ background: "var(--gold)" }} />
-                  </div>
-                ))}
+                {/* Mobile: 1 col | md: 2 col | lg: 3 col */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                  {servicesTab[activeTab].map((s, i) => {
+                    const total = servicesTab[activeTab].length;
+                    return (
+                      <div key={s.id} className="group p-6 sm:p-8 hover:bg-white transition-colors relative cursor-pointer"
+                        style={{ borderBottom: i < total - 1 ? "1px solid #D9D0C4" : "none", borderRight: "none" }}
+                      >
+                        <div className="jost uppercase mb-3" style={{ color: "var(--gold)", letterSpacing: "0.15em", fontSize: "0.58rem" }}>{String(s.id).padStart(2, "0")}</div>
+                        <h3 className="cf mb-2" style={{ fontSize: "clamp(1rem,2vw,1.2rem)", fontWeight: 400, color: "var(--ink)" }}>{s.title}</h3>
+                        <p className="jost text-sm" style={{ color: "var(--muted)", lineHeight: 1.7 }}>{s.desc}</p>
+                        <Link href="/services" className="jost uppercase inline-block mt-4 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--gold)", letterSpacing: "0.12em", fontSize: "0.68rem" }}>
+                          Learn more →
+                        </Link>
+                        <div className="absolute bottom-0 left-0 h-[1px] w-0 group-hover:w-full transition-all duration-500" style={{ background: "var(--gold)" }} />
+                      </div>
+                    );
+                  })}
+                </div>
+                {/* Column borders via stylesheet — cleaner than inline */}
+                <style dangerouslySetInnerHTML={{
+                  __html: `
+                  @media(min-width:768px) and (max-width:1023px){
+                    .svc-inner > div:nth-child(2n-1){border-right:1px solid #D9D0C4;}
+                    .svc-inner > div:nth-child(n+5){border-bottom:none;}
+                  }
+                  @media(min-width:1024px){
+                    .svc-inner > div:nth-child(3n-1){border-right:1px solid #D9D0C4;}
+                    .svc-inner > div:nth-child(3n-2){border-right:1px solid #D9D0C4;}
+                    .svc-inner > div:nth-last-child(-n+3){border-bottom:none;}
+                  }
+                `}} />
               </motion.div>
             </AnimatePresence>
 
-            <div className="mt-12 text-center">
-              <Link href="/services" style={{ color: "var(--olive)", borderBottom: "1px solid var(--gold)", paddingBottom: "3px", fontSize: "0.8rem", letterSpacing: "0.15em" }} className="jost uppercase hover:text-[var(--gold)] transition-colors">
+            <div className="mt-8 sm:mt-12 text-center">
+              <Link href="/services" className="jost uppercase hover:text-[var(--gold)] transition-colors" style={{ color: "var(--olive)", borderBottom: "1px solid var(--gold)", paddingBottom: "3px", fontSize: "0.72rem", letterSpacing: "0.15em" }}>
                 View all 46+ treatments
               </Link>
             </div>
           </div>
         </section>
 
-        {/* ══ SECTION 5 — SIGNATURE FACIALS ════════════════════════ */}
-        <section style={{ background: "var(--olive)", borderTop: "1px solid #2E3527" }} className="py-28 px-6 relative overflow-hidden">
+        {/* ══ SIGNATURE FACIALS ════════════════════════════════ */}
+        <section className="py-14 sm:py-24 px-0 sm:px-8 relative overflow-hidden border-t border-[#2E3527]" style={{ background: "var(--olive)" }}>
           <Grain opacity={0.05} />
-          <div className="max-w-6xl mx-auto relative z-10">
-            <div className="flex items-end justify-between mb-16 flex-wrap gap-6">
+          <div className="max-w-6xl mx-auto relative z-10 px-5 sm:px-0">
+            <div className="flex items-end justify-between mb-8 sm:mb-14 flex-wrap gap-4">
               <div>
-                <span style={{ background: "var(--gold)" }} className="eclora-rule mb-5 block" />
-                <h2 className="cf text-white" style={{ fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 300 }}>
+                <span className="e-rule mb-5 block" style={{ background: "var(--gold)" }} />
+                <h2 className="cf text-white" style={{ fontSize: "clamp(1.7rem,4vw,3.2rem)", fontWeight: 300 }}>
                   Signature Facial<br /><em style={{ color: "var(--gold)" }}>Collection</em>
                 </h2>
               </div>
-              <Link href="/facials" style={{ color: "var(--gold)", borderBottom: "1px solid var(--gold)", paddingBottom: "3px", fontSize: "0.75rem", letterSpacing: "0.15em" }} className="jost uppercase">
-                Explore all facials →
+              <Link href="/facials" className="jost uppercase text-[0.68rem]" style={{ color: "var(--gold)", borderBottom: "1px solid var(--gold)", paddingBottom: "3px", letterSpacing: "0.15em" }}>
+                Explore all →
               </Link>
             </div>
-
-            <div className="flex gap-5 overflow-x-auto scroll-hide pb-4">
-              {facials.map((f, i) => (
-                <motion.div
-                  key={f.num}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                  style={{
-                    minWidth: "clamp(240px,28vw,300px)",
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    backdropFilter: "blur(8px)"
-                  }}
-                  className="group shrink-0 p-8 hover:border-[var(--gold)] hover:bg-white/[0.07] transition-all duration-500 cursor-pointer relative"
-                >
-                  <div style={{ color: "var(--gold)", fontSize: "0.65rem", letterSpacing: "0.2em" }} className="jost uppercase mb-6">{f.num}</div>
-                  <h3 className="cf text-white" style={{ fontSize: "1.3rem", fontWeight: 300, lineHeight: 1.3, marginBottom: "1rem" }}>{f.name}</h3>
-                  <div style={{ color: "var(--gold)", fontSize: "0.7rem", letterSpacing: "0.15em" }} className="jost uppercase mb-4">{f.dur}</div>
-                  <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.85rem", lineHeight: 1.7 }} className="jost mb-8">{f.desc}</p>
-                  <Link href="/facials" style={{ color: "var(--gold)", fontSize: "0.7rem", letterSpacing: "0.12em" }} className="jost uppercase opacity-0 group-hover:opacity-100 transition-opacity">
-                    Book facial →
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
+          </div>
+          {/* Cards — full bleed scroll on mobile */}
+          <div className="flex gap-4 overflow-x-auto hide-scroll pb-4 px-5 sm:px-8 sm:max-w-6xl sm:mx-auto">
+            {facials.map((f, i) => (
+              <motion.div key={f.num}
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ delay: i * 0.07, duration: 0.7 }}
+                className="group shrink-0 p-6 sm:p-8 hover:border-[var(--gold)] transition-all duration-500 cursor-pointer relative"
+                style={{ minWidth: "clamp(230px,70vw,290px)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}
+              >
+                <div className="jost uppercase mb-5" style={{ color: "var(--gold)", letterSpacing: "0.2em", fontSize: "0.58rem" }}>{f.num}</div>
+                <h3 className="cf text-white mb-3" style={{ fontSize: "clamp(1.05rem,2.5vw,1.3rem)", fontWeight: 300, lineHeight: 1.3 }}>{f.name}</h3>
+                <div className="jost uppercase mb-3" style={{ color: "var(--gold)", letterSpacing: "0.15em", fontSize: "0.62rem" }}>{f.dur}</div>
+                <p className="jost mb-6 text-sm" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>{f.desc}</p>
+                <Link href="/facials" className="jost uppercase opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--gold)", letterSpacing: "0.12em", fontSize: "0.65rem" }}>
+                  Book facial →
+                </Link>
+              </motion.div>
+            ))}
           </div>
         </section>
 
-        {/* ══ SECTION 6 — PROCESS ══════════════════════════════════ */}
-        <section style={{ background: "var(--cream)", borderTop: "1px solid #E5DDD0" }} className="py-28 px-6">
+        {/* ══ PROCESS ══════════════════════════════════════════ */}
+        <section className="py-14 sm:py-24 px-5 sm:px-8 border-t border-[#E5DDD0]" style={{ background: "var(--cream)" }}>
           <div className="max-w-4xl mx-auto">
-            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16 text-center">
-              <span className="eclora-rule mb-5 mx-auto block" />
-              <h2 className="cf" style={{ fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)" }}>
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10 sm:mb-16 text-center">
+              <span className="e-rule mx-auto mb-5 block" />
+              <h2 className="cf" style={{ fontSize: "clamp(1.7rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)" }}>
                 Your journey to glowing skin
               </h2>
             </motion.div>
 
-            <div className="space-y-0">
-              {[
-                { n: "01", t: "Book a Consultation", d: "Share your skin and hair goals with our specialist." },
-                { n: "02", t: "Receive Your Custom Plan", d: "A personalised treatment protocol designed exclusively for you." },
-                { n: "03", t: "Transform & Glow", d: "Experience visible, lasting results that speak for themselves." }
-              ].map((step, i) => (
-                <motion.div
-                  key={step.n}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex items-start gap-10 py-10 border-b border-[#D9D0C4] last:border-0 group"
-                >
-                  <div className="cf shrink-0 w-14 text-right" style={{ fontSize: "2.5rem", fontWeight: 300, color: "var(--gold)", lineHeight: 1 }}>{step.n}</div>
-                  <div className="pt-1">
-                    <h3 className="cf" style={{ fontSize: "1.6rem", fontWeight: 400, color: "var(--ink)", marginBottom: "0.5rem" }}>{step.t}</h3>
-                    <p style={{ color: "var(--muted)", fontSize: "0.9rem", lineHeight: 1.75 }} className="jost">{step.d}</p>
-                  </div>
-                  <div className="ml-auto hidden md:flex items-center self-center opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--gold)", fontSize: "1.2rem" }}>→</div>
-                </motion.div>
-              ))}
-            </div>
+            {[
+              { n: "01", t: "Book a Consultation", d: "Share your skin and hair goals with our specialist." },
+              { n: "02", t: "Receive Your Custom Plan", d: "A personalised treatment protocol designed exclusively for you." },
+              { n: "03", t: "Transform & Glow", d: "Experience visible, lasting results that speak for themselves." }
+            ].map((step, i) => (
+              <motion.div key={step.n}
+                initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+                transition={{ delay: i * 0.15, duration: 0.7 }}
+                className="group flex items-start gap-5 sm:gap-10 py-6 sm:py-10 border-b border-[#D9D0C4] last:border-0"
+              >
+                <div className="cf shrink-0 w-10 sm:w-14 text-right" style={{ fontSize: "clamp(1.6rem,4vw,2.5rem)", fontWeight: 300, color: "var(--gold)", lineHeight: 1 }}>{step.n}</div>
+                <div className="pt-0.5">
+                  <h3 className="cf" style={{ fontSize: "clamp(1.1rem,2.5vw,1.6rem)", fontWeight: 400, color: "var(--ink)", marginBottom: "0.35rem" }}>{step.t}</h3>
+                  <p className="jost text-sm" style={{ color: "var(--muted)", lineHeight: 1.75 }}>{step.d}</p>
+                </div>
+                <div className="ml-auto hidden sm:flex items-center self-center opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--gold)" }}>→</div>
+              </motion.div>
+            ))}
 
-            <div className="mt-16 text-center">
-              <Link href="/book" style={{ background: "var(--olive)", color: "#fff", letterSpacing: "0.08em", padding: "1rem 3rem", display: "inline-block", fontSize: "0.8rem" }} className="jost uppercase hover:opacity-90 transition-opacity">
+            <div className="mt-10 sm:mt-16 text-center">
+              <Link href="/book" className="jost uppercase hover:opacity-90 transition-opacity inline-block" style={{ background: "var(--olive)", color: "#fff", letterSpacing: "0.08em", padding: "0.875rem 2.5rem", fontSize: "0.72rem" }}>
                 Begin Your Journey
               </Link>
             </div>
           </div>
         </section>
 
-        {/* ══ SECTION 7 — TESTIMONIALS ══════════════════════════════ */}
-        <section style={{ background: "var(--parchment)", borderTop: "1px solid #E5DDD0" }} className="py-28 px-6 relative overflow-hidden">
+        {/* ══ TESTIMONIALS ══════════════════════════════════════ */}
+        <section className="py-14 sm:py-24 px-5 sm:px-8 border-t border-[#E5DDD0] relative overflow-hidden" style={{ background: "var(--parchment)" }}>
           <div className="max-w-4xl mx-auto">
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mb-16">
-              <span className="eclora-rule mb-5 block" />
-              <h2 className="cf" style={{ fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)" }}>What our clients say</h2>
+            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mb-10 sm:mb-14">
+              <span className="e-rule mb-5 block" />
+              <h2 className="cf" style={{ fontSize: "clamp(1.7rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)" }}>What our clients say</h2>
             </motion.div>
 
-            <div className="relative min-h-[220px]">
+            <div className="relative min-h-[200px]">
               <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeTestimonial}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {/* Large opening quote */}
-                  <div className="cf" style={{ fontSize: "6rem", color: "var(--gold)", lineHeight: 0.5, marginBottom: "1.5rem", opacity: 0.4 }}>"</div>
-                  <blockquote className="cf" style={{ fontSize: "clamp(1.4rem,3vw,2.2rem)", fontWeight: 300, fontStyle: "italic", color: "var(--ink)", lineHeight: 1.55, maxWidth: "820px" }}>
+                <motion.div key={activeTestimonial} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.7 }}>
+                  <div className="cf" style={{ fontSize: "4rem", color: "var(--gold)", lineHeight: 0.5, marginBottom: "1.25rem", opacity: 0.4 }}>"</div>
+                  <blockquote className="cf" style={{ fontSize: "clamp(1.1rem,3vw,2.2rem)", fontWeight: 300, fontStyle: "italic", color: "var(--ink)", lineHeight: 1.55 }}>
                     {testimonials[activeTestimonial].q}
                   </blockquote>
-                  <div className="flex items-center gap-4 mt-10">
-                    <span style={{ width: "32px", height: "1px", background: "var(--gold)", display: "block" }} />
+                  <div className="flex items-center gap-4 mt-7 sm:mt-10">
+                    <span style={{ width: "28px", height: "1px", background: "var(--gold)", display: "block", flexShrink: 0 }} />
                     <div>
-                      <div className="jost" style={{ fontWeight: 600, fontSize: "0.85rem", color: "var(--ink)" }}>{testimonials[activeTestimonial].n}</div>
-                      <div style={{ fontSize: "0.7rem", color: "var(--gold)", letterSpacing: "0.12em" }} className="jost uppercase mt-0.5">{testimonials[activeTestimonial].t}</div>
+                      <div className="jost font-semibold" style={{ fontSize: "0.85rem", color: "var(--ink)" }}>{testimonials[activeTestimonial].n}</div>
+                      <div className="jost uppercase mt-0.5" style={{ fontSize: "0.62rem", color: "var(--gold)", letterSpacing: "0.12em" }}>{testimonials[activeTestimonial].t}</div>
                     </div>
                   </div>
                 </motion.div>
               </AnimatePresence>
             </div>
 
-            {/* Dot navigation */}
-            <div className="flex gap-3 mt-10">
+            <div className="flex gap-3 mt-7 sm:mt-10">
               {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveTestimonial(i)}
-                  style={{
-                    width: i === activeTestimonial ? "28px" : "8px",
-                    height: "2px",
-                    background: i === activeTestimonial ? "var(--gold)" : "#C8C0B4",
-                    transition: "all 0.4s ease"
-                  }}
+                <button key={i} onClick={() => setActiveTestimonial(i)}
+                  style={{ width: i === activeTestimonial ? "28px" : "8px", height: "2px", background: i === activeTestimonial ? "var(--gold)" : "#C8C0B4", transition: "all 0.4s ease", border: "none", padding: 0, cursor: "pointer" }}
                 />
               ))}
             </div>
           </div>
         </section>
 
-        {/* ══ SECTION 8 — FAQ ═══════════════════════════════════════ */}
-        <section id="faq" style={{ background: "var(--cream)", borderTop: "1px solid #E5DDD0" }} className="py-28 px-6">
+        {/* ══ FAQ ══════════════════════════════════════════════ */}
+        <section id="faq" className="py-14 sm:py-24 px-5 sm:px-8 border-t border-[#E5DDD0]" style={{ background: "var(--cream)" }}>
           <div className="max-w-3xl mx-auto">
-            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16">
-              <span className="eclora-rule mb-5 block" />
-              <h2 className="cf" style={{ fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)" }}>
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10 sm:mb-16">
+              <span className="e-rule mb-5 block" />
+              <h2 className="cf" style={{ fontSize: "clamp(1.7rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)" }}>
                 Frequently asked questions
               </h2>
             </motion.div>
+
             {faqs.map((faq, index) => (
               <div key={index} style={{ borderBottom: "1px solid #D9D0C4" }}>
-                <button
-                  onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  className="w-full flex justify-between items-center py-6 text-left group"
+                <button onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                  className="w-full flex justify-between items-start gap-4 py-5 sm:py-6 text-left"
                 >
-                  <span className="cf" style={{ fontSize: "1.15rem", fontWeight: 400, color: "var(--ink)", paddingRight: "2rem" }}>{faq.q}</span>
-                  <span style={{ color: "var(--gold)", fontSize: "1.2rem", flexShrink: 0, transition: "transform 0.3s", transform: openIndex === index ? "rotate(45deg)" : "rotate(0deg)", display: "inline-block" }}>+</span>
+                  <span className="cf" style={{ fontSize: "clamp(0.92rem,2vw,1.1rem)", fontWeight: 400, color: "var(--ink)" }}>{faq.q}</span>
+                  <span style={{ color: "var(--gold)", fontSize: "1.1rem", flexShrink: 0, transition: "transform 0.3s", transform: openIndex === index ? "rotate(45deg)" : "rotate(0deg)", display: "inline-block", marginTop: "3px" }}>+</span>
                 </button>
                 <AnimatePresence>
                   {openIndex === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p style={{ color: "var(--muted)", lineHeight: 1.8, fontSize: "0.92rem", paddingBottom: "1.5rem" }} className="jost">{faq.a}</p>
+                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4 }} className="overflow-hidden">
+                      <p className="jost text-sm pb-5" style={{ color: "var(--muted)", lineHeight: 1.8 }}>{faq.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -565,24 +492,24 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ══ SECTION 9 — CTA ═══════════════════════════════════════ */}
-        <section style={{ background: "var(--olive-dark)" }} className="py-32 px-6 text-center relative overflow-hidden">
+        {/* ══ CTA ══════════════════════════════════════════════ */}
+        <section className="py-16 sm:py-32 px-5 sm:px-8 text-center relative overflow-hidden" style={{ background: "var(--olive-dark)" }}>
           <Grain opacity={0.07} />
           <div className="max-w-3xl mx-auto relative z-10">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}>
-              <span style={{ color: "var(--gold)", fontSize: "0.65rem", letterSpacing: "0.3em" }} className="jost uppercase block mb-8">Begin Your Transformation</span>
-              <h2 className="cf text-white" style={{ fontSize: "clamp(2.4rem,5vw,4rem)", fontWeight: 300, lineHeight: 1.2 }}>
+              <span className="jost uppercase block mb-6" style={{ color: "var(--gold)", fontSize: "0.6rem", letterSpacing: "0.3em" }}>Begin Your Transformation</span>
+              <h2 className="cf text-white" style={{ fontSize: "clamp(2rem,5vw,4rem)", fontWeight: 300, lineHeight: 1.2 }}>
                 Ready for your most<br />
                 <em style={{ color: "var(--gold)" }}>radiant chapter?</em>
               </h2>
-              <p style={{ color: "rgba(255,255,255,0.5)", marginTop: "1.5rem", fontSize: "0.95rem", lineHeight: 1.8 }} className="jost">
+              <p className="jost mt-4 mx-auto" style={{ color: "rgba(255,255,255,0.5)", fontSize: "clamp(0.85rem,2vw,0.95rem)", lineHeight: 1.8, maxWidth: "400px" }}>
                 Book your consultation today and step into the skin you deserve.
               </p>
-              <div className="flex gap-5 justify-center flex-wrap mt-12">
-                <Link href="/book" style={{ background: "var(--gold)", color: "var(--ink)", fontWeight: 600, letterSpacing: "0.08em", padding: "1rem 2.5rem", fontSize: "0.8rem" }} className="jost uppercase hover:opacity-90 transition-opacity">
+              <div className="flex gap-3 sm:gap-6 justify-center flex-wrap mt-8 sm:mt-12">
+                <Link href="/book" className="jost uppercase font-semibold hover:opacity-90 transition-opacity overflow-hidden relative" style={{ background: "var(--gold)", color: "var(--ink)", letterSpacing: "0.1em", padding: "0.875rem 2.5rem", fontSize: "0.72rem", display: "inline-block", boxShadow: "0 4px 15px rgba(201, 169, 122, 0.2)" }}>
                   Book Now
                 </Link>
-                <Link href="/services" style={{ border: "1px solid rgba(255,255,255,0.2)", color: "#fff", letterSpacing: "0.08em", padding: "1rem 2.5rem", fontSize: "0.8rem" }} className="jost uppercase hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors">
+                <Link href="/services" className="jost uppercase hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors" style={{ border: "1px solid rgba(255,255,255,0.2)", color: "#fff", letterSpacing: "0.1em", padding: "0.875rem 1.75rem", fontSize: "0.72rem", display: "inline-block" }}>
                   View Services
                 </Link>
               </div>

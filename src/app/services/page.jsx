@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { services, categories } from "@/data/services";
 
-/* ── Grain texture ─────────────────────────────────────────────── */
 const Grain = () => (
   <svg className="pointer-events-none absolute inset-0 w-full h-full z-[1]" style={{ opacity: 0.055 }} xmlns="http://www.w3.org/2000/svg">
     <filter id="grain-s"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" /><feColorMatrix type="saturate" values="0" /></filter>
@@ -23,137 +22,74 @@ export default function ServicesPage() {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        :root {
-          --olive: #3E4535;
-          --olive-dark: #262C1E;
-          --gold: #C9A97A;
-          --cream: #F6F1E9;
-          --parchment: #FAF7F2;
-          --ink: #1C1C1A;
-          --muted: #7A7568;
-          --cf: 'Cormorant Garamond', Georgia, serif;
-          --jost: 'Jost', system-ui, sans-serif;
-        }
-        .svc-filter-btn {
-          font-family: var(--jost);
-          font-size: 0.68rem;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          padding: 0.55rem 1.4rem;
-          border: 1px solid rgba(255,255,255,0.15);
-          color: rgba(255,255,255,0.5);
-          background: transparent;
-          cursor: pointer;
-          white-space: nowrap;
-          transition: all 0.3s ease;
-        }
-        .svc-filter-btn:hover { color: var(--gold); border-color: var(--gold); }
-        .svc-filter-btn.active { background: var(--gold); color: var(--ink); border-color: var(--gold); }
-        .svc-card {
-          background: #fff;
-          border: 1px solid #E0D8CC;
-          transition: border-color 0.4s, box-shadow 0.4s;
-          position: relative;
-        }
-        .svc-card::before {
-          content: '';
-          position: absolute;
-          left: 0; top: 0; bottom: 0;
-          width: 0;
-          background: var(--gold);
-          transition: width 0.4s cubic-bezier(0.22,1,0.36,1);
-        }
-        .svc-card:hover::before { width: 2px; }
-        .svc-card:hover { background: rgba(201,169,122,0.04); }
-        .svc-card:hover .svc-enquire { opacity: 1; transform: translateX(0); }
-        .svc-enquire {
-          font-family: var(--jost);
-          font-size: 0.68rem;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          color: var(--gold);
-          opacity: 0;
-          transform: translateX(-8px);
-          transition: opacity 0.3s, transform 0.3s;
-          text-decoration: none;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.4rem;
-        }
-        .svc-cat-pill {
-          font-family: var(--jost);
-          font-size: 0.6rem;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          color: var(--gold);
-          border: 1px solid rgba(201,169,122,0.35);
-          padding: 0.25rem 0.75rem;
-          display: inline-block;
-        }
-        .breadcrumb-sep { color: rgba(255,255,255,0.2); margin: 0 0.5rem; }
+      <style dangerouslySetInnerHTML={{ __html: `
+        :root{--olive:#3E4535;--olive-dark:#262C1E;--gold:#C9A97A;--cream:#F6F1E9;--parchment:#FAF7F2;--ink:#1C1C1A;--muted:#7A7568;--cf:'Cormorant Garamond',Georgia,serif;--jost:'Jost',system-ui,sans-serif;}
+        .cf{font-family:var(--cf);}
+        .jost{font-family:var(--jost);}
+        .hide-scroll::-webkit-scrollbar{display:none;}
+        .hide-scroll{-ms-overflow-style:none;scrollbar-width:none;}
+
+        .f-btn{font-family:var(--jost);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.5rem 1.1rem;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);background:transparent;cursor:pointer;white-space:nowrap;transition:all 0.3s;flex-shrink:0;}
+        .f-btn:hover{color:var(--gold);border-color:var(--gold);}
+        .f-btn.on{background:var(--gold);color:var(--ink);border-color:var(--gold);}
+
+        .svc-row{background:#fff;border-bottom:1px solid #E0D8CC;padding:1.25rem 1.25rem 1.25rem 1.5rem;position:relative;transition:background 0.3s;overflow:hidden;}
+        .svc-row:last-child{border-bottom:none;}
+        .svc-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--gold);transition:width 0.4s cubic-bezier(0.22,1,0.36,1);}
+        .svc-row:hover::before{width:2px;}
+        .svc-row:hover{background:rgba(201,169,122,0.04);}
+        .svc-row:hover .svc-cta,.svc-row:focus-within .svc-cta{opacity:1;transform:translateX(0);}
+        .svc-cta{font-family:var(--jost);font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateX(-8px);transition:opacity 0.3s,transform 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;margin-top:0.65rem;}
+        @media(hover:none){.svc-cta{opacity:1;transform:none;}}
+
+        .cat-pill{font-family:var(--jost);font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,169,122,0.4);padding:0.2rem 0.6rem;display:inline-block;flex-shrink:0;}
+
+        /* Two-column border at md+ */
+        @media(min-width:768px){.svc-grid .svc-row:nth-child(odd){border-right:1px solid #E0D8CC;}}
       `}} />
 
-      <div style={{ fontFamily: "var(--jost)" }} className="pt-16 md:pt-20">
+      <div className="jost pt-16 md:pt-20" style={{ fontFamily: "var(--jost)" }}>
 
-        {/* ── HERO HEADER ──────────────────────────────────────── */}
-        <section
-          style={{ background: "var(--olive-dark)", position: "relative", overflow: "hidden" }}
-          className="py-24 md:py-32 px-6"
-        >
+        {/* ── HERO ─────────────────────────────────────────────── */}
+        <section className="relative overflow-hidden py-16 sm:py-24 md:py-32 px-5 sm:px-8" style={{ background: "var(--olive-dark)" }}>
           <Grain />
-          {/* Watermark */}
-          <div
-            style={{
-              position: "absolute", right: "-2vw", bottom: "-5%",
-              fontFamily: "var(--cf)", fontSize: "clamp(160px,22vw,320px)",
-              color: "#fff", opacity: 0.025, lineHeight: 1, fontWeight: 300,
-              pointerEvents: "none", userSelect: "none", zIndex: 0,
-            }}
+
+          {/* Watermark — hidden on mobile to prevent overflow */}
+          <div className="cf hidden sm:block absolute right-[-1vw] bottom-[-5%] select-none pointer-events-none z-0"
+            style={{ fontSize: "clamp(100px,18vw,280px)", color: "#fff", opacity: 0.025, lineHeight: 1, fontWeight: 300 }}
           >
             Treatments
           </div>
 
           <div className="max-w-6xl mx-auto relative z-10">
             {/* Breadcrumb */}
-            <div style={{ marginBottom: "2.5rem" }}>
-              <span style={{ fontFamily: "var(--jost)", fontSize: "0.68rem", letterSpacing: "0.18em", color: "rgba(255,255,255,0.35)", textTransform: "uppercase" }}>
-                <Link href="/" style={{ color: "rgba(255,255,255,0.35)", textDecoration: "none", transition: "color 0.3s" }}
-                  onMouseEnter={e => e.currentTarget.style.color = "var(--gold)"}
-                  onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.35)"}
-                >Home</Link>
-                <span className="breadcrumb-sep">/</span>
-                <span style={{ color: "var(--gold)" }}>Services</span>
-              </span>
+            <div className="jost uppercase tracking-[0.18em] text-[0.62rem] mb-7 sm:mb-10" style={{ color: "rgba(255,255,255,0.35)" }}>
+              <Link href="/" className="transition-colors hover:text-[var(--gold)]" style={{ color: "rgba(255,255,255,0.35)" }}>
+                Home
+              </Link>
+              <span className="mx-2" style={{ color: "rgba(255,255,255,0.2)" }}>/</span>
+              <span style={{ color: "var(--gold)" }}>Services</span>
             </div>
 
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}>
-              <div style={{ width: "40px", height: "1px", background: "var(--gold)", marginBottom: "2rem" }} />
-              <h1
-                style={{
-                  fontFamily: "var(--cf)", fontWeight: 300, lineHeight: 1.05,
-                  fontSize: "clamp(2.8rem, 7vw, 5.5rem)", color: "#fff",
-                  letterSpacing: "-0.01em",
-                }}
-              >
+              <div className="w-10 h-px mb-6 sm:mb-8" style={{ background: "var(--gold)" }} />
+              <h1 className="cf text-white" style={{ fontSize: "clamp(2.4rem,9vw,5.5rem)", fontWeight: 300, lineHeight: 1.05, letterSpacing: "-0.01em" }}>
                 Face &amp; Hair<br />
                 <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Procedures</em>
               </h1>
-              <p style={{ color: "rgba(255,255,255,0.45)", marginTop: "1.5rem", fontSize: "0.95rem", lineHeight: 1.8, maxWidth: "420px" }}>
+              <p className="jost mt-4 sm:mt-5" style={{ color: "rgba(255,255,255,0.45)", fontSize: "clamp(0.8rem,2vw,0.95rem)", lineHeight: 1.85, maxWidth: "420px" }}>
                 46+ advanced aesthetic treatments — each one tailored to your skin, your goals, your story.
               </p>
             </motion.div>
 
-            {/* Stats row */}
-            <motion.div
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }}
-              style={{ display: "flex", gap: "3rem", marginTop: "3.5rem", flexWrap: "wrap" }}
+            {/* Stats — 2×2 grid on mobile, row on sm+ */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }}
+              className="grid grid-cols-2 sm:grid-cols-4 gap-5 sm:gap-0 sm:flex sm:flex-row sm:gap-10 mt-8 sm:mt-12"
             >
               {[["46+", "Treatments"], ["10+", "Years"], ["2000+", "Clients"], ["5 ★", "Rated"]].map(([n, l]) => (
                 <div key={l}>
-                  <div style={{ fontFamily: "var(--cf)", fontSize: "1.8rem", fontWeight: 300, color: "#fff", lineHeight: 1 }}>{n}</div>
-                  <div style={{ fontFamily: "var(--jost)", fontSize: "0.6rem", letterSpacing: "0.2em", color: "var(--gold)", marginTop: "0.35rem", textTransform: "uppercase" }}>{l}</div>
+                  <div className="cf text-white" style={{ fontSize: "clamp(1.4rem,4vw,1.8rem)", fontWeight: 300, lineHeight: 1 }}>{n}</div>
+                  <div className="jost uppercase mt-1" style={{ fontSize: "0.52rem", letterSpacing: "0.2em", color: "var(--gold)" }}>{l}</div>
                 </div>
               ))}
             </motion.div>
@@ -161,105 +97,89 @@ export default function ServicesPage() {
         </section>
 
         {/* ── STICKY FILTER BAR ────────────────────────────────── */}
-        <div
-          style={{
-            position: "sticky", top: "64px", zIndex: 30,
-            background: "var(--olive)", borderBottom: "1px solid rgba(255,255,255,0.07)",
-          }}
-        >
-          <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "1rem 1.5rem", overflowX: "auto" }}
-            className="scroll-hide"
-          >
-            <div style={{ display: "flex", gap: "0.5rem", minWidth: "max-content", alignItems: "center" }}>
-              <span style={{ fontFamily: "var(--jost)", fontSize: "0.6rem", letterSpacing: "0.2em", color: "rgba(255,255,255,0.25)", textTransform: "uppercase", marginRight: "0.75rem", paddingRight: "0.75rem", borderRight: "1px solid rgba(255,255,255,0.1)" }}>
-                Filter
-              </span>
+        <div className="sticky z-30 border-b" style={{ top: "64px", background: "var(--olive)", borderColor: "rgba(255,255,255,0.07)" }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 overflow-x-auto hide-scroll">
+            <div className="flex gap-1.5 items-center" style={{ minWidth: "max-content" }}>
+              {/* Label — desktop only */}
+              <span className="hidden sm:inline jost uppercase text-[0.58rem] tracking-[0.2em] mr-2 pr-3 shrink-0"
+                style={{ color: "rgba(255,255,255,0.25)", borderRight: "1px solid rgba(255,255,255,0.1)" }}
+              >Filter</span>
               {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActive(cat)}
-                  className={`svc-filter-btn ${active === cat ? "active" : ""}`}
-                >
+                <button key={cat} onClick={() => setActive(cat)} className={`f-btn ${active === cat ? "on" : ""}`}>
                   {cat}
                 </button>
               ))}
             </div>
           </div>
-          <style dangerouslySetInnerHTML={{ __html: `.scroll-hide::-webkit-scrollbar{display:none}.scroll-hide{-ms-overflow-style:none;scrollbar-width:none}` }} />
         </div>
 
-        {/* ── SERVICES LIST ────────────────────────────────────── */}
-        <section style={{ background: "var(--parchment)" }} className="px-6 py-16">
-          <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+        {/* ── SERVICES LIST ─────────────────────────────────────── */}
+        <section className="px-4 sm:px-8 py-8 sm:py-14" style={{ background: "var(--parchment)" }}>
+          <div className="max-w-7xl mx-auto">
 
-            {/* Count */}
-            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "1rem", paddingBottom: "1.25rem", borderBottom: "1px solid #E0D8CC" }}>
-              <span style={{ fontFamily: "var(--cf)", fontSize: "1.1rem", fontWeight: 300, color: "var(--muted)" }}>
-                Showing <em style={{ color: "var(--ink)" }}>{filtered.length}</em> treatment{filtered.length !== 1 ? "s" : ""}
+            {/* Count + clear */}
+            <div className="flex items-baseline justify-between pb-3 mb-0 border-b border-[#E0D8CC]">
+              <span className="cf" style={{ fontSize: "clamp(0.85rem,2vw,1.05rem)", fontWeight: 300, color: "var(--muted)" }}>
+                Showing{" "}
+                <em style={{ color: "var(--ink)" }}>{filtered.length}</em>
+                {" "}treatment{filtered.length !== 1 ? "s" : ""}
                 {active !== "All" && <span style={{ color: "var(--gold)" }}> · {active}</span>}
               </span>
               {active !== "All" && (
                 <button
                   onClick={() => setActive("All")}
-                  style={{ fontFamily: "var(--jost)", fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--muted)", background: "none", border: "none", cursor: "pointer", paddingBottom: "1px", borderBottom: "1px solid var(--muted)", transition: "color 0.3s, border-color 0.3s" }}
-                  onMouseEnter={e => { e.currentTarget.style.color = "var(--gold)"; e.currentTarget.style.borderColor = "var(--gold)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.color = "var(--muted)"; e.currentTarget.style.borderColor = "var(--muted)"; }}
+                  className="jost uppercase bg-transparent transition-colors text-[0.6rem] tracking-[0.15em]"
+                  style={{ color: "var(--muted)", borderBottom: "1px solid var(--muted)", paddingBottom: "1px" }}
+                  onMouseEnter={e => { e.currentTarget.style.color = "var(--gold)"; e.currentTarget.style.borderBottomColor = "var(--gold)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = "var(--muted)"; e.currentTarget.style.borderBottomColor = "var(--muted)"; }}
                 >
-                  Clear filter
+                  Clear
                 </button>
               )}
             </div>
 
             <AnimatePresence mode="wait">
-              <motion.div
-                key={active}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              >
+              <motion.div key={active} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                 {filtered.length === 0 ? (
-                  <div style={{ textAlign: "center", padding: "6rem 0" }}>
-                    <p style={{ fontFamily: "var(--cf)", fontSize: "1.5rem", fontWeight: 300, color: "var(--muted)", fontStyle: "italic" }}>No treatments found in this category.</p>
+                  <div className="py-20 text-center">
+                    <p className="cf" style={{ fontSize: "1.3rem", fontWeight: 300, color: "var(--muted)", fontStyle: "italic" }}>
+                      No treatments in this category.
+                    </p>
                   </div>
                 ) : (
-                  /* Two-column grid of bordered rows */
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 520px), 1fr))", gap: "0 4rem" }}>
+                  /* 1 col on mobile → 2 col on md+ */
+                  <div className="svc-grid grid grid-cols-1 md:grid-cols-2 border border-[#E0D8CC]">
                     {filtered.map((s, i) => (
                       <motion.div
                         key={s.id}
-                        className="svc-card"
-                        initial={{ opacity: 0, y: 16 }}
+                        className="svc-row"
+                        initial={{ opacity: 0, y: 12 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-40px" }}
-                        transition={{ delay: (i % 6) * 0.05, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                        style={{ paddingLeft: "1.5rem" }}
+                        viewport={{ once: true, margin: "-30px" }}
+                        transition={{ delay: (i % 4) * 0.05, duration: 0.55 }}
                       >
-                        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "1rem" }}>
-                          <div style={{ flex: 1 }}>
-                            {/* Number + category row */}
-                            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.75rem" }}>
-                              <span style={{ fontFamily: "var(--cf)", fontSize: "0.75rem", color: "var(--gold)", letterSpacing: "0.08em" }}>
-                                {String(s.id).padStart(2, "0")}
-                              </span>
-                              <span className="svc-cat-pill">{s.category}</span>
-                            </div>
-                            <h3
-                              style={{
-                                fontFamily: "var(--cf)", fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
-                                fontWeight: 400, color: "var(--ink)", marginBottom: "0.6rem", lineHeight: 1.2,
-                              }}
-                            >
-                              {s.name}
-                            </h3>
-                            <p style={{ fontFamily: "var(--jost)", fontSize: "0.82rem", color: "var(--muted)", lineHeight: 1.75, maxWidth: "380px" }}>
-                              {s.description}
-                            </p>
-                            <Link href="/contact" className="svc-enquire" style={{ marginTop: "1rem" }}>
-                              Enquire Now <span>→</span>
-                            </Link>
-                          </div>
+                        {/* Number + category pill */}
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="cf" style={{ fontSize: "0.68rem", color: "var(--gold)", letterSpacing: "0.08em" }}>
+                            {String(s.id).padStart(2, "0")}
+                          </span>
+                          <span className="cat-pill">{s.category}</span>
                         </div>
+
+                        {/* Treatment name */}
+                        <h3 className="cf" style={{ fontSize: "clamp(1rem,2.5vw,1.35rem)", fontWeight: 400, color: "var(--ink)", lineHeight: 1.25, marginBottom: "0.4rem" }}>
+                          {s.name}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="jost" style={{ fontSize: "clamp(0.78rem,1.5vw,0.82rem)", color: "var(--muted)", lineHeight: 1.75, maxWidth: "400px" }}>
+                          {s.description}
+                        </p>
+
+                        {/* CTA — hidden until hover (always visible on touch) */}
+                        <Link href="/contact" className="svc-cta">
+                          Enquire Now →
+                        </Link>
                       </motion.div>
                     ))}
                   </div>
@@ -269,35 +189,21 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* ── BOTTOM CTA ───────────────────────────────────────── */}
-        <section
-          style={{ background: "var(--olive)", borderTop: "1px solid rgba(255,255,255,0.07)", position: "relative", overflow: "hidden" }}
-          className="py-24 px-6 text-center"
-        >
+        {/* ── BOTTOM CTA ────────────────────────────────────────── */}
+        <section className="relative overflow-hidden py-14 sm:py-24 px-5 sm:px-8 text-center" style={{ background: "var(--olive)", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
           <Grain />
-          <div style={{ position: "relative", zIndex: 2 }}>
-            <div style={{ width: "40px", height: "1px", background: "var(--gold)", margin: "0 auto 2rem" }} />
-            <h2
-              style={{
-                fontFamily: "var(--cf)", fontWeight: 300, fontSize: "clamp(2rem, 4vw, 3.2rem)",
-                color: "#fff", marginBottom: "1rem", lineHeight: 1.2,
-              }}
-            >
-              Not sure which treatment is right for you?
+          <div className="relative z-10">
+            <div className="w-10 h-px mx-auto mb-6" style={{ background: "var(--gold)" }} />
+            <h2 className="cf text-white mx-auto" style={{ fontSize: "clamp(1.6rem,4vw,3.2rem)", fontWeight: 300, lineHeight: 1.25, maxWidth: "560px" }}>
+              Not sure which treatment<br className="hidden sm:block" /> is right for you?
             </h2>
-            <p style={{ fontFamily: "var(--jost)", color: "rgba(255,255,255,0.45)", fontSize: "0.9rem", lineHeight: 1.8, maxWidth: "420px", margin: "0 auto 2.5rem" }}>
+            <p className="jost mt-4 mx-auto" style={{ color: "rgba(255,255,255,0.45)", fontSize: "clamp(0.8rem,2vw,0.9rem)", lineHeight: 1.85, maxWidth: "380px" }}>
               Our dermatologists will assess your skin and build a plan that is truly yours.
             </p>
             <Link
               href="/book"
-              style={{
-                fontFamily: "var(--jost)", fontSize: "0.72rem", letterSpacing: "0.18em",
-                textTransform: "uppercase", padding: "1rem 2.5rem",
-                background: "var(--gold)", color: "var(--ink)", fontWeight: 600,
-                display: "inline-block", textDecoration: "none", transition: "opacity 0.3s",
-              }}
-              onMouseEnter={e => e.currentTarget.style.opacity = "0.88"}
-              onMouseLeave={e => e.currentTarget.style.opacity = "1"}
+              className="jost uppercase inline-block mt-7 sm:mt-10 font-semibold hover:opacity-90 transition-opacity"
+              style={{ background: "var(--gold)", color: "var(--ink)", fontSize: "0.7rem", letterSpacing: "0.18em", padding: "0.875rem 2rem" }}
             >
               Book a Free Consultation
             </Link>
