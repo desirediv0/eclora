@@ -44,8 +44,16 @@ export default function ServicesPage() {
 
         .cat-pill{font-family:var(--jost);font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,169,122,0.4);padding:0.2rem 0.6rem;display:inline-block;flex-shrink:0;}
 
-        /* Two-column border at md+ */
-        @media(min-width:768px){.svc-grid .svc-row:nth-child(odd){border-right:1px solid #E0D8CC;}}
+        /* Grid layout at md+ */
+        @media(min-width:768px){
+          .svc-grid{display:grid; grid-template-columns:repeat(2,1fr);}
+          .svc-grid .svc-row:nth-child(odd){border-right:1px solid #E0D8CC;}
+        }
+        @media(min-width:1024px){
+          .svc-grid{grid-template-columns:repeat(3,1fr);}
+          .svc-grid .svc-row{border-right:1px solid #E0D8CC;}
+          .svc-grid .svc-row:nth-child(3n){border-right:none;}
+        }
       `}} />
 
       <div className="jost pt-16 md:pt-20" style={{ fontFamily: "var(--jost)" }}>
@@ -82,14 +90,14 @@ export default function ServicesPage() {
               </p>
             </motion.div>
 
-            {/* Stats — 2×2 grid on mobile, row on sm+ */}
+            {/* Stats — 2×2 grid on mobile → 4 col grid on md+ */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-5 sm:gap-0 sm:flex sm:flex-row sm:gap-10 mt-8 sm:mt-12"
+              className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6 lg:gap-x-12 mt-10 lg:mt-16"
             >
               {[["46+", "Treatments"], ["10+", "Years"], ["2000+", "Clients"], ["5 ★", "Rated"]].map(([n, l]) => (
-                <div key={l}>
-                  <div className="cf text-white" style={{ fontSize: "clamp(1.4rem,4vw,1.8rem)", fontWeight: 300, lineHeight: 1 }}>{n}</div>
-                  <div className="jost uppercase mt-1" style={{ fontSize: "0.52rem", letterSpacing: "0.2em", color: "var(--gold)" }}>{l}</div>
+                <div key={l} className="flex flex-col">
+                  <div className="cf text-white" style={{ fontSize: "clamp(1.5rem,4vw,2.2rem)", fontWeight: 300, lineHeight: 1 }}>{n}</div>
+                  <div className="jost uppercase mt-2" style={{ fontSize: "0.58rem", letterSpacing: "0.22em", color: "var(--gold)" }}>{l}</div>
                 </div>
               ))}
             </motion.div>
@@ -148,7 +156,7 @@ export default function ServicesPage() {
                   </div>
                 ) : (
                   /* 1 col on mobile → 2 col on md+ */
-                  <div className="svc-grid grid grid-cols-1 md:grid-cols-2 border border-[#E0D8CC]">
+                  <div className="svc-grid border border-[#E0D8CC]">
                     {filtered.map((s, i) => (
                       <motion.div
                         key={s.id}

@@ -103,7 +103,7 @@ const Navbar = ({ onBookOpen }) => {
               }}
               onError={(e) => {
                 e.currentTarget.style.display = "none";
-                (e.currentTarget.nextSibling).style.display = "block";
+                (e.currentTarget.nextElementSibling).style.display = "block";
               }}
             />
             {/* Fallback text if image 404s */}

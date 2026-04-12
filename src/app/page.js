@@ -143,6 +143,15 @@ export default function HomePage() {
         .tab-off{background:transparent;color:var(--olive);border:1px solid #D4CAB8;}
         .hide-scroll::-webkit-scrollbar{display:none;}
         .hide-scroll{-ms-overflow-style:none;scrollbar-width:none;}
+        @media(min-width:768px){
+          .svc-grid{display:grid; grid-template-columns:repeat(2,1fr);}
+          .svc-grid .svc-row:nth-child(odd){border-right:1px solid #E0D8CC;}
+        }
+        @media(min-width:1024px){
+          .svc-grid{grid-template-columns:repeat(3,1fr);}
+          .svc-grid .svc-row{border-right:1px solid #E0D8CC;}
+          .svc-grid .svc-row:nth-child(3n){border-right:none;}
+        }
       `}} />
 
       <div className="w-full" style={{ fontFamily: "var(--jost)", background: "var(--parchment)" }}>
@@ -150,7 +159,7 @@ export default function HomePage() {
         {/* ══ HERO ══════════════════════════════════════════════ */}
         <section
           ref={heroRef}
-          className="relative flex flex-col justify-end overflow-hidden min-h-screen pt-20 pb-12 sm:pb-20"
+          className="relative flex flex-col justify-center overflow-hidden min-h-screen pt-24 sm:pt-20 pb-12 sm:pb-20"
           style={{ background: "var(--olive-dark)" }}
         >
           <Grain opacity={0.06} />
@@ -158,17 +167,18 @@ export default function HomePage() {
             <span className="text-white" style={{ fontSize: "clamp(160px,38vw,580px)", lineHeight: 1, fontWeight: 300 }}>É</span>
           </motion.div>
 
-          <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-16">
-            <motion.div variants={stagger} initial="hidden" animate="show">
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 flex flex-col items-center sm:items-start text-center sm:text-left">
+            <motion.div variants={stagger} initial="hidden" animate="show" className="flex flex-col items-center sm:items-start">
 
               <motion.div variants={fadeUp} className="flex items-center gap-3 mb-5 sm:mb-6">
-                <span className="e-rule" />
+                <span className="e-rule hidden sm:block" />
                 <span className="jost uppercase tracking-[0.2em]" style={{ color: "var(--gold)", fontSize: "0.62rem" }}>
                   Delhi's Premier Aesthetic Clinic
                 </span>
+                <span className="e-rule hidden sm:block" />
               </motion.div>
 
-              <motion.h1 variants={fadeUp} className="cf text-white" style={{ fontSize: "clamp(2.8rem,9vw,6.5rem)", fontWeight: 300, lineHeight: 1.03, letterSpacing: "-0.01em" }}>
+              <motion.h1 variants={fadeUp} className="cf text-white" style={{ fontSize: "clamp(2.5rem,9vw,6.5rem)", fontWeight: 300, lineHeight: 1.03, letterSpacing: "-0.01em" }}>
                 Reveal Your<br />
                 Most <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Radiant</em><br />
                 Self
@@ -179,40 +189,27 @@ export default function HomePage() {
                 meticulously personalised for your unique skin.
               </motion.p>
 
-              <motion.div variants={fadeUp} className="flex gap-3 flex-wrap mt-6 sm:mt-8">
-                <Link href="/book" className="jost uppercase font-semibold hover:opacity-90 transition-opacity" style={{ background: "var(--gold)", color: "var(--ink)", letterSpacing: "0.1em", fontSize: "0.7rem", padding: "0.875rem 1.75rem", display: "inline-block" }}>
-                  Book Consultation
+              <motion.div variants={fadeUp} className="flex gap-3 justify-center sm:justify-start flex-wrap mt-8 sm:mt-10">
+                <Link href="/book" className="jost uppercase font-semibold hover:opacity-90 transition-opacity" style={{ background: "var(--gold)", color: "var(--ink)", letterSpacing: "0.1em", fontSize: "0.72rem", padding: "0.875rem 2.25rem", display: "inline-block" }}>
+                  Book Now
                 </Link>
-                <Link href="/services" className="jost uppercase hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors" style={{ border: "1px solid rgba(255,255,255,0.25)", color: "#fff", letterSpacing: "0.1em", fontSize: "0.7rem", padding: "0.875rem 1.75rem", display: "inline-block" }}>
-                  Explore Treatments
+                <Link href="/services" className="jost uppercase hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors" style={{ border: "1px solid rgba(255,255,255,0.25)", color: "#fff", letterSpacing: "0.1em", fontSize: "0.72rem", padding: "0.875rem 1.75rem", display: "inline-block" }}>
+                  View Services
                 </Link>
               </motion.div>
             </motion.div>
 
-            {/* ── Mobile stats (4 cols, shown below < lg) ── */}
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.8 }}
-              className="grid grid-cols-4 mt-10 sm:mt-12 border border-white/10 lg:hidden"
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6 md:gap-x-12 mt-10 md:mt-16"
             >
-              {[["2000+", "Clients"], ["46+", "Treatments"], ["10+", "Years"], ["5★", "Rated"]].map(([n, l], i) => (
-                <div key={l} className="text-center py-4 px-1" style={{ borderRight: i < 3 ? "1px solid rgba(255,255,255,0.08)" : "none" }}>
-                  <div className="cf text-white" style={{ fontSize: "clamp(1rem,4vw,1.5rem)", fontWeight: 300, lineHeight: 1 }}>{n}</div>
-                  <div className="jost uppercase mt-1" style={{ color: "var(--gold)", fontSize: "0.48rem", letterSpacing: "0.14em" }}>{l}</div>
+              {[["46+", "Treatments"], ["10+", "Years"], ["2000+", "Clients"], ["5 ★", "Rated"]].map(([n, l]) => (
+                <div key={l} className="flex flex-col items-center sm:items-start">
+                  <div className="cf text-white" style={{ fontSize: "clamp(1.5rem,4vw,2rem)", fontWeight: 300, lineHeight: 1 }}>{n}</div>
+                  <div className="jost uppercase mt-2" style={{ fontSize: "0.55rem", letterSpacing: "0.22em", color: "var(--gold)" }}>{l}</div>
                 </div>
               ))}
             </motion.div>
           </div>
-
-          {/* ── Desktop stats — absolute right, hidden on mobile ── */}
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6, duration: 1 }}
-            className="absolute right-8 lg:right-16 bottom-20 hidden lg:flex flex-col gap-8 text-right z-10"
-          >
-            {[["2000+", "Clients"], ["46+", "Treatments"], ["10+", "Years"], ["5 ★", "Rated"]].map(([n, l]) => (
-              <div key={l}>
-                <div className="cf text-white" style={{ fontSize: "2.8rem", fontWeight: 300, lineHeight: 1 }}>{n}</div>
-                <div className="jost uppercase mt-1" style={{ color: "var(--gold)", fontSize: "0.65rem", letterSpacing: "0.25em" }}>{l}</div>
-              </div>
-            ))}
-          </motion.div>
         </section>
 
         {/* ══ MARQUEE ══════════════════════════════════════════ */}
@@ -247,7 +244,6 @@ export default function HomePage() {
               </h2>
             </motion.div>
 
-            {/* Border grid — 1 col mobile, 2 col md+ */}
             <div className="border border-[#D9D0C4]">
               {expertise.map((item, i) => {
                 const isRight = i % 2 === 1;
@@ -258,10 +254,8 @@ export default function HomePage() {
                     style={{
                       borderRight: isRight ? "none" : undefined,
                       borderBottom: isBottom ? "none" : "1px solid #D9D0C4",
-                      /* On mobile, always full width so no right border */
                     }}
                   >
-                    {/* On desktop use 2-col via inline grid on parent */}
                     <div className="cf shrink-0 text-[0.72rem] mt-0.5" style={{ color: "var(--gold)", letterSpacing: "0.1em" }}>{item.n}</div>
                     <div>
                       <h3 className="cf" style={{ fontSize: "clamp(1.05rem,2vw,1.4rem)", fontWeight: 400, color: "var(--ink)", marginBottom: "0.5rem" }}>{item.title}</h3>
@@ -272,7 +266,6 @@ export default function HomePage() {
                 );
               })}
             </div>
-            {/* Actual 2-col on md+ via CSS override */}
             <style dangerouslySetInnerHTML={{
               __html: `
               @media(min-width:768px){
@@ -295,7 +288,6 @@ export default function HomePage() {
                 <h2 className="cf" style={{ fontSize: "clamp(1.7rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)" }}>Our Treatments</h2>
                 <p className="jost mt-2 text-sm" style={{ color: "var(--muted)" }}>46+ advanced procedures for face, skin &amp; hair</p>
               </div>
-              {/* Tabs scroll on mobile */}
               <div className="flex gap-2 overflow-x-auto hide-scroll pb-0.5 -mx-5 px-5 sm:mx-0 sm:px-0 sm:flex-wrap">
                 {["Face & Laser", "Hair Treatments", "Facials"].map(tab => (
                   <button key={tab} onClick={() => setActiveTab(tab)}
@@ -306,16 +298,13 @@ export default function HomePage() {
             </div>
 
             <AnimatePresence mode="popLayout">
-              <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}
-                className="border border-[#D9D0C4]"
-              >
-                {/* Mobile: 1 col | md: 2 col | lg: 3 col */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                <div className="svc-grid border border-[#E0D8CC]">
                   {servicesTab[activeTab].map((s, i) => {
                     const total = servicesTab[activeTab].length;
                     return (
-                      <div key={s.id} className="group p-6 sm:p-8 hover:bg-white transition-colors relative cursor-pointer"
-                        style={{ borderBottom: i < total - 1 ? "1px solid #D9D0C4" : "none", borderRight: "none" }}
+                      <div key={s.id} className="svc-row group p-6 sm:p-8 hover:bg-white transition-colors relative cursor-pointer"
+                        style={{ borderBottom: i < total - (total % 3 === 0 ? 3 : total % 3) ? "1px solid #E0D8CC" : "none" }}
                       >
                         <div className="jost uppercase mb-3" style={{ color: "var(--gold)", letterSpacing: "0.15em", fontSize: "0.58rem" }}>{String(s.id).padStart(2, "0")}</div>
                         <h3 className="cf mb-2" style={{ fontSize: "clamp(1rem,2vw,1.2rem)", fontWeight: 400, color: "var(--ink)" }}>{s.title}</h3>
