@@ -100,8 +100,6 @@ const Navbar = ({ onBookOpen }) => {
                 height={52}
                 className="h-9 md:h-10 w-auto object-contain"
                 style={{
-                  filter: isTransparent ? "brightness(0) invert(1)" : "none",
-                  transition: "filter 0.5s ease",
                   borderRadius: "2px",
                 }}
                 onError={(e) => {
