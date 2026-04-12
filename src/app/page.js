@@ -159,23 +159,36 @@ export default function HomePage() {
         {/* ══ HERO ══════════════════════════════════════════════ */}
         <section
           ref={heroRef}
-          className="relative flex flex-col justify-center overflow-hidden min-h-screen pt-24 sm:pt-20 pb-12 sm:pb-20"
+          className="relative flex flex-col justify-center lg:justify-end overflow-hidden min-h-screen pt-24 sm:pt-20 pb-12 sm:pb-20 lg:pb-32"
           style={{ background: "var(--olive-dark)" }}
         >
           <Grain opacity={0.06} />
-          <motion.div style={{ y: heroY }} className="cf absolute right-[-2vw] top-[6%] select-none pointer-events-none z-0" initial={{ opacity: 0 }} animate={{ opacity: 0.04 }} transition={{ duration: 2 }}>
-            <span className="text-white" style={{ fontSize: "clamp(160px,38vw,580px)", lineHeight: 1, fontWeight: 300 }}>É</span>
+
+          {/* Watermark — positioned bottom-right on desktop */}
+          <motion.div
+            style={{ y: heroY }}
+            className="cf absolute right-[-5vw] bottom-[-10%] select-none pointer-events-none z-0 hidden lg:block"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.045 }}
+            transition={{ duration: 2 }}
+          >
+            <span className="text-white" style={{ fontSize: "clamp(300px,40vw,650px)", lineHeight: 1, fontWeight: 300 }}>É</span>
+          </motion.div>
+
+          {/* Watermark — mobile version (top right) */}
+          <motion.div className="cf absolute right-[-2vw] top-[8%] select-none pointer-events-none z-0 lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 0.04 }} transition={{ duration: 2 }}>
+            <span className="text-white" style={{ fontSize: "clamp(180px,38vw,400px)", lineHeight: 1, fontWeight: 300 }}>É</span>
           </motion.div>
 
           <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 flex flex-col items-center sm:items-start text-center sm:text-left">
             <motion.div variants={stagger} initial="hidden" animate="show" className="flex flex-col items-center sm:items-start">
 
               <motion.div variants={fadeUp} className="flex items-center gap-3 mb-5 sm:mb-6">
-                <span className="e-rule hidden sm:block" />
+                <span className="e-rule" />
                 <span className="jost uppercase tracking-[0.2em]" style={{ color: "var(--gold)", fontSize: "0.62rem" }}>
                   Delhi's Premier Aesthetic Clinic
                 </span>
-                <span className="e-rule hidden sm:block" />
+                <span className="e-rule sm:hidden" />
               </motion.div>
 
               <motion.h1 variants={fadeUp} className="cf text-white" style={{ fontSize: "clamp(2.5rem,9vw,6.5rem)", fontWeight: 300, lineHeight: 1.03, letterSpacing: "-0.01em" }}>
@@ -199,17 +212,30 @@ export default function HomePage() {
               </motion.div>
             </motion.div>
 
+            {/* ── Mobile stats (shown below lg) ── */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6 md:gap-x-12 mt-10 md:mt-16"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-y-10 gap-x-6 sm:gap-x-12 mt-10 md:mt-16 lg:hidden w-full"
             >
               {[["46+", "Treatments"], ["10+", "Years"], ["2000+", "Clients"], ["5 ★", "Rated"]].map(([n, l]) => (
-                <div key={l} className="flex flex-col items-center sm:items-start">
+                <div key={l} className="flex flex-col items-center sm:items-start text-center sm:text-left">
                   <div className="cf text-white" style={{ fontSize: "clamp(1.5rem,4vw,2rem)", fontWeight: 300, lineHeight: 1 }}>{n}</div>
                   <div className="jost uppercase mt-2" style={{ fontSize: "0.55rem", letterSpacing: "0.22em", color: "var(--gold)" }}>{l}</div>
                 </div>
               ))}
             </motion.div>
           </div>
+
+          {/* ── Desktop stats — absolute right, hidden on mobile ── */}
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6, duration: 1 }}
+            className="absolute right-8 lg:right-16 bottom-24 hidden lg:flex flex-col gap-10 text-right z-10"
+          >
+            {[["2000+", "Clients"], ["46+", "Treatments"], ["10+", "Years"], ["5 ★", "Rated"]].map(([n, l]) => (
+              <div key={l}>
+                <div className="cf text-white" style={{ fontSize: "2.8rem", fontWeight: 300, lineHeight: 1 }}>{n}</div>
+                <div className="jost uppercase mt-2" style={{ color: "var(--gold)", fontSize: "0.62rem", letterSpacing: "0.25em" }}>{l}</div>
+              </div>
+            ))}
+          </motion.div>
         </section>
 
         {/* ══ MARQUEE ══════════════════════════════════════════ */}
