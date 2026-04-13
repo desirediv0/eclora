@@ -49,7 +49,7 @@ export default function AboutPage() {
       <div className="jost pt-16 md:pt-20" style={{ fontFamily: "var(--jost)" }}>
 
         {/* ── 1. HERO ───────────────────────────────────────── */}
-        <section className="relative overflow-hidden py-16 sm:py-24 md:py-36 px-5 sm:px-8" style={{ background: "var(--olive-dark)" }}>
+        <section className="relative overflow-hidden py-16 sm:py-20 md:py-36 px-5 sm:px-8" style={{ background: "var(--olive-dark)" }}>
           <Grain />
           {/* Watermark — desktop only */}
           <div className="cf hidden sm:block absolute left-[-1vw] bottom-[-10%] select-none pointer-events-none z-0"
@@ -261,7 +261,7 @@ export default function AboutPage() {
         </section>
 
         {/* ── 7. CTA ────────────────────────────────────────── */}
-        <section className="relative overflow-hidden py-16 sm:py-24 px-5 sm:px-8 text-center" style={{ background: "var(--olive)" }}>
+        <section className="relative overflow-hidden py-16 sm:py-20 px-5 sm:px-8 text-center" style={{ background: "var(--olive)" }}>
           <Grain />
           <div className="relative z-10">
             <div className="w-10 h-px mx-auto mb-6" style={{ background: "var(--gold)" }} />

@@ -63,7 +63,7 @@ export default function ServicesPage() {
       <div className="jost pt-16 md:pt-20" style={{ fontFamily: "var(--jost)" }}>
 
         {/* ── HERO ─────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden py-16 sm:py-24 md:py-32 px-5 sm:px-8" style={{ background: "var(--olive-dark)" }}>
+        <section className="relative overflow-hidden py-16 sm:py-20  px-5 sm:px-8" style={{ background: "var(--olive-dark)" }}>
           <Grain />
 
           {/* Watermark — hidden on mobile to prevent overflow */}
@@ -216,7 +216,7 @@ export default function ServicesPage() {
         </section>
 
         {/* ── BOTTOM CTA ────────────────────────────────────────── */}
-        <section className="relative overflow-hidden py-14 sm:py-24 px-5 sm:px-8 text-center" style={{ background: "var(--olive)", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+        <section className="relative overflow-hidden py-14 sm:py-20 px-5 sm:px-8 text-center" style={{ background: "var(--olive)", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
           <Grain />
           <div className="relative z-10">
             <div className="w-10 h-px mx-auto mb-6" style={{ background: "var(--gold)" }} />

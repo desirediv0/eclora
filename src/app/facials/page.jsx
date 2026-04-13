@@ -16,7 +16,8 @@ const Grain = () => (
 export default function FacialsPage() {
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         :root{--olive:#3E4535;--olive-dark:#262C1E;--gold:#C9A97A;--cream:#F6F1E9;--parchment:#FAF7F2;--ink:#1C1C1A;--muted:#7A7568;--border:#E0D8CC;--cf:'Cormorant Garamond',Georgia,serif;--jost:'Jost',system-ui,sans-serif;}
         .cf{font-family:var(--cf);}
         .jost{font-family:var(--jost);}
@@ -52,7 +53,7 @@ export default function FacialsPage() {
       <div className="jost pt-16 md:pt-20" style={{ fontFamily: "var(--jost)" }}>
 
         {/* ── HERO ─────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden py-16 sm:py-24 md:py-32 px-5 sm:px-8" style={{ background: "var(--olive-dark)" }}>
+        <section className="relative overflow-hidden py-16 sm:py-20 md:py-32 px-5 sm:px-8" style={{ background: "var(--olive-dark)" }}>
           <Grain />
 
           {/* Watermark — desktop only */}
@@ -191,9 +192,9 @@ export default function FacialsPage() {
             <div className="ritual-grid">
               {[
                 { n: "01", t: "Skin Assessment", d: "Your therapist begins with a thorough skin analysis to personalise every step." },
-                { n: "02", t: "Deep Cleanse",    d: "Medical-grade cleansing to remove impurities and prepare the skin barrier." },
-                { n: "03", t: "Active Treatment",d: "Targeted serums, masks, or devices applied to your specific concern." },
-                { n: "04", t: "Glow & Go",       d: "A nourishing finish and personalised home-care guidance to extend results." },
+                { n: "02", t: "Deep Cleanse", d: "Medical-grade cleansing to remove impurities and prepare the skin barrier." },
+                { n: "03", t: "Active Treatment", d: "Targeted serums, masks, or devices applied to your specific concern." },
+                { n: "04", t: "Glow & Go", d: "A nourishing finish and personalised home-care guidance to extend results." },
               ].map((step) => (
                 <div key={step.n} className="ritual-cell">
                   <div className="cf mb-3 sm:mb-4 text-[0.68rem] tracking-[0.1em]" style={{ color: "var(--gold)" }}>{step.n}</div>
@@ -206,7 +207,7 @@ export default function FacialsPage() {
         </section>
 
         {/* ── BOTTOM CTA ────────────────────────────────────────── */}
-        <section className="relative overflow-hidden py-16 sm:py-24 px-5 sm:px-8 text-center" style={{ background: "var(--olive)" }}>
+        <section className="relative overflow-hidden py-16 sm:py-20 px-5 sm:px-8 text-center" style={{ background: "var(--olive)" }}>
           <Grain />
           <div className="relative z-10">
             <div className="w-10 h-px mx-auto mb-6" style={{ background: "var(--gold)" }} />

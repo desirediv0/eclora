@@ -55,7 +55,7 @@ export default function BookPage() {
       <div className="jost pt-16 md:pt-20" style={{ fontFamily: "var(--jost)" }}>
 
         {/* ── HERO ─────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden py-16 sm:py-24 px-5 sm:px-8" style={{ background: "var(--olive-dark)" }}>
+        <section className="relative overflow-hidden py-16 sm:py-20 px-5 sm:px-8" style={{ background: "var(--olive-dark)" }}>
           <Grain />
           {/* Watermark — desktop only */}
           <div className="cf hidden sm:block absolute right-[-1vw] bottom-[-8%] select-none pointer-events-none z-0"
