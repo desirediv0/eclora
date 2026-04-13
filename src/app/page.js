@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { getFacialSvg, getServiceSvg } from "@/data/services";
 
 const FontLoader = () => {
   useEffect(() => {
@@ -64,6 +66,12 @@ const servicesTab = {
   ]
 };
 
+Object.values(servicesTab).forEach((group) => {
+  group.forEach((service) => {
+    service.svg = getServiceSvg(service.title) ?? getFacialSvg(service.title);
+  });
+});
+
 const facials = [
   { num: "01", name: "Éclora Signature Glow", dur: "60 min", desc: "Brightening actives + LED for instant radiance" },
   { num: "02", name: "Diamond Elixir Facial", dur: "75 min", desc: "Diamond exfoliation with rich elixir infusion" },
@@ -72,6 +80,10 @@ const facials = [
   { num: "05", name: "Elite Aura Facial", dur: "75 min", desc: "Bespoke multi-step personalized experience" },
   { num: "06", name: "Acne Defense Therapy", dur: "60 min", desc: "Deep cleanse and anti-bacterial acne control" }
 ];
+
+facials.forEach((facial) => {
+  facial.svg = getFacialSvg(facial.name);
+});
 
 const faqs = [
   { q: "What should I expect on my first visit?", a: "Our dermatologist will assess your skin and hair condition, discuss your concerns, and create a personalized treatment plan. First consultations take 30–45 minutes." },
@@ -116,15 +128,7 @@ export default function HomePage() {
   };
   const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
 
-  /* Service card border logic */
-  const svcBorder = (i, total, cols) => {
-    const isLastCol = (i + 1) % cols === 0;
-    const isLastRow = i >= total - (total % cols || cols);
-    return {
-      borderRight: isLastCol ? "none" : "1px solid #D9D0C4",
-      borderBottom: isLastRow ? "none" : "1px solid #D9D0C4",
-    };
-  };
+
 
   return (
     <>
@@ -143,6 +147,10 @@ export default function HomePage() {
         .tab-off{background:transparent;color:var(--olive);border:1px solid #D4CAB8;}
         .hide-scroll::-webkit-scrollbar{display:none;}
         .hide-scroll{-ms-overflow-style:none;scrollbar-width:none;}
+        .home-svc-icon{width:64px;height:64px;border-radius:18px;border:1px solid rgba(201,169,122,0.24);background:linear-gradient(180deg,rgba(201,169,122,0.08),rgba(201,169,122,0.02));display:flex;align-items:center;justify-content:center;transition:transform 0.35s ease,border-color 0.35s ease,background 0.35s ease;}
+        .svc-row:hover .home-svc-icon{transform:translateY(-2px);border-color:rgba(201,169,122,0.45);background:linear-gradient(180deg,rgba(201,169,122,0.16),rgba(201,169,122,0.05));}
+        .home-facial-icon{width:68px;height:68px;border-radius:20px;border:1px solid rgba(201,169,122,0.22);background:linear-gradient(180deg,rgba(201,169,122,0.08),rgba(201,169,122,0.02));display:flex;align-items:center;justify-content:center;transition:transform 0.35s ease,border-color 0.35s ease,background 0.35s ease;}
+        .group:hover .home-facial-icon{transform:translateY(-2px);border-color:rgba(201,169,122,0.45);background:linear-gradient(180deg,rgba(201,169,122,0.16),rgba(201,169,122,0.05));}
         @media(min-width:768px){
           .svc-grid{display:grid; grid-template-columns:repeat(2,1fr);}
           .svc-grid .svc-row:nth-child(odd){border-right:1px solid #E0D8CC;}
@@ -159,7 +167,7 @@ export default function HomePage() {
         {/* ══ HERO ══════════════════════════════════════════════ */}
         <section
           ref={heroRef}
-          className="relative flex flex-col justify-center lg:justify-end overflow-hidden min-h-screen pt-24 sm:pt-20 pb-12 sm:pb-20 lg:pb-32"
+          className="relative flex flex-col justify-center lg:justify-end overflow-hidden min-h-screen pt-24  pb-12 sm:pb-20 lg:pb-32"
           style={{ background: "var(--olive-dark)" }}
         >
           <Grain opacity={0.06} />
@@ -183,7 +191,7 @@ export default function HomePage() {
           <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 flex flex-col items-center sm:items-start text-center sm:text-left">
             <motion.div variants={stagger} initial="hidden" animate="show" className="flex flex-col items-center sm:items-start">
 
-              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-5 sm:mb-6">
+              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4">
                 <span className="e-rule" />
                 <span className="jost uppercase tracking-[0.2em]" style={{ color: "var(--gold)", fontSize: "0.62rem" }}>
                   Delhi's Premier Aesthetic Clinic
@@ -242,7 +250,7 @@ export default function HomePage() {
         <Marquee />
 
         {/* ══ PHILOSOPHY ════════════════════════════════════════ */}
-        <section className="py-14 sm:py-24 px-5 sm:px-8 text-center relative overflow-hidden" style={{ background: "var(--parchment)" }}>
+        <section className="py-14 sm:py-20 px-5 sm:px-8 text-center relative overflow-hidden" style={{ background: "var(--parchment)" }}>
           <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 1.2 }}
             className="mx-auto mb-8"
             style={{ height: "1px", background: "var(--gold)", transformOrigin: "left", maxWidth: "60px" }}
@@ -261,7 +269,7 @@ export default function HomePage() {
         </section>
 
         {/* ══ EXPERTISE ═════════════════════════════════════════ */}
-        <section className="py-14 sm:py-24 px-5 sm:px-8 border-t border-[#E5DDD0]" style={{ background: "var(--cream)" }}>
+        <section className="py-14 sm:py-20 px-5 sm:px-8 border-t border-[#E5DDD0]" style={{ background: "var(--cream)" }}>
           <div className="max-w-6xl mx-auto">
             <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10 sm:mb-16">
               <span className="e-rule mb-5 block" />
@@ -306,7 +314,7 @@ export default function HomePage() {
         </section>
 
         {/* ══ SERVICES ══════════════════════════════════════════ */}
-        <section className="py-14 sm:py-24 px-5 sm:px-8 border-t border-[#E5DDD0]" style={{ background: "var(--parchment)" }}>
+        <section className="py-14 sm:py-20 px-5 sm:px-8 border-t border-[#E5DDD0]" style={{ background: "var(--parchment)" }}>
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-col gap-5 mb-8 sm:mb-14 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -332,8 +340,23 @@ export default function HomePage() {
                       <div key={s.id} className="svc-row group p-6 sm:p-8 hover:bg-white transition-colors relative cursor-pointer"
                         style={{ borderBottom: i < total - (total % 3 === 0 ? 3 : total % 3) ? "1px solid #E0D8CC" : "none" }}
                       >
-                        <div className="jost uppercase mb-3" style={{ color: "var(--gold)", letterSpacing: "0.15em", fontSize: "0.58rem" }}>{String(s.id).padStart(2, "0")}</div>
-                        <h3 className="cf mb-2" style={{ fontSize: "clamp(1rem,2vw,1.2rem)", fontWeight: 400, color: "var(--ink)" }}>{s.title}</h3>
+                        <div className="flex items-start gap-4 mb-4">
+                          {s.svg && (
+                            <div className="home-svc-icon shrink-0">
+                              <Image
+                                src={s.svg}
+                                alt={s.title}
+                                width={38}
+                                height={38}
+                                className="h-9 w-9 object-contain"
+                              />
+                            </div>
+                          )}
+                          <div className="min-w-0">
+                            <div className="jost uppercase mb-3" style={{ color: "var(--gold)", letterSpacing: "0.15em", fontSize: "0.58rem" }}>{String(s.id).padStart(2, "0")}</div>
+                            <h3 className="cf mb-2" style={{ fontSize: "clamp(1rem,2vw,1.2rem)", fontWeight: 400, color: "var(--ink)" }}>{s.title}</h3>
+                          </div>
+                        </div>
                         <p className="jost text-sm" style={{ color: "var(--muted)", lineHeight: 1.7 }}>{s.desc}</p>
                         <Link href="/services" className="jost uppercase inline-block mt-4 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--gold)", letterSpacing: "0.12em", fontSize: "0.68rem" }}>
                           Learn more →
@@ -368,7 +391,7 @@ export default function HomePage() {
         </section>
 
         {/* ══ SIGNATURE FACIALS ════════════════════════════════ */}
-        <section className="py-14 sm:py-24 px-0 sm:px-8 relative overflow-hidden border-t border-[#2E3527]" style={{ background: "var(--olive)" }}>
+        <section className="py-14 sm:py-20 px-0 sm:px-8 relative overflow-hidden border-t border-[#2E3527]" style={{ background: "var(--olive)" }}>
           <Grain opacity={0.05} />
           <div className="max-w-6xl mx-auto relative z-10 px-5 sm:px-0">
             <div className="flex items-end justify-between mb-8 sm:mb-14 flex-wrap gap-4">
@@ -393,7 +416,20 @@ export default function HomePage() {
                 style={{ minWidth: "clamp(230px,70vw,290px)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}
               >
                 <div className="jost uppercase mb-5" style={{ color: "var(--gold)", letterSpacing: "0.2em", fontSize: "0.58rem" }}>{f.num}</div>
-                <h3 className="cf text-white mb-3" style={{ fontSize: "clamp(1.05rem,2.5vw,1.3rem)", fontWeight: 300, lineHeight: 1.3 }}>{f.name}</h3>
+                <div className="flex items-start gap-4 mb-4">
+                  {f.svg && (
+                    <div className="home-facial-icon shrink-0">
+                      <Image
+                        src={f.svg}
+                        alt={f.name}
+                        width={40}
+                        height={40}
+                        className="h-10 w-10 object-contain invert"
+                      />
+                    </div>
+                  )}
+                  <h3 className="cf text-white" style={{ fontSize: "clamp(1.05rem,2.5vw,1.3rem)", fontWeight: 300, lineHeight: 1.3 }}>{f.name}</h3>
+                </div>
                 <div className="jost uppercase mb-3" style={{ color: "var(--gold)", letterSpacing: "0.15em", fontSize: "0.62rem" }}>{f.dur}</div>
                 <p className="jost mb-6 text-sm" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>{f.desc}</p>
                 <Link href="/facials" className="jost uppercase opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--gold)", letterSpacing: "0.12em", fontSize: "0.65rem" }}>
@@ -405,7 +441,7 @@ export default function HomePage() {
         </section>
 
         {/* ══ PROCESS ══════════════════════════════════════════ */}
-        <section className="py-14 sm:py-24 px-5 sm:px-8 border-t border-[#E5DDD0]" style={{ background: "var(--cream)" }}>
+        <section className="py-14 sm:py-20 px-5 sm:px-8 border-t border-[#E5DDD0]" style={{ background: "var(--cream)" }}>
           <div className="max-w-4xl mx-auto">
             <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10 sm:mb-16 text-center">
               <span className="e-rule mx-auto mb-5 block" />
@@ -442,7 +478,7 @@ export default function HomePage() {
         </section>
 
         {/* ══ TESTIMONIALS ══════════════════════════════════════ */}
-        <section className="py-14 sm:py-24 px-5 sm:px-8 border-t border-[#E5DDD0] relative overflow-hidden" style={{ background: "var(--parchment)" }}>
+        <section className="py-14 sm:py-20 px-5 sm:px-8 border-t border-[#E5DDD0] relative overflow-hidden" style={{ background: "var(--parchment)" }}>
           <div className="max-w-4xl mx-auto">
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mb-10 sm:mb-14">
               <span className="e-rule mb-5 block" />
@@ -478,7 +514,7 @@ export default function HomePage() {
         </section>
 
         {/* ══ FAQ ══════════════════════════════════════════════ */}
-        <section id="faq" className="py-14 sm:py-24 px-5 sm:px-8 border-t border-[#E5DDD0]" style={{ background: "var(--cream)" }}>
+        <section id="faq" className="py-14 sm:py-20 px-5 sm:px-8 border-t border-[#E5DDD0]" style={{ background: "var(--cream)" }}>
           <div className="max-w-3xl mx-auto">
             <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10 sm:mb-16">
               <span className="e-rule mb-5 block" />

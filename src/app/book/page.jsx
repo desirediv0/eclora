@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Clock, MapPin, Phone } from "lucide-react";
 import { STYLES, Field, ServiceOptions, SuccessPanel } from "@/shared/EcloraForm";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Grain = () => (
   <svg className="pointer-events-none absolute inset-0 w-full h-full z-[1]" style={{ opacity: 0.055 }} xmlns="http://www.w3.org/2000/svg">
@@ -14,14 +15,14 @@ const Grain = () => (
 );
 
 const clinicInfo = [
-  { icon: Clock, label: "Hours",    lines: ["Mon – Sat: 10:00 AM – 7:00 PM", "Sunday: By appointment only"] },
+  { icon: Clock, label: "Hours", lines: ["Mon – Sat: 10:00 AM – 7:00 PM", "Sunday: By appointment only"] },
   { icon: MapPin, label: "Location", lines: ["123 Aesthetic Lane, South Ex Part 2", "New Delhi, 110049"] },
-  { icon: Phone,  label: "Contact",  lines: ["+91 98765 43210", "info@ecloraaesthetics.com"] },
+  { icon: Phone, label: "Contact", lines: ["+91 98765 43210", "info@ecloraaesthetics.com"] },
 ];
 
 export default function BookPage() {
   const [submitted, setSubmitted] = useState(false);
-  const [loading,   setLoading]   = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +36,8 @@ export default function BookPage() {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         ${STYLES}
         .cf  { font-family: var(--cf); }
         .jost{ font-family: var(--jost); }
@@ -118,10 +120,7 @@ export default function BookPage() {
                 className="flex items-center gap-3 mt-4 p-4 border hover:border-[#25D366] transition-colors"
                 style={{ border: "1px solid rgba(37,211,102,0.3)", background: "rgba(37,211,102,0.04)", textDecoration: "none" }}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366" className="shrink-0">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                  <path d="M11.99 2C6.48 2 2 6.48 2 11.99c0 1.88.52 3.64 1.42 5.15L2 22l4.99-1.37C8.44 21.49 10.18 22 11.99 22 17.52 22 22 17.52 22 11.99S17.52 2 11.99 2z" fillOpacity=".3"/>
-                </svg>
+                <FaWhatsapp size={20} style={{ color: "#25D366", flexShrink: 0 }} />
                 <span className="jost uppercase tracking-[0.15em]" style={{ fontSize: "0.65rem", color: "#1a9e47" }}>
                   Quick Book on WhatsApp
                 </span>

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 const InstagramIcon = () => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -18,17 +19,18 @@ const FacebookIcon = () => (
 );
 
 const navLinks = [
-  { l: "Home",             p: "/" },
-  { l: "Services",         p: "/services" },
-  { l: "Facials",          p: "/facials" },
-  { l: "About",            p: "/about" },
-  { l: "Contact",          p: "/contact" },
+  { l: "Home", p: "/" },
+  { l: "Services", p: "/services" },
+  { l: "Facials", p: "/facials" },
+  { l: "About", p: "/about" },
+  { l: "Contact", p: "/contact" },
   { l: "Book Appointment", p: "/book" },
 ];
 
 const Footer = () => (
   <footer id="footer" className="border-t" style={{ background: "#1C1F17", borderColor: "#2A2E22", fontFamily: "'Jost', system-ui, sans-serif" }}>
-    <style dangerouslySetInnerHTML={{ __html: `
+    <style dangerouslySetInnerHTML={{
+      __html: `
       .fl { font-size:0.78rem; color:rgba(255,255,255,0.4); letter-spacing:0.04em; text-decoration:none; display:inline-block; padding:0.2rem 0; transition:color 0.3s; }
       .fl:hover { color:#C9A97A; }
       .flabel { font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:#C9A97A; display:block; margin-bottom:1.1rem; }
@@ -116,7 +118,7 @@ const Footer = () => (
           <a href="#" className="fsoc" aria-label="Instagram"><InstagramIcon /></a>
           <a href="#" className="fsoc" aria-label="Facebook"><FacebookIcon /></a>
           <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="fsoc" aria-label="WhatsApp">
-            <MessageCircle size={16} />
+            <FaWhatsapp size={16} />
           </a>
         </div>
         <p style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.72rem", lineHeight: 1.75 }}>

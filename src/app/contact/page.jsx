@@ -3,8 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { STYLES, Field, ServiceOptions, SuccessPanel } from "@/shared/EcloraForm";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Grain = () => (
   <svg className="pointer-events-none absolute inset-0 w-full h-full z-[1]" style={{ opacity: 0.055 }} xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +47,7 @@ const contactDetails = [
     link: { href: "mailto:info@ecloraaesthetics.com", text: "info@ecloraaesthetics.com" },
   },
   {
-    icon: MessageCircle,
+    icon: FaWhatsapp,
     label: "WhatsApp",
     lines: ["Quick queries & appointment booking"],
     link: { href: "https://wa.me/919876543210", text: "Open WhatsApp →", external: true },
@@ -55,7 +56,7 @@ const contactDetails = [
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading]     = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,7 +70,8 @@ export default function ContactPage() {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         ${STYLES}
         /* Extra responsive helpers */
         .cf  { font-family: var(--cf); }
@@ -168,7 +170,7 @@ export default function ContactPage() {
                 <div className="flex gap-2">
                   {[
                     { label: "Instagram", Icon: InstagramIcon, href: "#" },
-                    { label: "Facebook",  Icon: FacebookIcon,  href: "#" },
+                    { label: "Facebook", Icon: FacebookIcon, href: "#" },
                   ].map(({ label, Icon, href }) => (
                     <a key={label} href={href} aria-label={label}
                       className="flex items-center justify-center border border-[#E0D8CC] hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors"
@@ -288,9 +290,9 @@ export default function ContactPage() {
             {/* Links — wrap nicely on mobile */}
             <div className="flex flex-wrap gap-2 sm:gap-3">
               {[
-                { l: "All Services",      p: "/services" },
-                { l: "Signature Facials", p: "/facials"  },
-                { l: "About the Clinic",  p: "/about"    },
+                { l: "All Services", p: "/services" },
+                { l: "Signature Facials", p: "/facials" },
+                { l: "About the Clinic", p: "/about" },
               ].map(({ l, p }) => (
                 <Link key={p} href={p}
                   className="jost uppercase text-[0.65rem] tracking-[0.14em] px-4 py-2.5 border transition-colors hover:border-[var(--gold)] hover:text-[var(--gold)]"

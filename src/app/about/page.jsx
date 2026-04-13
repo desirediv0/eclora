@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Grain = () => (
   <svg className="pointer-events-none absolute inset-0 w-full h-full z-[1]" style={{ opacity: 0.055 }} xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +23,8 @@ const ClinicImage = ({ label }) => (
 export default function AboutPage() {
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         :root{--olive:#3E4535;--olive-dark:#262C1E;--gold:#C9A97A;--cream:#F6F1E9;--parchment:#FAF7F2;--ink:#1C1C1A;--muted:#7A7568;--cf:'Cormorant Garamond',Georgia,serif;--jost:'Jost',system-ui,sans-serif;}
         .cf{font-family:var(--cf);}
         .jost{font-family:var(--jost);}
@@ -122,8 +124,8 @@ export default function AboutPage() {
             <div className="mvv-grid border border-[#E0D8CC]">
               {[
                 { n: "01", title: "Our Mission", text: "To provide evidence-based aesthetic treatments that deliver real, visible results — while maintaining the highest standards of safety and patient care." },
-                { n: "02", title: "Our Vision",  text: "To be Delhi's most trusted aesthetic clinic — where cutting-edge technology meets compassionate, individualised care." },
-                { n: "03", title: "Our Values",  text: "Integrity, Excellence, Empathy, and Innovation guide every treatment and every interaction at Éclora." },
+                { n: "02", title: "Our Vision", text: "To be Delhi's most trusted aesthetic clinic — where cutting-edge technology meets compassionate, individualised care." },
+                { n: "03", title: "Our Values", text: "Integrity, Excellence, Empathy, and Innovation guide every treatment and every interaction at Éclora." },
               ].map((item, i) => (
                 <motion.div key={item.n} className="mvv-cell"
                   initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
@@ -150,9 +152,9 @@ export default function AboutPage() {
             </motion.div>
 
             {[
-              { num: "01", title: "Certified Expertise",     body: "Our team consists of board-certified dermatologists and trained aesthetic practitioners with years of specialised experience in advanced skin and hair treatments.", imgLabel: "Clinic / Team",  flip: false },
-              { num: "02", title: "Advanced Technology",     body: "We invest in the latest FDA-cleared devices to ensure every treatment is both safe and highly effective — from fractional lasers to HIFU and beyond.",               imgLabel: "Equipment",      flip: true  },
-              { num: "03", title: "Your Safety, Always First", body: "Every treatment is preceded by a thorough consultation and skin analysis. We never recommend procedures that are not right for your skin type or condition.",    imgLabel: "Consultation",   flip: false },
+              { num: "01", title: "Certified Expertise", body: "Our team consists of board-certified dermatologists and trained aesthetic practitioners with years of specialised experience in advanced skin and hair treatments.", img: "/certified-expertise.jpg", flip: false },
+              { num: "02", title: "Advanced Technology", body: "We invest in the latest FDA-cleared devices to ensure every treatment is both safe and highly effective — from fractional lasers to HIFU and beyond.", img: "/advanced-technology.jpg", flip: true },
+              { num: "03", title: "Your Safety, Always First", body: "Every treatment is preceded by a thorough consultation and skin analysis. We never recommend procedures that are not right for your skin type or condition.", img: "/your-safety.jpg", flip: false },
             ].map((row, i) => (
               <motion.div key={row.num} className="diff-row"
                 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-50px" }}
@@ -166,7 +168,7 @@ export default function AboutPage() {
 
                 {/* Image — desktop, with flip */}
                 <div className="hidden md:block" style={{ order: row.flip ? 2 : 1, borderRight: !row.flip ? "1px solid #E0D8CC" : "none", borderLeft: row.flip ? "1px solid #E0D8CC" : "none" }}>
-                  <ClinicImage label={row.imgLabel} />
+                  <Image src={row.img} alt={row.title} width={600} height={450} className="w-full h-auto object-cover" />
                 </div>
 
                 {/* Text */}
@@ -189,16 +191,18 @@ export default function AboutPage() {
             <div className="grid grid-cols-2 sm:grid-cols-4 border border-white/[0.07]">
               {[
                 { num: "2000+", label: "Happy Clients" },
-                { num: "46+",   label: "Treatments" },
-                { num: "10+",   label: "Years Experience" },
-                { num: "5 ★",   label: "Google Rating" },
+                { num: "46+", label: "Treatments" },
+                { num: "10+", label: "Years Experience" },
+                { num: "5 ★", label: "Google Rating" },
               ].map((stat, i) => (
                 <motion.div key={stat.label}
                   initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.7 }}
                   className="text-center py-7 sm:py-10 px-2"
-                  style={{ borderRight: i % 2 === 0 && i < 3 ? "1px solid rgba(255,255,255,0.07)" : i % 2 !== 0 && i < 3 ? "1px solid rgba(255,255,255,0.07)" : "none",
-                           borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.07)" : "none" }}
+                  style={{
+                    borderRight: i % 2 === 0 && i < 3 ? "1px solid rgba(255,255,255,0.07)" : i % 2 !== 0 && i < 3 ? "1px solid rgba(255,255,255,0.07)" : "none",
+                    borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.07)" : "none"
+                  }}
                 >
                   <div className="cf text-white" style={{ fontSize: "clamp(1.6rem,4vw,3rem)", fontWeight: 300, lineHeight: 1 }}>{stat.num}</div>
                   <div className="jost uppercase mt-2" style={{ fontSize: "0.52rem", letterSpacing: "0.2em", color: "var(--gold)" }}>{stat.label}</div>
@@ -222,8 +226,8 @@ export default function AboutPage() {
             {/* Team cards — 1 col mobile → 2 col sm+ */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[#E0D8CC]" style={{ maxWidth: "720px" }}>
               {[
-                { name: "Dr. [Your Name]", role: "Lead Dermatologist",  bio: "Specialist in advanced laser procedures and aesthetic dermatology with 10+ years of clinical experience." },
-                { name: "Dr. [Name]",      role: "Aesthetic Physician",  bio: "Expert in injectables, skin boosters, and non-surgical facial rejuvenation." },
+                { name: "Dr. [Your Name]", role: "Lead Dermatologist", bio: "Specialist in advanced laser procedures and aesthetic dermatology with 10+ years of clinical experience." },
+                { name: "Dr. [Name]", role: "Aesthetic Physician", bio: "Expert in injectables, skin boosters, and non-surgical facial rejuvenation." },
               ].map((doc, i) => (
                 <motion.div key={doc.name} className="team-card p-7 sm:p-10"
                   initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}

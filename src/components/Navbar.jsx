@@ -8,20 +8,21 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Home",     path: "/" },
+  { label: "Home", path: "/" },
   { label: "Services", path: "/services" },
-  { label: "Facials",  path: "/facials" },
-  { label: "About",    path: "/about" },
-  { label: "Contact",  path: "/contact" },
+  { label: "Facials", path: "/facials" },
+  { label: "About", path: "/about" },
+  { label: "Contact", path: "/contact" },
 ];
 
-const Navbar = ({ onBookOpen }) => {
-  const [scrolled,    setScrolled]    = useState(false);
-  const [mobileOpen,  setMobileOpen]  = useState(false);
+const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
-  const isDarkHero    = pathname === "/";
-  const isTransparent = isDarkHero && !scrolled && !mobileOpen;
+  const isHomePage = pathname === "/";
+  const isTransparent = isHomePage && !scrolled && !mobileOpen;
+  const useGreenLogo = !isHomePage || scrolled || mobileOpen;
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40);
@@ -38,7 +39,8 @@ const Navbar = ({ onBookOpen }) => {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .nl {
           font-family: 'Jost', system-ui, sans-serif;
           font-size: 0.68rem;
@@ -78,19 +80,19 @@ const Navbar = ({ onBookOpen }) => {
       {/* ── NAV BAR ──────────────────────────────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          background:    isTransparent ? "transparent"              : "rgba(250,247,242,0.97)",
-          backdropFilter:isTransparent ? "none"                     : "blur(12px)",
-          borderBottom:  isTransparent ? "1px solid rgba(255,255,255,0.08)" : "1px solid #E5DDD0",
-          boxShadow:     scrolled      ? "0 1px 24px rgba(0,0,0,0.06)" : "none",
+          background: isTransparent ? "transparent" : "rgba(250,247,242,0.97)",
+          backdropFilter: isTransparent ? "none" : "blur(12px)",
+          borderBottom: isTransparent ? "1px solid rgba(255,255,255,0.08)" : "1px solid #E5DDD0",
+          boxShadow: scrolled ? "0 1px 24px rgba(0,0,0,0.06)" : "none",
         }}
       >
         <div className="flex items-center justify-between h-16 md:h-[72px] max-w-7xl mx-auto px-5 sm:px-8">
 
           {/* ── LOGO ─────────────────────────────────────────── */}
           <Link href="/" className="flex items-center shrink-0">
-          
+
             <Image
-              src="/logo.jpeg"
+              src={useGreenLogo ? "/logo-green.png" : "/logo.png"}
               alt="Éclora Aesthetics & Laser Clinic"
               width={200}
               height={80}
@@ -98,7 +100,7 @@ const Navbar = ({ onBookOpen }) => {
               className="h-11 sm:h-12 md:h-14 w-auto object-contain"
               style={{
                 maxWidth: "180px",
-                
+
                 transition: "filter 0.5s ease",
               }}
               onError={(e) => {
@@ -142,9 +144,9 @@ const Navbar = ({ onBookOpen }) => {
               href="/book"
               className="book-btn"
               style={{
-                background:   isTransparent ? "rgba(255,255,255,0.1)" : "#3E4535",
-                color:        "#fff",
-                border:       isTransparent ? "1px solid rgba(255,255,255,0.3)" : "1px solid #3E4535",
+                background: isTransparent ? "rgba(255,255,255,0.1)" : "#3E4535",
+                color: "#fff",
+                border: isTransparent ? "1px solid rgba(255,255,255,0.3)" : "1px solid #3E4535",
               }}
             >
               Book Now
@@ -207,7 +209,7 @@ const Navbar = ({ onBookOpen }) => {
                 {/* Logo in drawer — larger for readability */}
                 <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center">
                   <Image
-                    src="/logo.jpeg"
+                    src="/logo.png"
                     alt="Éclora"
                     width={160}
                     height={64}

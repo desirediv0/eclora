@@ -1,4 +1,68 @@
 
+const serviceSvgMap = {
+    "Laser Hair Reduction": "/services/laser-hair-reduction.svg",
+    "Chemical Peels": "/services/chemical-peels.svg",
+    "Botox & Fillers": "/services/botox-fillers.svg",
+    "Skin Boosters": "/services/skin-boosters.svg",
+    "HIFU": "/services/hifu.svg",
+    "RF for Skin Tightening": "/services/rf-skin.svg",
+    "Anti-Ageing Laser Toning": "/services/anti-ageing-laser.svg",
+    "Carbon Laser Toning": "/services/carbon-laser-toning.svg",
+    "Uneven/Even Skin Laser Toning": "/services/uneven-even-skin-laser.svg",
+    "Microneedling": "/services/microneedling.svg",
+    "Photofacial": "/services/photofacial.svg",
+    "Meso Infusion Therapy": "/services/meso-infusion-therapy.svg",
+    "Fractional Lasers for Open Pores": "/services/fractional-lasers-open-pores.svg",
+    "TCA Cross": "/services/tca-cross.svg",
+    "PDRN Facial": "/services/pdrn-facial.svg",
+    "PDRN Therapy": "/services/pdrn-therapy.svg",
+    "Acne Treatment": "/services/acne-treatment.svg",
+    "Pigmentation Treatment": "/services/pigmentation-treatment.svg",
+    "Melasma Treatment": "/services/melasma-treatment.svg",
+    "Hyperpigmentation Therapy": "/services/hyperpigmentation-therapy.svg",
+    "Mole Removal": "/services/mole-removal.svg",
+    "Skin Tag Removal": "/services/skin-tag-removal.svg",
+    "Warts Removal": "/services/warts-removal.svg",
+    "Milia Removal": "/services/milia-removal.svg",
+    "Electrolysis for White Hairs": "/services/electrolysis-white-hairs-permanent.svg",
+    "Electrolysis": "/services/electrolysis-white-hairs-permanent.svg",
+    "Birthmark": "/services/birthmark-treatment.svg",
+    "Tattoo Removal": "/services/tattoo-removal.svg",
+    "Acne Scar Treatment": "/services/acne-scar-treatment.svg",
+    "Microdermabrasion": "/services/microdermabrasion.svg",
+    "Jet Peel Therapy": "/services/jet-peel-therapy.svg",
+    "Semi-Permanent Makeup": "/services/semi-permanent-makeup.svg",
+    "Stretch Mark": "/services/stretch-mark-reduce.svg",
+    "Microblading": "/services/microblading-natural-looking-eyebrow.svg",
+    "Lip Tint": "/services/lip-tint.svg",
+    "Corn Removal": "/services/corn-removal.svg",
+    "GFC / PRP for Face": "/services/gfc-prp-face-growth-factor.svg",
+    "GFC / PRP": "/services/gfc-prp-face-growth-factor.svg",
+    "Undereye Treatment": "/services/undereye-treatment.svg",
+    "Vampire Facial": "/services/vampire-facial.svg",
+    "Dark Circle Treatment": "/services/dark-circle-treatment.svg",
+    "Scaling": "/services/scaling-professional-teethskin.svg",
+    "Dandruff Therapy": "/services/dandruff-therapy.svg",
+    "Skin Analysis": "/services/skin-analysis-advanced.svg",
+    "Triple LLT Light Therapy": "/services/triple-llt-light-therapy.svg",
+    "QR678 Hair Growth": "/services/qr678-hair-growth.svg",
+    "Exosomes": "/services/exosomes-next-gen-regenerative.svg",
+    "Hair Fall Treatment": "/services/hair-fall-treatment.svg",
+};
+
+const facialSvgMap = {
+    "Eclora Signature Glow": "/facials/eclora-signature-glow.svg",
+    "Éclora Signature Glow": "/facials/éclora-signature-glow.svg",
+    "Diamond Elixir Facial": "/facials/diamond-elixir-facial.svg",
+    "Skin Revival Therapy": "/facials/skin-revival-therapy.svg",
+    "Platinum Luxe Facial": "/facials/platinum-luxe-facial.svg",
+    "Elite Aura Facial": "/facials/elite-aura-facial.svg",
+    "Acne Defense Therapy": "/facials/acne-defense-therapy.svg",
+    "Ã‰clora Signature Glow": "/facials/eclora-signature-glow.svg",
+};
+
+export const getServiceSvg = (serviceName) => serviceSvgMap[serviceName] ?? null;
+export const getFacialSvg = (facialName) => facialSvgMap[facialName] ?? null;
 
 export const services = [
     { id: 1, name: "Laser Hair Reduction", description: "Long-lasting hair removal using advanced laser technology", category: "Laser" },
@@ -51,6 +115,11 @@ export const services = [
 
 export const categories = ["All", "Face Treatments", "Laser", "Injectables", "Removal", "Hair Treatments", "Facials"];
 
+export const servicesWithSvg = services.map((service) => ({
+    ...service,
+    svg: getServiceSvg(service.name),
+}));
+
 
 
 export const facials = [
@@ -61,6 +130,11 @@ export const facials = [
     { id: 5, name: "Elite Aura Facial", description: "A bespoke multi-step facial designed to enhance your natural aura with customized serums and massage.", duration: "75 min" },
     { id: 6, name: "Acne Defense Therapy", description: "A deep-cleansing, anti-bacterial facial specifically formulated to combat active acne and prevent breakouts.", duration: "60 min" },
 ];
+
+export const facialsWithSvg = facials.map((facial) => ({
+    ...facial,
+    svg: getFacialSvg(facial.name),
+}));
 
 export const faqs = [
     { q: "What should I expect on my first visit?", a: "During your first visit, our dermatologist will assess your skin/hair condition, discuss your concerns, and recommend a personalized treatment plan." },

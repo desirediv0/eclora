@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
-import { facials } from "@/data/services";
+import { facialsWithSvg } from "@/data/services";
 
 const Grain = () => (
   <svg className="pointer-events-none absolute inset-0 w-full h-full z-[1]" style={{ opacity: 0.055 }} xmlns="http://www.w3.org/2000/svg">
@@ -27,6 +28,8 @@ export default function FacialsPage() {
         .fc:hover::after{height:2px;}
         .fc:hover .fc-btn,.fc:focus-within .fc-btn{background:var(--gold);color:var(--ink);border-color:var(--gold);}
         .fc-btn{font-family:var(--jost);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.75rem 1.5rem;border:1px solid var(--border);color:var(--muted);background:transparent;text-decoration:none;display:inline-block;transition:all 0.3s;}
+        .fc-icon{width:76px;height:76px;border-radius:22px;border:1px solid rgba(201,169,122,0.22);background:linear-gradient(180deg,rgba(201,169,122,0.08),rgba(201,169,122,0.02));display:flex;align-items:center;justify-content:center;transition:transform 0.35s ease,border-color 0.35s ease,background 0.35s ease;flex-shrink:0;}
+        .fc:hover .fc-icon{transform:translateY(-2px);border-color:rgba(201,169,122,0.45);background:linear-gradient(180deg,rgba(201,169,122,0.16),rgba(201,169,122,0.05));}
         /* Always show button on touch */
         @media(hover:none){.fc-btn{background:transparent;color:var(--muted);}}
 
@@ -114,7 +117,7 @@ export default function FacialsPage() {
 
             {/* 1 col → 2 col sm → 3 col lg, gap-px trick for seamless borders */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#E0D8CC]">
-              {facials.map((f, i) => (
+              {facialsWithSvg.map((f, i) => (
                 <motion.div key={f.id} className="fc flex flex-col p-5 sm:p-8 min-h-[280px] sm:min-h-[320px]"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -133,10 +136,23 @@ export default function FacialsPage() {
                     </span>
                   </div>
 
-                  {/* Name */}
-                  <h3 className="cf flex-1" style={{ fontSize: "clamp(1.2rem,2.5vw,1.8rem)", fontWeight: 400, color: "var(--ink)", lineHeight: 1.2, marginBottom: "0.75rem" }}>
-                    {f.name}
-                  </h3>
+                  <div className="flex items-start gap-4 mb-5">
+                    {f.svg && (
+                      <div className="fc-icon">
+                        <Image
+                          src={f.svg}
+                          alt={f.name}
+                          width={44}
+                          height={44}
+                          className="h-11 w-11 object-contain"
+                        />
+                      </div>
+                    )}
+
+                    <h3 className="cf flex-1" style={{ fontSize: "clamp(1.2rem,2.5vw,1.8rem)", fontWeight: 400, color: "var(--ink)", lineHeight: 1.2 }}>
+                      {f.name}
+                    </h3>
+                  </div>
 
                   {/* Gold rule */}
                   <div className="w-8 h-px mb-3 sm:mb-4" style={{ background: "var(--gold)", opacity: 0.6 }} />

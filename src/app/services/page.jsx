@@ -2,8 +2,9 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { services, categories } from "@/data/services";
+import { servicesWithSvg, categories } from "@/data/services";
 
 const Grain = () => (
   <svg className="pointer-events-none absolute inset-0 w-full h-full z-[1]" style={{ opacity: 0.055 }} xmlns="http://www.w3.org/2000/svg">
@@ -16,13 +17,14 @@ export default function ServicesPage() {
   const [active, setActive] = useState("All");
 
   const filtered = useMemo(
-    () => active === "All" ? services : services.filter((s) => s.category === active),
+    () => active === "All" ? servicesWithSvg : servicesWithSvg.filter((s) => s.category === active),
     [active]
   );
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         :root{--olive:#3E4535;--olive-dark:#262C1E;--gold:#C9A97A;--cream:#F6F1E9;--parchment:#FAF7F2;--ink:#1C1C1A;--muted:#7A7568;--cf:'Cormorant Garamond',Georgia,serif;--jost:'Jost',system-ui,sans-serif;}
         .cf{font-family:var(--cf);}
         .jost{font-family:var(--jost);}
@@ -40,6 +42,8 @@ export default function ServicesPage() {
         .svc-row:hover{background:rgba(201,169,122,0.04);}
         .svc-row:hover .svc-cta,.svc-row:focus-within .svc-cta{opacity:1;transform:translateX(0);}
         .svc-cta{font-family:var(--jost);font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateX(-8px);transition:opacity 0.3s,transform 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;margin-top:0.65rem;}
+        .svc-icon{width:72px;height:72px;border-radius:20px;border:1px solid rgba(201,169,122,0.22);background:linear-gradient(180deg,rgba(201,169,122,0.08),rgba(201,169,122,0.02));display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.35s ease,border-color 0.35s ease,background 0.35s ease;}
+        .svc-row:hover .svc-icon{transform:translateY(-2px);border-color:rgba(201,169,122,0.45);background:linear-gradient(180deg,rgba(201,169,122,0.14),rgba(201,169,122,0.05));}
         @media(hover:none){.svc-cta{opacity:1;transform:none;}}
 
         .cat-pill{font-family:var(--jost);font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,169,122,0.4);padding:0.2rem 0.6rem;display:inline-block;flex-shrink:0;}
@@ -166,18 +170,32 @@ export default function ServicesPage() {
                         viewport={{ once: true, margin: "-30px" }}
                         transition={{ delay: (i % 4) * 0.05, duration: 0.55 }}
                       >
-                        {/* Number + category pill */}
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="cf" style={{ fontSize: "0.68rem", color: "var(--gold)", letterSpacing: "0.08em" }}>
-                            {String(s.id).padStart(2, "0")}
-                          </span>
-                          <span className="cat-pill">{s.category}</span>
-                        </div>
+                        <div className="flex items-start gap-4 mb-4">
+                          {s.svg && (
+                            <div className="svc-icon">
+                              <Image
+                                src={s.svg}
+                                alt={s.name}
+                                width={42}
+                                height={42}
+                                className="h-10 w-10 object-contain"
+                              />
+                            </div>
+                          )}
 
-                        {/* Treatment name */}
-                        <h3 className="cf" style={{ fontSize: "clamp(1rem,2.5vw,1.35rem)", fontWeight: 400, color: "var(--ink)", lineHeight: 1.25, marginBottom: "0.4rem" }}>
-                          {s.name}
-                        </h3>
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2 mb-2 flex-wrap">
+                              <span className="cf" style={{ fontSize: "0.68rem", color: "var(--gold)", letterSpacing: "0.08em" }}>
+                                {String(s.id).padStart(2, "0")}
+                              </span>
+                              <span className="cat-pill">{s.category}</span>
+                            </div>
+
+                            <h3 className="cf" style={{ fontSize: "clamp(1rem,2.5vw,1.35rem)", fontWeight: 400, color: "var(--ink)", lineHeight: 1.25 }}>
+                              {s.name}
+                            </h3>
+                          </div>
+                        </div>
 
                         {/* Description */}
                         <p className="jost" style={{ fontSize: "clamp(0.78rem,1.5vw,0.82rem)", color: "var(--muted)", lineHeight: 1.75, maxWidth: "400px" }}>
