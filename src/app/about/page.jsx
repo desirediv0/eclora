@@ -11,14 +11,6 @@ const Grain = () => (
   </svg>
 );
 
-const ClinicImage = ({ label }) => (
-  <div className="w-full relative overflow-hidden" style={{ aspectRatio: "4/3", background: "linear-gradient(135deg,#2E3527 0%,#4A5240 100%)" }}>
-    <Grain />
-    <span className="absolute inset-0 flex items-center justify-center jost uppercase tracking-[0.3em] z-10"
-      style={{ fontSize: "0.58rem", color: "rgba(255,255,255,0.2)" }}
-    >{label}</span>
-  </div>
-);
 
 export default function AboutPage() {
   return (
