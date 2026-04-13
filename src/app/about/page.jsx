@@ -163,7 +163,7 @@ export default function AboutPage() {
                 {/* On mobile: image always first, text below.
                     On md+: flip alternates using order */}
                 <div className="md:hidden">
-                  <ClinicImage label={row.imgLabel} />
+                  <Image src={row.img} alt={row.title} width={600} height={450} className="w-full h-auto object-cover" />
                 </div>
 
                 {/* Image — desktop, with flip */}
