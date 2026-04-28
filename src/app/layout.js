@@ -4,8 +4,8 @@ import "./globals.css";
 export const metadata = {
   metadataBase: new URL("https://eclora.example"),
   title: {
-    default: "Eclora Skin & Hair Clinic",
-    template: "%s | Eclora Skin & Hair Clinic",
+    default: "Eclora Aesthetics Skin & Hair Clinic",
+    template: "%s | Eclora Aesthetics Skin & Hair Clinic",
   },
   description:
     "A luxury skin and hair clinic offering advanced dermatology, laser, injectable, and facial treatments.",

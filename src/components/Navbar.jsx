@@ -93,7 +93,7 @@ const Navbar = () => {
 
             <Image
               src={useGreenLogo ? "/logo-green.png" : "/logo.png"}
-              alt="Éclora Aesthetics & Laser Clinic"
+              alt="Eclora Aesthetics"
               width={200}
               height={80}
               priority
@@ -210,7 +210,7 @@ const Navbar = () => {
                 <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center">
                   <Image
                     src="/logo.png"
-                    alt="Éclora"
+                    alt="Eclora Aesthetics"
                     width={160}
                     height={64}
                     className="h-10 w-auto object-contain"
@@ -282,8 +282,8 @@ const Navbar = () => {
                 </Link>
                 <p className="text-center mt-3" style={{ fontFamily: "'Jost', system-ui, sans-serif", fontSize: "0.72rem", color: "#7A7568" }}>
                   Or call{" "}
-                  <a href="tel:+919876543210" style={{ color: "#C9A97A", textDecoration: "none" }}>
-                    +91 98765 43210
+                  <a href="tel:+918291643775" style={{ color: "#C9A97A", textDecoration: "none" }}>
+                    +91 82916 43775
                   </a>
                 </p>
               </motion.div>

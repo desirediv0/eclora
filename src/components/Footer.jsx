@@ -52,7 +52,7 @@ const Footer = () => (
           ÉCLORA
         </div>
         <div className="mt-1.5" style={{ color: "rgba(255,255,255,0.3)", fontSize: "0.58rem", letterSpacing: "0.2em" }}>
-          AESTHETICS &amp; LASER CLINIC · NEW DELHI
+          AESTHETICS &amp; LASER CLINIC · GURGAON
         </div>
       </div>
 
@@ -94,18 +94,18 @@ const Footer = () => (
         <ul className="flex flex-col gap-3 p-0 m-0 list-none">
           <li className="flex items-center gap-2 min-w-0">
             <Phone size={12} className="shrink-0" style={{ color: "#C9A97A" }} />
-            <a href="tel:+919876543210" className="fl truncate" style={{ padding: 0 }}>+91 98765 43210</a>
+            <a href="tel:+918291643775" className="fl truncate" style={{ padding: 0 }}>+91 82916 43775</a>
           </li>
           <li className="flex items-start gap-2 min-w-0">
             <Mail size={12} className="shrink-0 mt-0.5" style={{ color: "#C9A97A" }} />
-            <a href="mailto:info@ecloraaesthetics.com" className="fl" style={{ padding: 0, wordBreak: "break-all", fontSize: "0.72rem" }}>
-              info@ecloraaesthetics.com
+            <a href="mailto:contact@ecloraaesthetics.com" className="fl" style={{ padding: 0, wordBreak: "break-all", fontSize: "0.72rem" }}>
+              contact@ecloraaesthetics.com
             </a>
           </li>
           <li className="flex items-start gap-2">
             <MapPin size={12} className="shrink-0 mt-0.5" style={{ color: "#C9A97A" }} />
             <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.78rem", lineHeight: 1.65 }}>
-              123 Aesthetic Lane,<br />New Delhi
+              842B, C Block, Sushant Lok Phase-1,<br />Gurgaon, Haryana
             </span>
           </li>
         </ul>
@@ -117,12 +117,12 @@ const Footer = () => (
         <div className="flex gap-2 mb-5">
           <a href="#" className="fsoc" aria-label="Instagram"><InstagramIcon /></a>
           <a href="#" className="fsoc" aria-label="Facebook"><FacebookIcon /></a>
-          <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="fsoc" aria-label="WhatsApp">
+          <a href="https://wa.me/918291643775" target="_blank" rel="noopener noreferrer" className="fsoc" aria-label="WhatsApp">
             <FaWhatsapp size={16} />
           </a>
         </div>
         <p style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.72rem", lineHeight: 1.75 }}>
-          Mon – Sat: 10am – 7pm<br />Sunday: By appointment
+          Mon–Sun, 10:00 AM – 8:00 PM<br />
         </p>
       </div>
 
@@ -131,7 +131,7 @@ const Footer = () => (
     {/* ── BOTTOM BAR ───────────────────────────────────────── */}
     <div className="max-w-7xl mx-auto px-5 sm:px-8 py-4 sm:py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
       <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.68rem", letterSpacing: "0.08em" }}>
-        © {new Date().getFullYear()} Éclora Aesthetics &amp; Laser Clinic. All rights reserved.
+        © {new Date().getFullYear()} Eclora Aesthetics &amp; Laser Clinic. All rights reserved.
       </p>
       <div className="flex gap-5">
         {["Privacy Policy", "Terms of Use"].map((t) => (

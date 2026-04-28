@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────────────────
-   shared/EcloraForm.jsx
+   shared/Eclora AestheticsForm.jsx
    Reusable primitives used by BookPage & ContactPage
 ───────────────────────────────────────────────────────────────── */
 
@@ -108,7 +108,7 @@ export const ServiceOptions = () => (
     <option value="">Choose a treatment</option>
     <option value="General Consultation">General Consultation — First Visit</option>
     <optgroup label="Face & Laser">
-      {services.slice(0, 8).map(s => (
+      {services.map(s => (
         <option key={`s-${s.id}`} value={s.name}>{s.name}</option>
       ))}
     </optgroup>

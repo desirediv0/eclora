@@ -46,7 +46,7 @@ export default function AboutPage() {
           {/* Watermark — desktop only */}
           <div className="cf hidden sm:block absolute left-[-1vw] bottom-[-10%] select-none pointer-events-none z-0"
             style={{ fontSize: "clamp(120px,20vw,300px)", color: "#fff", opacity: 0.025, lineHeight: 1, fontWeight: 300, fontStyle: "italic" }}
-          >Éclora</div>
+          >Eclora Aesthetics</div>
 
           <div className="max-w-6xl mx-auto relative z-10">
             {/* Breadcrumb */}
@@ -60,10 +60,10 @@ export default function AboutPage() {
               <span className="e-rule" />
               <h1 className="cf text-white" style={{ fontSize: "clamp(2.4rem,9vw,5.5rem)", fontWeight: 300, lineHeight: 1.05, letterSpacing: "-0.01em" }}>
                 The Story<br />
-                <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Behind Éclora</em>
+                <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Behind Eclora Aesthetics</em>
               </h1>
               <p className="jost mt-4 sm:mt-5" style={{ color: "rgba(255,255,255,0.4)", fontSize: "clamp(0.82rem,2vw,0.95rem)", lineHeight: 1.85, maxWidth: "440px" }}>
-                A sanctuary where the science of dermatology meets the art of truly personalised care — built for Delhi, designed for you.
+                A sanctuary where the science of dermatology meets the art of truly personalised care — built for Gurgaon, designed for you.
               </p>
             </motion.div>
           </div>
@@ -87,11 +87,11 @@ export default function AboutPage() {
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
                 <span className="e-rule" />
                 <h2 className="cf" style={{ fontSize: "clamp(1.5rem,3.5vw,3rem)", fontWeight: 300, color: "var(--olive)", lineHeight: 1.2, marginBottom: "1.5rem" }}>
-                  Founded with a vision to bring world-class aesthetic dermatology to Delhi.
+                  Founded with a vision to bring world-class aesthetic dermatology to Gurgaon.
                 </h2>
                 <div className="flex flex-col gap-5">
                   {[
-                    "Éclora Aesthetics & Laser Clinic is a sanctuary of science and luxury. We believe every person deserves access to safe, effective, and personalised skin and hair care — delivered with genuine warmth and expertise.",
+                    "Eclora Aesthetics is a sanctuary of science and luxury. We believe every person deserves access to safe, effective, and personalised skin and hair care — delivered with genuine warmth and expertise.",
                     "Our clinic combines the latest evidence-based dermatological technology with a deeply human approach. Every client who walks through our doors receives a tailored treatment plan designed around their unique skin, hair, and lifestyle goals — not a template.",
                   ].map((p, i) => (
                     <p key={i} className="jost" style={{ fontSize: "clamp(0.85rem,2vw,0.95rem)", color: "var(--muted)", lineHeight: 1.9 }}>{p}</p>
@@ -116,8 +116,8 @@ export default function AboutPage() {
             <div className="mvv-grid border border-[#E0D8CC]">
               {[
                 { n: "01", title: "Our Mission", text: "To provide evidence-based aesthetic treatments that deliver real, visible results — while maintaining the highest standards of safety and patient care." },
-                { n: "02", title: "Our Vision", text: "To be Delhi's most trusted aesthetic clinic — where cutting-edge technology meets compassionate, individualised care." },
-                { n: "03", title: "Our Values", text: "Integrity, Excellence, Empathy, and Innovation guide every treatment and every interaction at Éclora." },
+                { n: "02", title: "Our Vision", text: "To be Gurgaon's most trusted aesthetic clinic — where cutting-edge technology meets compassionate, individualised care." },
+                { n: "03", title: "Our Values", text: "Integrity, Excellence, Empathy, and Innovation guide every treatment and every interaction at Eclora Aesthetics." },
               ].map((item, i) => (
                 <motion.div key={item.n} className="mvv-cell"
                   initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
@@ -139,7 +139,7 @@ export default function AboutPage() {
             <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-8 sm:mb-14">
               <span className="e-rule" />
               <h2 className="cf" style={{ fontSize: "clamp(1.5rem,3.5vw,3rem)", fontWeight: 300, color: "var(--olive)" }}>
-                The Éclora difference
+                The Eclora Aesthetics difference
               </h2>
             </motion.div>
 
@@ -152,15 +152,18 @@ export default function AboutPage() {
                 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.8 }}
               >
+
+                              
+
                 {/* On mobile: image always first, text below.
                     On md+: flip alternates using order */}
                 <div className="md:hidden">
-                  <Image src={row.img} alt={row.title} width={600} height={450} className="w-full h-auto object-cover" />
+                  <img src={row.img} alt={row.title} className="w-full h-auto object-cover" style={{ aspectRatio: "4/3" }} />
                 </div>
 
                 {/* Image — desktop, with flip */}
                 <div className="hidden md:block" style={{ order: row.flip ? 2 : 1, borderRight: !row.flip ? "1px solid #E0D8CC" : "none", borderLeft: row.flip ? "1px solid #E0D8CC" : "none" }}>
-                  <Image src={row.img} alt={row.title} width={600} height={450} className="w-full h-auto object-cover" />
+                  <img src={row.img} alt={row.title} className="w-full h-[450px] object-cover" />
                 </div>
 
                 {/* Text */}
@@ -180,10 +183,9 @@ export default function AboutPage() {
           <Grain />
           <div className="max-w-6xl mx-auto relative z-10">
             {/* 2×2 on mobile → 4 col on sm+ */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 border border-white/[0.07]">
+            <div className="grid grid-cols-2 sm:grid-cols-3 border border-white/[0.07]">
               {[
-                { num: "2000+", label: "Happy Clients" },
-                { num: "46+", label: "Treatments" },
+                { num: "50+", label: "Treatments" },
                 { num: "10+", label: "Years Experience" },
                 { num: "5 ★", label: "Google Rating" },
               ].map((stat, i) => (
@@ -218,8 +220,8 @@ export default function AboutPage() {
             {/* Team cards — 1 col mobile → 2 col sm+ */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[#E0D8CC]" style={{ maxWidth: "720px" }}>
               {[
-                { name: "Dr. [Your Name]", role: "Lead Dermatologist", bio: "Specialist in advanced laser procedures and aesthetic dermatology with 10+ years of clinical experience." },
-                { name: "Dr. [Name]", role: "Aesthetic Physician", bio: "Expert in injectables, skin boosters, and non-surgical facial rejuvenation." },
+                { name: "Bhoomika Singh", role: "Founder", bio: "Visionary leader with a passion for transformative aesthetic care and client wellbeing.", phone: "+91 8291643775", email: "Bhoomika@ecloraaesthetics.com" },
+                { name: "Tamanna Thakral", role: "Co-Founder", bio: "Dedicated to curating world-class dermatological solutions and elevated clinic experiences.", phone: "+91 7027843255", email: "Tamanna@ecloraaesthetics.com" },
               ].map((doc, i) => (
                 <motion.div key={doc.name} className="team-card p-7 sm:p-10"
                   initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
@@ -230,13 +232,17 @@ export default function AboutPage() {
                     style={{ width: "72px", height: "72px", background: "linear-gradient(135deg,#3E4535,#5A6550)" }}
                   >
                     <span className="cf" style={{ fontSize: "1.5rem", fontWeight: 300, color: "var(--gold)" }}>
-                      {doc.name.charAt(4)}
+                      {doc.name.charAt(0)}
                     </span>
                   </div>
                   <h3 className="cf" style={{ fontSize: "clamp(1.1rem,2vw,1.35rem)", fontWeight: 400, color: "var(--ink)", marginBottom: "0.3rem" }}>{doc.name}</h3>
                   <div className="jost uppercase tracking-[0.18em] mb-4" style={{ fontSize: "0.58rem", color: "var(--gold)" }}>{doc.role}</div>
                   <div className="w-6 h-px mb-4" style={{ background: "var(--gold)", opacity: 0.5 }} />
-                  <p className="jost text-sm" style={{ color: "var(--muted)", lineHeight: 1.8 }}>{doc.bio}</p>
+                  <p className="jost text-sm mb-4" style={{ color: "var(--muted)", lineHeight: 1.8 }}>{doc.bio}</p>
+                  <div className="jost text-[0.75rem] flex flex-col gap-1 mt-auto">
+                    <a href={`tel:${doc.phone.replace(/\s+/g, '')}`} className="text-[#3E4535] hover:text-[#C9A97A] transition-colors">{doc.phone}</a>
+                    <a href={`mailto:${doc.email}`} className="text-[#3E4535] hover:text-[#C9A97A] transition-colors break-all">{doc.email}</a>
+                  </div>
                 </motion.div>
               ))}
             </div>

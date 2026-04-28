@@ -98,7 +98,7 @@ export default function ServicesPage() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }}
               className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6 lg:gap-x-12 mt-10 lg:mt-16"
             >
-              {[["46+", "Treatments"], ["10+", "Years"], ["2000+", "Clients"], ["5 ★", "Rated"]].map(([n, l]) => (
+              {[["50+", "Treatments"], ["10+", "Years"], ["5 ★", "Rated"]].map(([n, l]) => (
                 <div key={l} className="flex flex-col">
                   <div className="cf text-white" style={{ fontSize: "clamp(1.5rem,4vw,2.2rem)", fontWeight: 300, lineHeight: 1 }}>{n}</div>
                   <div className="jost uppercase mt-2" style={{ fontSize: "0.58rem", letterSpacing: "0.22em", color: "var(--gold)" }}>{l}</div>

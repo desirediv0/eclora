@@ -31,26 +31,26 @@ const contactDetails = [
   {
     icon: MapPin,
     label: "Visit Us",
-    lines: ["123 Aesthetic Lane, South Ex Part 2", "New Delhi, 110049, India"],
+    lines: ["842B, C Block, Sushant Lok Phase-1", "Gurgaon, Haryana"],
     link: null,
   },
   {
     icon: Phone,
     label: "Call Us",
-    lines: ["Mon – Sat: 10 AM – 7 PM"],
-    link: { href: "tel:+919876543210", text: "+91 98765 43210" },
+    lines: ["Mon–Sun, 10:00 AM – 8:00 PM"],
+    link: { href: "tel:+918291643775", text: "+91 82916 43775" },
   },
   {
     icon: Mail,
     label: "Email Us",
     lines: ["We respond within 24 hours"],
-    link: { href: "mailto:info@ecloraaesthetics.com", text: "info@ecloraaesthetics.com" },
+    link: { href: "mailto:contact@ecloraaesthetics.com", text: "contact@ecloraaesthetics.com" },
   },
   {
     icon: FaWhatsapp,
     label: "WhatsApp",
     lines: ["Quick queries & appointment booking"],
-    link: { href: "https://wa.me/919876543210", text: "Open WhatsApp →", external: true },
+    link: { href: "https://wa.me/918291643775", text: "Open WhatsApp →", external: true },
   },
 ];
 
@@ -190,7 +190,7 @@ export default function ContactPage() {
               {submitted ? (
                 <SuccessPanel
                   title="Message Received"
-                  message="Thank you for reaching out to Éclora. Our team will get back to you within 24 hours."
+                  message="Thank you for reaching out to Eclora Aesthetics. Our team will get back to you within 24 hours."
                   onReset={() => setSubmitted(false)}
                   resetLabel="Send Another Message"
                 />
@@ -214,15 +214,9 @@ export default function ContactPage() {
                     <input type="text" required disabled={loading} className="ef-input" placeholder="Your full name" autoComplete="name" />
                   </Field>
 
-                  {/* 2 col on sm+, stacked on mobile */}
-                  <div className="ef-row ef-row-2">
-                    <Field label="Phone Number *">
-                      <input type="tel" required disabled={loading} className="ef-input" placeholder="+91 98765 43210" autoComplete="tel" />
-                    </Field>
-                    <Field label="Email Address">
-                      <input type="email" disabled={loading} className="ef-input" placeholder="optional" autoComplete="email" />
-                    </Field>
-                  </div>
+                  <Field label="Phone Number *">
+                    <input type="tel" required disabled={loading} className="ef-input" placeholder="+91 82916 43775" autoComplete="tel" />
+                  </Field>
 
                   <Field label="Service Interested In *">
                     <div className="ef-select-wrap">
@@ -230,26 +224,6 @@ export default function ContactPage() {
                         <ServiceOptions />
                       </select>
                     </div>
-                  </Field>
-
-                  <div className="ef-row ef-row-2">
-                    <Field label="Preferred Date">
-                      <input type="date" disabled={loading} className="ef-input" min={new Date().toISOString().split("T")[0]} />
-                    </Field>
-                    <Field label="Preferred Time">
-                      <div className="ef-select-wrap">
-                        <select disabled={loading} className="ef-select">
-                          <option value="">Any time</option>
-                          <option>Morning — 10 AM to 1 PM</option>
-                          <option>Afternoon — 1 PM to 4 PM</option>
-                          <option>Evening — 4 PM to 7 PM</option>
-                        </select>
-                      </div>
-                    </Field>
-                  </div>
-
-                  <Field label="Your Message">
-                    <textarea rows={4} disabled={loading} className="ef-textarea ef-input" placeholder="Tell us about your concerns — skin type, allergies, goals..." />
                   </Field>
 
                   <button type="submit" disabled={loading} className="ef-btn mt-1">
@@ -265,7 +239,7 @@ export default function ContactPage() {
         {/* ══ MAP ══════════════════════════════════════════════ */}
         <div className="w-full relative overflow-hidden border-t border-[#E0D8CC]" style={{ height: "clamp(220px,40vw,420px)" }}>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14016.918925!2d77.2155!3d28.5672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce26fb511f5bb%3A0x6b7a5843b0d24e1d!2sSouth+Extension+II%2C+New+Delhi!5e0!3m2!1sen!2sin!4v1712918400000!5m2!1sen!2sin"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14016.918925!2d77.2155!3d28.5672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce26fb511f5bb%3A0x6b7a5843b0d24e1d!2sSouth+Extension+II%2C+New+Gurgaon!5e0!3m2!1sen!2sin!4v1712918400000!5m2!1sen!2sin"
             width="100%"
             height="100%"
             style={{ border: 0, display: "block" }}
@@ -283,7 +257,7 @@ export default function ContactPage() {
             <div className="shrink-0">
               <div className="w-8 h-px mb-2" style={{ background: "var(--gold)" }} />
               <h3 className="cf text-white" style={{ fontSize: "clamp(1.2rem,3vw,1.6rem)", fontWeight: 300 }}>
-                Explore Éclora
+                Explore Eclora Aesthetics
               </h3>
             </div>
 

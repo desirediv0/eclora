@@ -49,7 +49,7 @@ const servicesTab = {
     { id: 6, title: "Carbon Laser Toning", desc: "Deep pore cleanse and brightening therapy" },
   ],
   "Hair Treatments": [
-    { id: 7, title: "QR678 Hair Growth", desc: "Patented hair regrowth injection protocol" },
+    { id: 7, title: "QR678 Hair Growth", desc: "Patented hair regrowth  protocol" },
     { id: 8, title: "Exosomes", desc: "Next-generation regenerative scalp therapy" },
     { id: 9, title: "Hair Fall Treatment", desc: "Targeted solutions for thinning & loss" },
     { id: 10, title: "Dandruff Therapy", desc: "Medical-grade scalp reset treatment" },
@@ -57,7 +57,7 @@ const servicesTab = {
     { id: 12, title: "GFC / PRP", desc: "Growth factor concentrate for scalp & skin" },
   ],
   "Facials": [
-    { id: 13, title: "Éclora Signature Glow", desc: "Brightening actives + LED for instant radiance" },
+    { id: 13, title: "Eclora Aesthetics Signature Glow", desc: "Brightening actives + LED for instant radiance" },
     { id: 14, title: "Diamond Elixir Facial", desc: "Diamond exfoliation + rich elixir infusion" },
     { id: 15, title: "Skin Revival Therapy", desc: "Barrier repair and deep restoration" },
     { id: 16, title: "Platinum Luxe Facial", desc: "Platinum-infused lifting & rejuvenation" },
@@ -73,7 +73,7 @@ Object.values(servicesTab).forEach((group) => {
 });
 
 const facials = [
-  { num: "01", name: "Éclora Signature Glow", dur: "60 min", desc: "Brightening actives + LED for instant radiance" },
+  { num: "01", name: "Eclora Aesthetics Signature Glow", dur: "60 min", desc: "Brightening actives + LED for instant radiance" },
   { num: "02", name: "Diamond Elixir Facial", dur: "75 min", desc: "Diamond exfoliation with rich elixir infusion" },
   { num: "03", name: "Skin Revival Therapy", dur: "60 min", desc: "Barrier repair and deep skin restoration" },
   { num: "04", name: "Platinum Luxe Facial", dur: "90 min", desc: "Platinum-infused lifting and rejuvenation" },
@@ -99,7 +99,7 @@ const faqs = [
 const testimonials = [
   { q: "The laser toning transformed my skin in just 3 sessions. Absolutely professional team and stunning results.", n: "Priya S.", t: "Carbon Laser Toning" },
   { q: "Finally a clinic that listens. My acne scars are almost completely gone after the treatment plan they designed for me.", n: "Rahul M.", t: "Acne Scar Treatment" },
-  { q: "The Éclora Signature Glow facial is pure luxury. I book it every month — it has become my self-care ritual.", n: "Anjali K.", t: "Éclora Signature Glow" }
+  { q: "The Eclora Aesthetics Signature Glow facial is pure luxury. I book it every month — it has become my self-care ritual.", n: "Anjali K.", t: "Eclora Aesthetics Signature Glow" }
 ];
 
 const expertise = [
@@ -194,25 +194,24 @@ export default function HomePage() {
               <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4">
                 <span className="e-rule" />
                 <span className="jost uppercase tracking-[0.2em]" style={{ color: "var(--gold)", fontSize: "0.62rem" }}>
-                  Delhi's Premier Aesthetic Clinic
+                  Gurgaon's Premier Aesthetic Clinic
                 </span>
                 <span className="e-rule sm:hidden" />
               </motion.div>
 
               <motion.h1 variants={fadeUp} className="cf text-white" style={{ fontSize: "clamp(2.5rem,9vw,6.5rem)", fontWeight: 300, lineHeight: 1.03, letterSpacing: "-0.01em" }}>
-                Reveal Your<br />
-                Most <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Radiant</em><br />
-                Self
+                Eclora Aesthetics – <br />
+                <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Premier Skin</em><br />
+                & Hair Clinic
               </motion.h1>
 
               <motion.p variants={fadeUp} className="jost mt-4 sm:mt-5" style={{ color: "#B8B0A4", fontSize: "clamp(0.85rem,2.5vw,1rem)", maxWidth: "420px", lineHeight: 1.8 }}>
-                Advanced laser treatments, luxury facials &amp; expert dermatology —
-                meticulously personalised for your unique skin.
+                Advanced aesthetic treatments for healthy skin and confident hair.
               </motion.p>
 
               <motion.div variants={fadeUp} className="flex gap-3 justify-center sm:justify-start flex-wrap mt-8 sm:mt-10">
                 <Link href="/book" className="jost uppercase font-semibold hover:opacity-90 transition-opacity" style={{ background: "var(--gold)", color: "var(--ink)", letterSpacing: "0.1em", fontSize: "0.72rem", padding: "0.875rem 2.25rem", display: "inline-block" }}>
-                  Book Now
+                  Book Appointment
                 </Link>
                 <Link href="/services" className="jost uppercase hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors" style={{ border: "1px solid rgba(255,255,255,0.25)", color: "#fff", letterSpacing: "0.1em", fontSize: "0.72rem", padding: "0.875rem 1.75rem", display: "inline-block" }}>
                   View Services
@@ -224,7 +223,7 @@ export default function HomePage() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }}
               className="grid grid-cols-2 sm:grid-cols-4 gap-y-10 gap-x-6 sm:gap-x-12 mt-10 md:mt-16 lg:hidden w-full"
             >
-              {[["46+", "Treatments"], ["10+", "Years"], ["2000+", "Clients"], ["5 ★", "Rated"]].map(([n, l]) => (
+              {[["50+", "Treatments"], ["10+", "Years Experience"], ["5 ★", "Rated"]].map(([n, l]) => (
                 <div key={l} className="flex flex-col items-center sm:items-start text-center sm:text-left">
                   <div className="cf text-white" style={{ fontSize: "clamp(1.5rem,4vw,2rem)", fontWeight: 300, lineHeight: 1 }}>{n}</div>
                   <div className="jost uppercase mt-2" style={{ fontSize: "0.55rem", letterSpacing: "0.22em", color: "var(--gold)" }}>{l}</div>
@@ -237,7 +236,7 @@ export default function HomePage() {
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6, duration: 1 }}
             className="absolute right-8 lg:right-16 bottom-24 hidden lg:flex flex-col gap-10 text-right z-10"
           >
-            {[["2000+", "Clients"], ["46+", "Treatments"], ["10+", "Years"], ["5 ★", "Rated"]].map(([n, l]) => (
+            {[["50+", "Treatments"], ["10+", "Years Experience"], ["5 ★", "Rated"]].map(([n, l]) => (
               <div key={l}>
                 <div className="cf text-white" style={{ fontSize: "2.8rem", fontWeight: 300, lineHeight: 1 }}>{n}</div>
                 <div className="jost uppercase mt-2" style={{ color: "var(--gold)", fontSize: "0.62rem", letterSpacing: "0.25em" }}>{l}</div>
@@ -264,7 +263,7 @@ export default function HomePage() {
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.4 }}
             className="jost uppercase mt-5" style={{ color: "var(--gold)", fontSize: "0.62rem", letterSpacing: "0.22em" }}
           >
-            — Éclora Aesthetics &amp; Laser Clinic, Delhi
+            — Eclora Aesthetics &amp; Laser Clinic, Gurgaon
           </motion.div>
         </section>
 
@@ -274,7 +273,7 @@ export default function HomePage() {
             <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10 sm:mb-16">
               <span className="e-rule mb-5 block" />
               <h2 className="cf" style={{ fontSize: "clamp(1.7rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)" }}>
-                Why patients choose Éclora
+                Why patients choose Eclora Aesthetics
               </h2>
             </motion.div>
 

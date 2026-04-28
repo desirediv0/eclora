@@ -15,9 +15,9 @@ const Grain = () => (
 );
 
 const clinicInfo = [
-  { icon: Clock, label: "Hours", lines: ["Mon – Sat: 10:00 AM – 7:00 PM", "Sunday: By appointment only"] },
-  { icon: MapPin, label: "Location", lines: ["123 Aesthetic Lane, South Ex Part 2", "New Delhi, 110049"] },
-  { icon: Phone, label: "Contact", lines: ["+91 98765 43210", "info@ecloraaesthetics.com"] },
+  { icon: Clock, label: "Hours", lines: ["Mon–Sun, 10:00 AM – 8:00 PM", ""] },
+  { icon: MapPin, label: "Location", lines: ["842B, C Block, Sushant Lok Phase-1", "Gurgaon, Haryana"] },
+  { icon: Phone, label: "Contact", lines: ["+91 82916 43775", "contact@ecloraaesthetics.com"] },
 ];
 
 export default function BookPage() {
@@ -77,7 +77,7 @@ export default function BookPage() {
                 <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Appointment</em>
               </h1>
               <p className="jost mt-4 sm:mt-5" style={{ color: "rgba(255,255,255,0.4)", fontSize: "clamp(0.82rem,2vw,0.92rem)", lineHeight: 1.85, maxWidth: "400px" }}>
-                Secure your slot for personalised skin and hair care at Éclora. We'll confirm within a few hours.
+                Secure your slot for personalised skin and hair care at Eclora Aesthetics. We'll confirm within a few hours.
               </p>
             </motion.div>
           </div>
@@ -115,7 +115,7 @@ export default function BookPage() {
 
               {/* WhatsApp CTA */}
               <a
-                href="https://wa.me/919876543210"
+                href="https://wa.me/918291643775"
                 target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-3 mt-4 p-4 border hover:border-[#25D366] transition-colors"
                 style={{ border: "1px solid rgba(37,211,102,0.3)", background: "rgba(37,211,102,0.04)", textDecoration: "none" }}
@@ -136,7 +136,7 @@ export default function BookPage() {
               {submitted ? (
                 <SuccessPanel
                   title="Appointment Requested"
-                  message="Thank you for choosing Éclora. Our team will call you within a few hours to confirm your slot."
+                  message="Thank you for choosing Eclora Aesthetics. Our team will call you within a few hours to confirm your slot."
                   onReset={() => setSubmitted(false)}
                   resetLabel="Book Another Slot"
                 />
@@ -157,25 +157,14 @@ export default function BookPage() {
                     </p>
                   </div>
 
-                  {/* First + Last name — stacked on mobile */}
-                  <div className="ef-row ef-row-2">
-                    <Field label="First Name *">
-                      <input type="text" required disabled={loading} className="ef-input" placeholder="Priya" autoComplete="given-name" />
-                    </Field>
-                    <Field label="Last Name *">
-                      <input type="text" required disabled={loading} className="ef-input" placeholder="Sharma" autoComplete="family-name" />
-                    </Field>
-                  </div>
+                  <Field label="Full Name *">
+                    <input type="text" required disabled={loading} className="ef-input" placeholder="Your full name" autoComplete="name" />
+                  </Field>
 
-                  {/* Phone + Email */}
-                  <div className="ef-row ef-row-2">
-                    <Field label="Phone Number *">
-                      <input type="tel" required disabled={loading} className="ef-input" placeholder="+91 98765 43210" autoComplete="tel" />
-                    </Field>
-                    <Field label="Email Address">
-                      <input type="email" disabled={loading} className="ef-input" placeholder="optional" autoComplete="email" />
-                    </Field>
-                  </div>
+                  {/* Phone */}
+                  <Field label="Phone Number *">
+                    <input type="tel" required disabled={loading} className="ef-input" placeholder="+91 82916 43775" autoComplete="tel" />
+                  </Field>
 
                   {/* Treatment */}
                   <Field label="Treatment *">
@@ -195,18 +184,20 @@ export default function BookPage() {
                       <div className="ef-select-wrap">
                         <select disabled={loading} className="ef-select">
                           <option value="">Any slot</option>
-                          <option>Morning — 10 AM to 1 PM</option>
-                          <option>Afternoon — 1 PM to 4 PM</option>
-                          <option>Evening — 4 PM to 7 PM</option>
+                          <option>10:00 AM - 11:00 AM</option>
+                          <option>11:00 AM - 12:00 PM</option>
+                          <option>12:00 PM - 01:00 PM</option>
+                          <option>01:00 PM - 02:00 PM</option>
+                          <option>02:00 PM - 03:00 PM</option>
+                          <option>03:00 PM - 04:00 PM</option>
+                          <option>04:00 PM - 05:00 PM</option>
+                          <option>05:00 PM - 06:00 PM</option>
+                          <option>06:00 PM - 07:00 PM</option>
+                          <option>07:00 PM - 08:00 PM</option>
                         </select>
                       </div>
                     </Field>
                   </div>
-
-                  {/* Notes */}
-                  <Field label="Notes (optional)">
-                    <textarea rows={3} disabled={loading} className="ef-textarea ef-input" placeholder="Any specific concerns, skin type, allergies..." />
-                  </Field>
 
                   {/* Submit */}
                   <button type="submit" disabled={loading} className="ef-btn mt-1">
