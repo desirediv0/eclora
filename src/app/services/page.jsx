@@ -86,11 +86,11 @@ export default function ServicesPage() {
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}>
               <div className="w-10 h-px mb-6 sm:mb-8" style={{ background: "var(--gold)" }} />
               <h1 className="cf text-white" style={{ fontSize: "clamp(2.4rem,9vw,5.5rem)", fontWeight: 300, lineHeight: 1.05, letterSpacing: "-0.01em" }}>
-                Face &amp; Hair<br />
+                Skin &amp; Hair<br />
                 <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Procedures</em>
               </h1>
               <p className="jost mt-4 sm:mt-5" style={{ color: "rgba(255,255,255,0.45)", fontSize: "clamp(0.8rem,2vw,0.95rem)", lineHeight: 1.85, maxWidth: "420px" }}>
-                46+ advanced aesthetic treatments — each one tailored to your skin, your goals, your story.
+                50+ advanced aesthetic treatments — each one tailored to your skin, your goals, your story.
               </p>
             </motion.div>
 
@@ -215,6 +215,46 @@ export default function ServicesPage() {
           </div>
         </section>
 
+        {/* ── FEATURED PROCEDURES ──────────────────────────────── */}
+        <section className="px-5 sm:px-8 py-16 sm:py-24 border-t border-[#E0D8CC]" style={{ background: "var(--cream)" }}>
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-10 sm:mb-16">
+              <div className="w-10 h-px mb-6" style={{ background: "var(--gold)" }} />
+              <h2 className="cf" style={{ fontSize: "clamp(1.7rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)" }}>
+                Featured Procedures
+              </h2>
+              <p className="jost mt-3 text-sm" style={{ color: "var(--muted)" }}>
+                Experience clinical excellence through our most requested treatments.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10">
+              {[
+                { title: "Laser Hair Reduction", img: "/proc-laser.png", tag: "Quad-Tech" },
+                { title: "Hydrafacial & Oxyfacial", img: "/proc-hydrafacial.png", tag: "Signature" },
+                { title: "Microneedling", img: "/proc-microneedling.png", tag: "Scar Therapy" },
+              ].map((proc, i) => (
+                <motion.div key={proc.title}
+                  initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.7 }}
+                  className="group relative overflow-hidden"
+                >
+                  <div className="aspect-[3/4] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
+                    <Image src={proc.img} alt={proc.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <span className="jost uppercase text-[0.55rem] tracking-[0.2em] px-2 py-1 bg-white/10 backdrop-blur-md text-white border border-white/20 mb-3 inline-block">
+                      {proc.tag}
+                    </span>
+                    <h3 className="cf text-white" style={{ fontSize: "1.25rem", fontWeight: 300 }}>{proc.title}</h3>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ── BOTTOM CTA ────────────────────────────────────────── */}
         <section className="relative overflow-hidden py-14 sm:py-20 px-5 sm:px-8 text-center" style={{ background: "var(--olive)", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
           <Grain />
@@ -226,13 +266,22 @@ export default function ServicesPage() {
             <p className="jost mt-4 mx-auto" style={{ color: "rgba(255,255,255,0.45)", fontSize: "clamp(0.8rem,2vw,0.9rem)", lineHeight: 1.85, maxWidth: "380px" }}>
               Our dermatologists will assess your skin and build a plan that is truly yours.
             </p>
-            <Link
-              href="/book"
-              className="jost uppercase inline-block mt-7 sm:mt-10 font-semibold hover:opacity-90 transition-opacity"
-              style={{ background: "var(--gold)", color: "var(--ink)", fontSize: "0.7rem", letterSpacing: "0.18em", padding: "0.875rem 2rem" }}
-            >
-              Book a Free Consultation
-            </Link>
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-8 sm:mt-12">
+              <Link
+                href="/book"
+                className="jost uppercase font-semibold hover:opacity-90 transition-opacity"
+                style={{ background: "var(--gold)", color: "var(--ink)", fontSize: "0.7rem", letterSpacing: "0.15em", padding: "0.9rem 1.75rem", display: "inline-block" }}
+              >
+                Book Clinic Consultation
+              </Link>
+              <Link
+                href="/contact"
+                className="jost uppercase hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors"
+                style={{ border: "1px solid rgba(255,255,255,0.25)", color: "#fff", fontSize: "0.7rem", letterSpacing: "0.15em", padding: "0.9rem 1.75rem", display: "inline-block" }}
+              >
+                Book Online Consultation
+              </Link>
+            </div>
           </div>
         </section>
 

@@ -54,6 +54,20 @@ export default function FacialsPage() {
 
         {/* ── HERO ─────────────────────────────────────────────── */}
         <section className="relative overflow-hidden py-16 sm:py-20 md:py-32 px-5 sm:px-8" style={{ background: "var(--olive-dark)" }}>
+          {/* Background Image with Overlay */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/procedure-room.png"
+              alt="Eclora Aesthetics Procedure Room"
+              fill
+              className="object-cover opacity-[0.25]"
+              priority
+            />
+            <div
+              className="absolute inset-0 z-[1]"
+              style={{ background: "linear-gradient(to bottom, rgba(38, 44, 30, 0.9) 0%, rgba(38, 44, 30, 0.7) 50%, rgba(38, 44, 30, 0.9) 100%)" }}
+            />
+          </div>
           <Grain />
 
           {/* Watermark — desktop only */}

@@ -24,7 +24,7 @@ const Grain = ({ opacity = 0.04 }) => (
 );
 
 const Marquee = () => {
-  const items = ["Laser Hair Reduction", "Chemical Peels", "HIFU Lifting", "QR678 Hair Therapy", "Carbon Laser Toning", "Microneedling", "Signature Glow Facials", "Botox & Fillers"];
+  const items = ["Laser Hair Reduction", "Korean Peels", "HIFU & RIFU", "QR678 Hair Therapy", "Hydrafacial", "Microneedling", "Signature Glow Facials", "Botox & Fillers"];
   return (
     <div className="overflow-hidden border-y border-[#D4B896]/30 py-3 bg-[#F7F3EC] relative">
       <div className="flex gap-10 whitespace-nowrap animate-marquee-run">
@@ -40,29 +40,29 @@ const Marquee = () => {
 };
 
 const servicesTab = {
-  "Face & Laser": [
-    { id: 1, title: "Laser Hair Reduction", desc: "Long-lasting results using advanced diode & Nd:YAG systems" },
-    { id: 2, title: "Chemical Peels", desc: "Medical-grade exfoliation for even tone & luminosity" },
-    { id: 3, title: "Botox & Fillers", desc: "Precision volumising and wrinkle relaxation" },
-    { id: 4, title: "HIFU", desc: "Non-surgical face lifting with focused ultrasound" },
-    { id: 5, title: "Microneedling", desc: "Collagen induction for smoother, firmer skin" },
-    { id: 6, title: "Carbon Laser Toning", desc: "Deep pore cleanse and brightening therapy" },
+  "Skin & Hair": [
+    { id: 1, title: "Laser Hair Reduction (Quad-Technology)", desc: "Advanced 4-wavelength technology for efficient and permanent hair reduction across all skin types." },
+    { id: 2, title: "Korean Peels", desc: "Premium medical-grade exfoliation for deep skin reset, even tone, and instant luminosity." },
+    { id: 3, title: "Botox & Fillers", desc: "Precision volumising and wrinkle relaxation using world-class injectables." },
+    { id: 4, title: "HIFU & RIFU", desc: "Non-surgical face lifting using focused ultrasound and radio frequency for deep tissue remodeling." },
+    { id: 5, title: "Microneedling", desc: "Precision collagen induction therapy that effectively treats acne scars and improves skin texture." },
+    { id: 6, title: "Skin Boosters (Xinjections)", desc: "Deep hydration (DH) and texture improvement for a radiant, youthful complexion." },
   ],
   "Hair Treatments": [
-    { id: 7, title: "QR678 Hair Growth", desc: "Patented hair regrowth  protocol" },
-    { id: 8, title: "Exosomes", desc: "Next-generation regenerative scalp therapy" },
-    { id: 9, title: "Hair Fall Treatment", desc: "Targeted solutions for thinning & loss" },
-    { id: 10, title: "Dandruff Therapy", desc: "Medical-grade scalp reset treatment" },
-    { id: 11, title: "Electrolysis", desc: "Permanent removal of white & grey hair" },
-    { id: 12, title: "GFC / PRP", desc: "Growth factor concentrate for scalp & skin" },
+    { id: 7, title: "QR678 Hair Growth", desc: "Patented hair regrowth protocol for thinning and hair loss." },
+    { id: 8, title: "Hair Exosome", desc: "Next-generation regenerative scalp therapy for better hair texture, thickness, and strength." },
+    { id: 9, title: "Triple LLT Therapy", desc: "Specific medical-grade wavelengths for skin healing and targeted hair regrowth." },
+    { id: 10, title: "Dandruff Therapy", desc: "Medical-grade scalp reset treatment for persistent concerns." },
+    { id: 11, title: "Electrolysis", desc: "Permanent removal of white & grey hair using precision technology." },
+    { id: 12, title: "GFC / PRP", desc: "Advanced growth factor concentrate therapy to stimulate natural hair growth and density." },
   ],
   "Facials": [
-    { id: 13, title: "Eclora Aesthetics Signature Glow", desc: "Brightening actives + LED for instant radiance" },
-    { id: 14, title: "Diamond Elixir Facial", desc: "Diamond exfoliation + rich elixir infusion" },
-    { id: 15, title: "Skin Revival Therapy", desc: "Barrier repair and deep restoration" },
-    { id: 16, title: "Platinum Luxe Facial", desc: "Platinum-infused lifting & rejuvenation" },
-    { id: 17, title: "Elite Aura Facial", desc: "Bespoke multi-step personalized experience" },
-    { id: 18, title: "Acne Defense Therapy", desc: "Deep cleanse + anti-bacterial acne control" },
+    { id: 13, title: "Eclora Aesthetics Signature Glow", desc: "Brightening actives + LED for instant radiance and deep hydration." },
+    { id: 14, title: "Hydrafacial & Oxyfacial", desc: "Multi-step deep cleansing and oxygen infusion for an instant clinic-grade glow." },
+    { id: 15, title: "Skin Revival Therapy", desc: "Barrier repair and deep restoration for sensitive or compromised skin." },
+    { id: 16, title: "Platinum Luxe Facial", desc: "Platinum-infused lifting & rejuvenation for a contoured look." },
+    { id: 17, title: "TCA Cross", desc: "Targeted treatment for deep icepick scars and focused skin restoration." },
+    { id: 18, title: "Acne Defense Therapy", desc: "Deep cleanse + anti-bacterial control for persistent acne." },
   ]
 };
 
@@ -73,12 +73,12 @@ Object.values(servicesTab).forEach((group) => {
 });
 
 const facials = [
-  { num: "01", name: "Eclora Aesthetics Signature Glow", dur: "60 min", desc: "Brightening actives + LED for instant radiance" },
-  { num: "02", name: "Diamond Elixir Facial", dur: "75 min", desc: "Diamond exfoliation with rich elixir infusion" },
-  { num: "03", name: "Skin Revival Therapy", dur: "60 min", desc: "Barrier repair and deep skin restoration" },
-  { num: "04", name: "Platinum Luxe Facial", dur: "90 min", desc: "Platinum-infused lifting and rejuvenation" },
-  { num: "05", name: "Elite Aura Facial", dur: "75 min", desc: "Bespoke multi-step personalized experience" },
-  { num: "06", name: "Acne Defense Therapy", dur: "60 min", desc: "Deep cleanse and anti-bacterial acne control" }
+  { num: "01", name: "Eclora Aesthetics Signature Glow", dur: "60 min", desc: "Our hero facial combining advanced brightening actives for an instant luminous glow." },
+  { num: "02", name: "Hydrafacial & Oxyfacial", dur: "75 min", desc: "Multi-step deep cleansing and oxygen infusion for an instant clinic-grade glow." },
+  { num: "03", name: "Skin Revival Therapy", dur: "60 min", desc: "Targeted therapy to repair damaged skin barrier and restore moisture." },
+  { num: "04", name: "Platinum Luxe Facial", dur: "90 min", desc: "Our most indulgent treatment using platinum-infused products to firm and lift." },
+  { num: "05", name: "TCA Cross", dur: "45 min", desc: "Targeted treatment for deep icepick scars and focused skin restoration." },
+  { num: "06", name: "Acne Defense Therapy", dur: "60 min", desc: "Deep-cleansing facial specifically formulated to combat active acne." }
 ];
 
 facials.forEach((facial) => {
@@ -110,7 +110,7 @@ const expertise = [
 ];
 
 export default function HomePage() {
-  const [activeTab, setActiveTab] = useState("Face & Laser");
+  const [activeTab, setActiveTab] = useState("Skin & Hair");
   const [openIndex, setOpenIndex] = useState(null);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const heroRef = useRef(null);
@@ -167,9 +167,22 @@ export default function HomePage() {
         {/* ══ HERO ══════════════════════════════════════════════ */}
         <section
           ref={heroRef}
-          className="relative flex flex-col justify-center lg:justify-end overflow-hidden min-h-screen pt-24  pb-12 sm:pb-20 lg:pb-32"
-          style={{ background: "var(--olive-dark)" }}
+          className="relative flex flex-col justify-center lg:justify-end overflow-hidden min-h-screen pt-24 pb-12 sm:pb-20 lg:pb-32"
         >
+          {/* Background Image with Overlay */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/clinic-facade.png"
+              alt="Eclora Aesthetics Clinic Facade"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div
+              className="absolute inset-0 z-[1]"
+              style={{ background: "linear-gradient(to bottom, rgba(38, 44, 30, 0.95) 0%, rgba(38, 44, 30, 0.8) 50%, rgba(38, 44, 30, 0.80) 100%)" }}
+            />
+          </div>
           <Grain opacity={0.06} />
 
           {/* Watermark — positioned bottom-right on desktop */}
@@ -194,7 +207,7 @@ export default function HomePage() {
               <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4">
                 <span className="e-rule" />
                 <span className="jost uppercase tracking-[0.2em]" style={{ color: "var(--gold)", fontSize: "0.62rem" }}>
-                  Gurgaon's Premier Aesthetic Clinic
+                  Gurugram's Premier Aesthetic Clinic
                 </span>
                 <span className="e-rule sm:hidden" />
               </motion.div>
@@ -263,7 +276,7 @@ export default function HomePage() {
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.4 }}
             className="jost uppercase mt-5" style={{ color: "var(--gold)", fontSize: "0.62rem", letterSpacing: "0.22em" }}
           >
-            — Eclora Aesthetics &amp; Laser Clinic, Gurgaon
+            — Eclora Aesthetics &amp; Laser Clinic, Gurugram
           </motion.div>
         </section>
 
@@ -319,10 +332,10 @@ export default function HomePage() {
               <div>
                 <span className="e-rule mb-4 block" />
                 <h2 className="cf" style={{ fontSize: "clamp(1.7rem,4vw,3.2rem)", fontWeight: 300, color: "var(--olive)" }}>Our Treatments</h2>
-                <p className="jost mt-2 text-sm" style={{ color: "var(--muted)" }}>46+ advanced procedures for face, skin &amp; hair</p>
+                <p className="jost mt-2 text-sm" style={{ color: "var(--muted)" }}>50+ advanced procedures for face, skin &amp; hair</p>
               </div>
               <div className="flex gap-2 overflow-x-auto hide-scroll pb-0.5 -mx-5 px-5 sm:mx-0 sm:px-0 sm:flex-wrap">
-                {["Face & Laser", "Hair Treatments", "Facials"].map(tab => (
+                {["Skin & Hair", "Hair Treatments", "Facials"].map(tab => (
                   <button key={tab} onClick={() => setActiveTab(tab)}
                     className={`jost text-[0.62rem] uppercase tracking-widest px-4 sm:px-6 py-2.5 transition-all duration-300 shrink-0 ${activeTab === tab ? "tab-on" : "tab-off"}`}
                   >{tab}</button>
@@ -383,7 +396,7 @@ export default function HomePage() {
 
             <div className="mt-8 sm:mt-12 text-center">
               <Link href="/services" className="jost uppercase hover:text-[var(--gold)] transition-colors" style={{ color: "var(--olive)", borderBottom: "1px solid var(--gold)", paddingBottom: "3px", fontSize: "0.72rem", letterSpacing: "0.15em" }}>
-                View all 46+ treatments
+                View all 50+ treatments
               </Link>
             </div>
           </div>

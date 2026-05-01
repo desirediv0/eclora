@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Clock, MapPin, Phone } from "lucide-react";
 import { STYLES, Field, ServiceOptions, SuccessPanel } from "@/shared/EcloraForm";
@@ -16,7 +17,7 @@ const Grain = () => (
 
 const clinicInfo = [
   { icon: Clock, label: "Hours", lines: ["Mon–Sun, 10:00 AM – 8:00 PM", ""] },
-  { icon: MapPin, label: "Location", lines: ["842B, C Block, Sushant Lok Phase-1", "Gurgaon, Haryana"] },
+  { icon: MapPin, label: "Location", lines: ["842B, C Block, Sushant Lok Phase-1", "Gurugram, Haryana"] },
   { icon: Phone, label: "Contact", lines: ["+91 82916 43775", "contact@ecloraaesthetics.com"] },
 ];
 
@@ -84,9 +85,20 @@ export default function BookPage() {
         </section>
 
         {/* ── MAIN CONTENT ─────────────────────────────────────── */}
-        <section className="px-5 sm:px-8 py-10 sm:py-16 lg:py-20" style={{ background: "var(--parchment)" }}>
+        <section className="relative px-5 sm:px-8 py-10 sm:py-16 lg:py-20 overflow-hidden" style={{ background: "var(--parchment)" }}>
+          {/* Background Image — Opaque form */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/reception.png"
+              alt="Eclora Aesthetics Reception"
+              fill
+              className="object-cover opacity-[0.08]"
+            />
+          </div>
+          <Grain />
+
           {/* Stack on mobile, side-by-side on lg+ */}
-          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8 sm:gap-10 lg:gap-16 items-start">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8 sm:gap-10 lg:gap-16 items-start relative z-10">
 
             {/* ── LEFT — Clinic info ──────────────────────────── */}
             <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.8 }}>
@@ -99,7 +111,7 @@ export default function BookPage() {
               </p>
 
               {/* Clinic info cards */}
-              <div className="border border-[#E0D8CC] bg-white">
+              <div className="border border-[#E0D8CC] bg-white/80 backdrop-blur-sm">
                 {clinicInfo.map(({ icon: Icon, label, lines }) => (
                   <div key={label} className="ci-row">
                     <div className="ci-icon shrink-0"><Icon size={13} /></div>
@@ -117,8 +129,8 @@ export default function BookPage() {
               <a
                 href="https://wa.me/918291643775"
                 target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-3 mt-4 p-4 border hover:border-[#25D366] transition-colors"
-                style={{ border: "1px solid rgba(37,211,102,0.3)", background: "rgba(37,211,102,0.04)", textDecoration: "none" }}
+                className="flex items-center gap-3 mt-4 p-4 border hover:border-[#25D366] transition-colors backdrop-blur-sm"
+                style={{ border: "1px solid rgba(37,211,102,0.3)", background: "rgba(37,211,102,0.06)", textDecoration: "none" }}
               >
                 <FaWhatsapp size={20} style={{ color: "#25D366", flexShrink: 0 }} />
                 <span className="jost uppercase tracking-[0.15em]" style={{ fontSize: "0.65rem", color: "#1a9e47" }}>
@@ -131,7 +143,7 @@ export default function BookPage() {
             <motion.div
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="border border-[#E0D8CC] bg-white"
+              className="border border-[#E0D8CC] bg-white/90 backdrop-blur-md"
             >
               {submitted ? (
                 <SuccessPanel
@@ -157,13 +169,17 @@ export default function BookPage() {
                     </p>
                   </div>
 
-                  <Field label="Full Name *">
-                    <input type="text" required disabled={loading} className="ef-input" placeholder="Your full name" autoComplete="name" />
-                  </Field>
+                  <div className="ef-row ef-row-2">
+                    <Field label="Full Name *">
+                      <input type="text" required disabled={loading} className="ef-input" placeholder="Your full name" autoComplete="name" />
+                    </Field>
+                    <Field label="Phone Number *">
+                      <input type="tel" required disabled={loading} className="ef-input" placeholder="+91 82916 43775" autoComplete="tel" />
+                    </Field>
+                  </div>
 
-                  {/* Phone */}
-                  <Field label="Phone Number *">
-                    <input type="tel" required disabled={loading} className="ef-input" placeholder="+91 82916 43775" autoComplete="tel" />
+                  <Field label="Email Address">
+                    <input type="email" disabled={loading} className="ef-input" placeholder="you@example.com (optional)" autoComplete="email" />
                   </Field>
 
                   {/* Treatment */}

@@ -1,7 +1,7 @@
 export const metadata = {
-  title: "Face & Hair Procedures",
+  title: "Skin & Hair Procedures",
   description:
-    "Explore face, laser, injectable, removal, and hair procedures at Eclora Aesthetics Skin & Hair Clinic.",
+    "Explore skin, hair, laser, injectable, and removal procedures at Eclora Aesthetics Skin & Hair Clinic.",
 };
 
 export default function ServicesLayout({ children }) {

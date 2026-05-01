@@ -52,7 +52,7 @@ const Footer = () => (
           ÉCLORA
         </div>
         <div className="mt-1.5" style={{ color: "rgba(255,255,255,0.3)", fontSize: "0.58rem", letterSpacing: "0.2em" }}>
-          AESTHETICS &amp; LASER CLINIC · GURGAON
+          AESTHETICS &amp; LASER CLINIC · GURUGRAM
         </div>
       </div>
 
@@ -105,7 +105,7 @@ const Footer = () => (
           <li className="flex items-start gap-2">
             <MapPin size={12} className="shrink-0 mt-0.5" style={{ color: "#C9A97A" }} />
             <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.78rem", lineHeight: 1.65 }}>
-              842B, C Block, Sushant Lok Phase-1,<br />Gurgaon, Haryana
+              842B, C Block, Sushant Lok Phase-1,<br />Gurugram, Haryana
             </span>
           </li>
         </ul>

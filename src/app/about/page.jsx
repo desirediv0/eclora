@@ -63,7 +63,7 @@ export default function AboutPage() {
                 <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Behind Eclora Aesthetics</em>
               </h1>
               <p className="jost mt-4 sm:mt-5" style={{ color: "rgba(255,255,255,0.4)", fontSize: "clamp(0.82rem,2vw,0.95rem)", lineHeight: 1.85, maxWidth: "440px" }}>
-                A sanctuary where the science of dermatology meets the art of truly personalised care — built for Gurgaon, designed for you.
+                A sanctuary where the science of dermatology meets the art of truly personalised care — built for Gurugram, designed for you.
               </p>
             </motion.div>
           </div>
@@ -87,7 +87,7 @@ export default function AboutPage() {
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
                 <span className="e-rule" />
                 <h2 className="cf" style={{ fontSize: "clamp(1.5rem,3.5vw,3rem)", fontWeight: 300, color: "var(--olive)", lineHeight: 1.2, marginBottom: "1.5rem" }}>
-                  Founded with a vision to bring world-class aesthetic dermatology to Gurgaon.
+                  Founded with a vision to bring world-class aesthetic dermatology to Gurugram.
                 </h2>
                 <div className="flex flex-col gap-5">
                   {[
@@ -116,7 +116,7 @@ export default function AboutPage() {
             <div className="mvv-grid border border-[#E0D8CC]">
               {[
                 { n: "01", title: "Our Mission", text: "To provide evidence-based aesthetic treatments that deliver real, visible results — while maintaining the highest standards of safety and patient care." },
-                { n: "02", title: "Our Vision", text: "To be Gurgaon's most trusted aesthetic clinic — where cutting-edge technology meets compassionate, individualised care." },
+                { n: "02", title: "Our Vision", text: "To be Gurugram's most trusted aesthetic clinic — where cutting-edge technology meets compassionate, individualised care." },
                 { n: "03", title: "Our Values", text: "Integrity, Excellence, Empathy, and Innovation guide every treatment and every interaction at Eclora Aesthetics." },
               ].map((item, i) => (
                 <motion.div key={item.n} className="mvv-cell"
@@ -182,24 +182,22 @@ export default function AboutPage() {
         <section className="relative overflow-hidden py-12 sm:py-16 px-5 sm:px-8" style={{ background: "var(--olive-dark)" }}>
           <Grain />
           <div className="max-w-6xl mx-auto relative z-10">
-            {/* 2×2 on mobile → 4 col on sm+ */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 border border-white/[0.07]">
+            {/* 2 col on all screens */}
+            <div className="grid grid-cols-2 border border-white/[0.07]">
               {[
                 { num: "50+", label: "Treatments" },
                 { num: "10+", label: "Years Experience" },
-                { num: "5 ★", label: "Google Rating" },
               ].map((stat, i) => (
                 <motion.div key={stat.label}
                   initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.7 }}
-                  className="text-center py-7 sm:py-10 px-2"
+                  className="text-center py-8 sm:py-12 px-2"
                   style={{
-                    borderRight: i % 2 === 0 && i < 3 ? "1px solid rgba(255,255,255,0.07)" : i % 2 !== 0 && i < 3 ? "1px solid rgba(255,255,255,0.07)" : "none",
-                    borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.07)" : "none"
+                    borderRight: i === 0 ? "1px solid rgba(255,255,255,0.07)" : "none"
                   }}
                 >
-                  <div className="cf text-white" style={{ fontSize: "clamp(1.6rem,4vw,3rem)", fontWeight: 300, lineHeight: 1 }}>{stat.num}</div>
-                  <div className="jost uppercase mt-2" style={{ fontSize: "0.52rem", letterSpacing: "0.2em", color: "var(--gold)" }}>{stat.label}</div>
+                  <div className="cf text-white" style={{ fontSize: "clamp(1.8rem,5vw,3.5rem)", fontWeight: 300, lineHeight: 1 }}>{stat.num}</div>
+                  <div className="jost uppercase mt-2.5" style={{ fontSize: "0.58rem", letterSpacing: "0.22em", color: "var(--gold)" }}>{stat.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -218,30 +216,27 @@ export default function AboutPage() {
             </motion.div>
 
             {/* Team cards — 1 col mobile → 2 col sm+ */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[#E0D8CC]" style={{ maxWidth: "720px" }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12">
               {[
-                { name: "Bhoomika Singh", role: "Founder", bio: "Visionary leader with a passion for transformative aesthetic care and client wellbeing.", phone: "+91 8291643775", email: "Bhoomika@ecloraaesthetics.com" },
-                { name: "Tamanna Thakral", role: "Co-Founder", bio: "Dedicated to curating world-class dermatological solutions and elevated clinic experiences.", phone: "+91 7027843255", email: "Tamanna@ecloraaesthetics.com" },
+                { name: "Bhoomika Singh", role: "Founder", bio: "Visionary leader with a passion for transformative aesthetic care and client wellbeing. Dedicated to excellence in every detail of the patient journey.", phone: "+91 82916 43775", email: "Bhoomika@ecloraaesthetics.com", img: "/founder.png" },
+                { name: "Tamanna Thakral", role: "Co-Founder", bio: "Dedicated to curating world-class dermatological solutions and elevated clinic experiences with a focus on holistic beauty.", phone: "+91 70278 43255", email: "Tamanna@ecloraaesthetics.com", img: "/cofounder.png" },
               ].map((doc, i) => (
-                <motion.div key={doc.name} className="team-card p-7 sm:p-10"
+                <motion.div key={doc.name} className="team-card p-0"
                   initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.7 }}
                 >
-                  {/* Avatar */}
-                  <div className="rounded-full flex items-center justify-center mb-5 shrink-0"
-                    style={{ width: "72px", height: "72px", background: "linear-gradient(135deg,#3E4535,#5A6550)" }}
-                  >
-                    <span className="cf" style={{ fontSize: "1.5rem", fontWeight: 300, color: "var(--gold)" }}>
-                      {doc.name.charAt(0)}
-                    </span>
+                  <div className="relative w-full aspect-[4/5] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
+                    <Image src={doc.img} alt={doc.name} fill className="object-cover transition-transform duration-700 hover:scale-105" />
                   </div>
-                  <h3 className="cf" style={{ fontSize: "clamp(1.1rem,2vw,1.35rem)", fontWeight: 400, color: "var(--ink)", marginBottom: "0.3rem" }}>{doc.name}</h3>
-                  <div className="jost uppercase tracking-[0.18em] mb-4" style={{ fontSize: "0.58rem", color: "var(--gold)" }}>{doc.role}</div>
-                  <div className="w-6 h-px mb-4" style={{ background: "var(--gold)", opacity: 0.5 }} />
-                  <p className="jost text-sm mb-4" style={{ color: "var(--muted)", lineHeight: 1.8 }}>{doc.bio}</p>
-                  <div className="jost text-[0.75rem] flex flex-col gap-1 mt-auto">
-                    <a href={`tel:${doc.phone.replace(/\s+/g, '')}`} className="text-[#3E4535] hover:text-[#C9A97A] transition-colors">{doc.phone}</a>
-                    <a href={`mailto:${doc.email}`} className="text-[#3E4535] hover:text-[#C9A97A] transition-colors break-all">{doc.email}</a>
+                  <div className="p-7 sm:p-10">
+                    <h3 className="cf" style={{ fontSize: "clamp(1.1rem,2vw,1.35rem)", fontWeight: 400, color: "var(--ink)", marginBottom: "0.3rem" }}>{doc.name}</h3>
+                    <div className="jost uppercase tracking-[0.18em] mb-4" style={{ fontSize: "0.58rem", color: "var(--gold)" }}>{doc.role}</div>
+                    <div className="w-6 h-px mb-4" style={{ background: "var(--gold)", opacity: 0.5 }} />
+                    <p className="jost text-sm mb-4 text-left" style={{ color: "var(--muted)", lineHeight: 1.8 }}>{doc.bio}</p>
+                    <div className="jost text-[0.75rem] flex flex-col gap-1 items-start">
+                      <a href={`tel:${doc.phone.replace(/\s+/g, '')}`} className="text-[#3E4535] hover:text-[#C9A97A] transition-colors">{doc.phone}</a>
+                      <a href={`mailto:${doc.email}`} className="text-[#3E4535] hover:text-[#C9A97A] transition-colors break-all">{doc.email}</a>
+                    </div>
                   </div>
                 </motion.div>
               ))}
