@@ -97,14 +97,14 @@ const faqs = [
 ];
 
 const testimonials = [
-  { q: "The laser toning transformed my skin in just 3 sessions. Absolutely professional team and stunning results.", n: "Priya S.", t: "Carbon Laser Toning" },
-  { q: "Finally a clinic that listens. My acne scars are almost completely gone after the treatment plan they designed for me.", n: "Rahul M.", t: "Acne Scar Treatment" },
-  { q: "The Eclora Aesthetics Signature Glow facial is pure luxury. I book it every month — it has become my self-care ritual.", n: "Anjali K.", t: "Eclora Aesthetics Signature Glow" }
+  { q: "Their advanced German laser technology for hair reduction is virtually painless and incredibly fast. The results after just 3 sessions are outstanding!", n: "Priya S.", t: "Laser Hair Reduction" },
+  { q: "Finally a clinic that invests in genuine German engineering. The precision of their medical-grade equipment cleared my acne scars with zero downtime.", n: "Rahul M.", t: "Scar Restoration" },
+  { q: "The Eclora Aesthetics Signature Glow facial is pure luxury. Combining German technological precision with active botanicals has become my ultimate self-care ritual.", n: "Anjali K.", t: "Signature Glow Facial" }
 ];
 
 const expertise = [
   { n: "01", title: "Expert Dermatologists", d: "Board-certified specialists with deep expertise in skin, hair & advanced aesthetics." },
-  { n: "02", title: "Advanced Technology", d: "FDA-cleared laser and aesthetic devices calibrated for South Asian skin." },
+  { n: "02", title: "German Technology", d: "State-of-the-art German engineering and FDA-cleared aesthetic devices calibrated for South Asian skin." },
   { n: "03", title: "Luxury Experience", d: "A premium clinic environment with warm, unhurried, personalised care." },
   { n: "04", title: "Natural Results", d: "We enhance what is already yours — we never alter, we only refine." },
 ];
@@ -234,12 +234,12 @@ export default function HomePage() {
 
             {/* ── Mobile stats (shown below lg) ── */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-y-10 gap-x-6 sm:gap-x-12 mt-10 md:mt-16 lg:hidden w-full"
+              className="flex flex-wrap items-center justify-center sm:justify-start gap-y-6 gap-x-8 mt-10 md:mt-16 lg:hidden w-full"
             >
               {[["50+", "Treatments"], ["10+", "Years Experience"], ["5 ★", "Rated"]].map(([n, l]) => (
-                <div key={l} className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                <div key={l} className="flex items-baseline gap-2 text-left">
                   <div className="cf text-white" style={{ fontSize: "clamp(1.5rem,4vw,2rem)", fontWeight: 300, lineHeight: 1 }}>{n}</div>
-                  <div className="jost uppercase mt-2" style={{ fontSize: "0.55rem", letterSpacing: "0.22em", color: "var(--gold)" }}>{l}</div>
+                  <div className="jost uppercase" style={{ fontSize: "0.55rem", letterSpacing: "0.22em", color: "var(--gold)" }}>{l}</div>
                 </div>
               ))}
             </motion.div>
@@ -247,12 +247,12 @@ export default function HomePage() {
 
           {/* ── Desktop stats — absolute right, hidden on mobile ── */}
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6, duration: 1 }}
-            className="absolute right-8 lg:right-16 bottom-24 hidden lg:flex flex-col gap-10 text-right z-10"
+            className="absolute right-8 lg:right-16 bottom-24 hidden lg:flex flex-col gap-6 text-right z-10"
           >
             {[["50+", "Treatments"], ["10+", "Years Experience"], ["5 ★", "Rated"]].map(([n, l]) => (
-              <div key={l}>
+              <div key={l} className="flex items-baseline justify-end gap-3">
                 <div className="cf text-white" style={{ fontSize: "2.8rem", fontWeight: 300, lineHeight: 1 }}>{n}</div>
-                <div className="jost uppercase mt-2" style={{ color: "var(--gold)", fontSize: "0.62rem", letterSpacing: "0.25em" }}>{l}</div>
+                <div className="jost uppercase" style={{ color: "var(--gold)", fontSize: "0.62rem", letterSpacing: "0.25em" }}>{l}</div>
               </div>
             ))}
           </motion.div>

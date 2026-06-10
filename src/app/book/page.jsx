@@ -178,43 +178,6 @@ export default function BookPage() {
                     </Field>
                   </div>
 
-                  <Field label="Email Address">
-                    <input type="email" disabled={loading} className="ef-input" placeholder="you@example.com (optional)" autoComplete="email" />
-                  </Field>
-
-                  {/* Treatment */}
-                  <Field label="Treatment *">
-                    <div className="ef-select-wrap">
-                      <select required disabled={loading} className="ef-select">
-                        <ServiceOptions />
-                      </select>
-                    </div>
-                  </Field>
-
-                  {/* Date + Time */}
-                  <div className="ef-row ef-row-2">
-                    <Field label="Preferred Date *">
-                      <input type="date" required disabled={loading} className="ef-input" min={new Date().toISOString().split("T")[0]} />
-                    </Field>
-                    <Field label="Preferred Time">
-                      <div className="ef-select-wrap">
-                        <select disabled={loading} className="ef-select">
-                          <option value="">Any slot</option>
-                          <option>10:00 AM - 11:00 AM</option>
-                          <option>11:00 AM - 12:00 PM</option>
-                          <option>12:00 PM - 01:00 PM</option>
-                          <option>01:00 PM - 02:00 PM</option>
-                          <option>02:00 PM - 03:00 PM</option>
-                          <option>03:00 PM - 04:00 PM</option>
-                          <option>04:00 PM - 05:00 PM</option>
-                          <option>05:00 PM - 06:00 PM</option>
-                          <option>06:00 PM - 07:00 PM</option>
-                          <option>07:00 PM - 08:00 PM</option>
-                        </select>
-                      </div>
-                    </Field>
-                  </div>
-
                   {/* Submit */}
                   <button type="submit" disabled={loading} className="ef-btn mt-1">
                     {loading ? "Requesting Slot…" : "Request Appointment →"}

@@ -105,15 +105,15 @@ export default function FacialsPage() {
         </section>
 
         {/* ── PHILOSOPHY STRIP ──────────────────────────────────── */}
-        <div className="border-b border-[#E0D8CC] px-5 sm:px-8 py-4 sm:py-5" style={{ background: "var(--cream)" }}>
+        <div className="border-b border-[#E0D8CC] px-5 sm:px-8 py-5 sm:py-6" style={{ background: "var(--cream)" }}>
           <div className="max-w-6xl mx-auto flex items-center gap-0 flex-wrap">
             {[["6", "Signature Facials"], ["60–90", "Minutes Each"], ["All", "Skin Types"]].map(([n, l], i) => (
               <div key={l} className="flex items-center">
-                {i > 0 && <div className="w-px mx-4 sm:mx-6 hidden sm:block" style={{ height: "24px", background: "#D0C8BC" }} />}
-                {i > 0 && <div className="mx-3 sm:hidden" style={{ color: "#D0C8BC", fontSize: "0.8rem" }}>·</div>}
-                <div className="flex items-baseline gap-1.5 py-1">
-                  <span className="cf" style={{ fontSize: "clamp(1.1rem,3vw,1.5rem)", fontWeight: 300, color: "var(--olive)" }}>{n}</span>
-                  <span className="jost uppercase tracking-[0.16em]" style={{ fontSize: "0.55rem", color: "var(--muted)" }}>{l}</span>
+                {i > 0 && <div className="w-px mx-4 sm:mx-6 hidden sm:block" style={{ height: "28px", background: "#D0C8BC" }} />}
+                {i > 0 && <div className="mx-3 sm:hidden" style={{ color: "#D0C8BC", fontSize: "1rem", fontWeight: "bold" }}>·</div>}
+                <div className="flex items-baseline gap-2 py-1">
+                  <span className="cf" style={{ fontSize: "clamp(1.6rem,4.5vw,2.4rem)", fontWeight: 500, color: "var(--olive)" }}>{n}</span>
+                  <span className="jost uppercase tracking-[0.18em]" style={{ fontSize: "0.72rem", fontWeight: 500, color: "var(--muted)" }}>{l}</span>
                 </div>
               </div>
             ))}
