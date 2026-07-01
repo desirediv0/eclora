@@ -31,7 +31,7 @@ const contactDetails = [
   {
     icon: MapPin,
     label: "Visit Us",
-    lines: ["842B, C Block, Sushant Lok Phase-1", "Gurgaon, Haryana"],
+    lines: ["842B, C Block, Sushant Lok Phase-1", "Gurugram, Haryana"],
     link: null,
   },
   {
@@ -231,7 +231,7 @@ export default function ContactPage() {
         {/* ══ MAP ══════════════════════════════════════════════ */}
         <div className="w-full relative overflow-hidden border-t border-[#E0D8CC]" style={{ height: "clamp(220px,40vw,420px)" }}>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14016.918925!2d77.2155!3d28.5672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce26fb511f5bb%3A0x6b7a5843b0d24e1d!2sSouth+Extension+II%2C+New+Gurgaon!5e0!3m2!1sen!2sin!4v1712918400000!5m2!1sen!2sin"
+            src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3174.305871072686!2d77.08242417549438!3d28.45779037576066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjjCsDI3JzI4LjEiTiA3N8KwMDUnMDYuMCJF!5e1!3m2!1sen!2sin!4v1782884442239!5m2!1sen!2sin"
             width="100%"
             height="100%"
             style={{ border: 0, display: "block" }}
