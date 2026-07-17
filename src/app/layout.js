@@ -42,6 +42,18 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
+        <Script
+          id="ga4"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-PESZ2JJB04');
+            `,
+          }}
+        />
         <noscript
           dangerouslySetInnerHTML={{
             __html: `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=896681162803562&ev=PageView&noscript=1" />`,
